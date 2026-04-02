@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NetWise — B2B and Wholesale App for Shopify</title>
+  <meta name="description" content="NetWise a B2B and Wholesale Shopify app streamlines setting up and managing retail and wholesale B2B stores. Flexible discounts, custom pricing, quantity breaks, tiered pricing, quick/bulk orders, and wholesale registration. 60-day free trial.">
+  <link rel="canonical" href="https://www.getnetwise.co/">
+  <meta property="og:title" content="NetWise — B2B and Wholesale App for Shopify">
+  <meta property="og:description" content="Turn your Shopify store into a B2B and wholesale growth engine. Custom pricing, bulk orders, net terms, and more. 60-day free trial.">
+  <meta property="og:url" content="https://www.getnetwise.co">
+  <meta property="og:site_name" content="NetWise | B2B and Wholesale App">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NetWise — B2B and Wholesale App for Shopify">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://static.wixstatic.com/media/e49b0f_2a8309d7510a4751a534e8ba99d90cc8~mv2.png/v1/fill/w_32,h_32,lg_1,usm_0.66_1.00_0.01/e49b0f_2a8309d7510a4751a534e8ba99d90cc8~mv2.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://static.wixstatic.com/media/e49b0f_2a8309d7510a4751a534e8ba99d90cc8~mv2.png/v1/fill/w_180,h_180,lg_1,usm_0.66_1.00_0.01/e49b0f_2a8309d7510a4751a534e8ba99d90cc8~mv2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============ RESET & BASE ============ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Mobbin-style: white, black, light grey — visual images provide color */
+      --brand: #171717;
+      --brand-light: #262626;
+      --brand-dark: #0a0a0a;
+      --amber: #171717;
+      --amber-light: #262626;
+      --amber-dark: #0a0a0a;
+
+      --white: #ffffff;
+      --off-white: #FAFAFA;
+      --sand: #F5F5F5;
+      --gray-50: #F9F9F9;
+      --gray-100: #F1F1F1;
+      --gray-200: #E5E5E5;
+      --gray-300: #D4D4D4;
+      --gray-400: #A3A3A3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+      --gray-800: #262626;
+      --gray-900: #171717;
+      --charcoal: #0a0a0a;
+
+      --text-dark: #171717;
+      --text-body: #404040;
+      --text-muted: #737373;
+      --text-on-dark: #ffffff;
+      --text-on-dark-muted: rgba(255, 255, 255, 0.6);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .navbar .container,
+    .hero .container,
+    .cta-section .container,
+    .footer .container {
+      max-width: 1600px;
+    }
+
+    /* ============ NAVBAR — white like Rippling ============ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 14px 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--gray-200);
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+      padding: 10px 0;
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-body);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--brand); }
+
+    .nav-ctas {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 600;
+      transition: var(--transition);
+      white-space: nowrap;
+      height: 52px;
+      box-sizing: border-box;
+    }
+
+    .btn-primary {
+      background: #580A46;
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #6E1058;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(88, 10, 70, 0.25);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--text-dark);
+      border: 2px solid #171717;
+    }
+
+    .btn-secondary:hover {
+      background: #FFAB41;
+      border-color: #FFAB41;
+      color: #580A46;
+    }
+
+    /* On dark backgrounds */
+    .dark-ctx .btn-primary {
+      background: #580A46;
+      color: var(--white);
+    }
+
+    .dark-ctx .btn-primary:hover {
+      background: #6E1058;
+      box-shadow: 0 4px 20px rgba(88, 10, 70, 0.3);
+    }
+
+    .dark-ctx .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .dark-ctx .btn-secondary:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      color: var(--white);
+    }
+
+    .btn-demo {
+      background: #ffffff !important;
+      color: #171717 !important;
+      border: 2px solid #171717 !important;
+    }
+
+    .btn-demo:hover {
+      background: #FFAB41 !important;
+      border-color: #FFAB41 !important;
+      color: #580A46 !important;
+    }
+
+    .btn-arrow { transition: transform 0.2s; }
+    .btn:hover .btn-arrow { transform: translateX(3px); }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 4px;
+    }
+
+    .mobile-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text-dark);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ============ HERO — brand #580A46 gradient (like Rippling purple) ============ */
+    .hero {
+      padding: 140px 0 80px;
+      background: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      color: var(--text-dark);
+    }
+
+    .hero .container { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 32px;
+      animation: fadeInDown 0.6s ease;
+    }
+
+    .hero-badge .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--text-dark);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 5.5vw, 68px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      color: var(--text-dark);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .hero h1 .highlight {
+      color: var(--text-dark);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      font-weight: 400;
+      animation: fadeInUp 0.8s ease 0.1s both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .hero-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      animation: fadeInUp 0.8s ease 0.3s both;
+      margin-bottom: 48px;
+    }
+
+    .hero-visual {
+      margin-top: 0;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+
+    /* ============ LOGO CAROUSEL — white bg ============ */
+    .logos-section {
+      padding: 48px 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .logos-section p {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .logo-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .logo-track-wrapper {
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+
+    .logo-track {
+      display: flex;
+      gap: 72px;
+      align-items: center;
+      animation: scrollLeft 25s linear infinite;
+      width: max-content;
+    }
+
+    .logo-track.reverse {
+      animation: scrollRight 25s linear infinite;
+    }
+
+    .logo-track:hover { animation-play-state: paused; }
+
+    .logo-item {
+      flex-shrink: 0;
+      height: 90px;
+      opacity: 1;
+      transition: var(--transition);
+    }
+
+    .logo-item:hover { opacity: 0.8; }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scrollRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ============ STATS — sand/cream bg (like Rippling's alternate) ============ */
+    .stats-section {
+      padding: 80px 0;
+      background: var(--sand);
+    }
+
+    .stats-header { text-align: center; margin-bottom: 40px; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--text-dark);
+    }
+
+    /* On dark backgrounds */
+    .dark-ctx .section-label { color: var(--gray-400); }
+    .dark-ctx .section-title { color: var(--white); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 40px 24px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ============ FEATURES TABS — white bg ============ */
+    .features-section {
+      padding: 80px 0;
+      background: var(--gray-50);
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .features-header h2 {
+      color: var(--text-dark);
+    }
+
+    .features-header h2 span {
+      color: var(--text-muted);
+    }
+
+    .features-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .feature-tab {
+      padding: 16px 24px;
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      cursor: pointer;
+      transition: 0.3s;
+      text-align: left;
+      min-width: 160px;
+    }
+
+    .feature-tab:hover {
+      border-color: var(--gray-300);
+    }
+
+    .feature-tab.active {
+      border-color: var(--text-dark);
+      box-shadow: 0 0 0 1px var(--text-dark);
+    }
+
+    .feature-tab-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+
+    .feature-tab-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .feature-panel {
+      display: none;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--gray-50);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .feature-panel.active {
+      display: block;
+    }
+
+    .feature-panel img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ============ HOW IT WORKS — brand dark section (like Rippling mid-page) ============ */
+    .how-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .how-header { text-align: center; margin-bottom: 40px; }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .how-card {
+      transition: var(--transition);
+    }
+
+    .how-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .how-card-visual {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: var(--gray-50);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 24px 24px 0;
+    }
+
+    .how-card-visual video {
+      width: 100%;
+      border-radius: 12px 12px 0 0;
+      display: block;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+    }
+
+    .how-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+      text-align: center;
+    }
+
+    .how-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* ============ FEATURES GRID — white bg ============ */
+    .features-grid-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .features-grid-header { text-align: center; margin-bottom: 40px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-card {
+      padding: 36px 28px;
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+    }
+
+    .grid-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .grid-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gray-100);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .grid-card-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--brand);
+    }
+
+    .grid-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .grid-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============ TESTIMONIALS ============ */
+    .testimonials-section {
+      padding: 80px 0;
+      background: var(--gray-50);
+    }
+
+    .testimonials-header { text-align: center; margin-bottom: 40px; }
+
+    .testimonials-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      height: 650px;
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+    }
+
+    .testimonials-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      animation: scrollUp 60s linear infinite;
+      will-change: transform;
+    }
+
+    .testimonials-col:nth-child(2) {
+      animation-duration: 70s;
+      animation-delay: -5s;
+    }
+
+    .testimonials-col:nth-child(3) {
+      animation-duration: 80s;
+      animation-delay: -10s;
+    }
+
+    .testimonials-columns:hover .testimonials-col {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollUp {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(0, -50%, 0); }
+    }
+
+    .testimonial-card {
+      padding: 28px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--gray-300);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .testimonial-avatar img {
+      width: 22px;
+      height: 22px;
+    }
+
+    .testimonial-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+
+    .testimonial-role {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .testimonial-text {
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.7;
+    }
+
+    .testimonials-cta {
+      text-align: center;
+      margin-top: -20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ============ PRICING — white bg ============ */
+    .pricing-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .pricing-header { text-align: center; margin-bottom: 40px; }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      padding: 40px;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      border: 2px solid var(--gray-200);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .pricing-card:hover {
+      border-color: var(--brand);
+      box-shadow: 0 12px 40px rgba(88, 10, 70, 0.08);
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--text-dark);
+    }
+
+    .pricing-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(88, 10, 70, 0.06);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 24px;
+    }
+
+    .pricing-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .pricing-amount { margin: 24px 0; }
+
+    .pricing-amount .price {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: var(--text-dark);
+    }
+
+    .pricing-amount .period {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .pricing-desc {
+      font-size: 15px;
+      color: var(--text-body);
+      margin-bottom: 32px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-body);
+    }
+
+    .pricing-features li .check {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pricing-features li .check svg { width: 11px; height: 11px; }
+
+    .pricing-trial {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+
+    /* ============ BLOG ============ */
+    .blog-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .blog-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .blog-header-text { }
+
+    .blog-header .view-all {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .blog-header .view-all:hover {
+      color: var(--text-muted);
+    }
+
+    .blog-scroll {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+
+    .blog-scroll::-webkit-scrollbar { display: none; }
+
+    .blog-card {
+      width: calc(25% - 18px);
+      min-width: 260px;
+      max-width: calc(25% - 18px);
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .blog-card:hover {
+      border-color: var(--gray-300);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+
+    .blog-card-img {
+      width: 100%;
+      aspect-ratio: 3/2;
+      background: var(--gray-50);
+      overflow: hidden;
+    }
+
+    .blog-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blog-card-body {
+      padding: 20px;
+    }
+
+    .blog-card-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .blog-card-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .blog-card-body p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ============ FAQ — white bg ============ */
+    .faq-section {
+      padding: 80px 0;
+      background: var(--gray-50);
+    }
+
+    .faq-header { text-align: center; margin-bottom: 40px; }
+
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item:hover { border-color: var(--gray-300); }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      background: none;
+      color: var(--text-dark);
+      font-size: 15px;
+      font-weight: 600;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .faq-question:hover { color: var(--text-dark); }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-item.open .faq-answer { max-height: 300px; }
+
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* ============ FINAL CTA — brand dark ============ */
+    .cta-section {
+      padding: 80px 0;
+      background: var(--charcoal);
+      text-align: center;
+      color: var(--text-on-dark);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: var(--text-on-dark-muted);
+      max-width: 500px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .cta-note {
+      font-size: 13px;
+      color: var(--text-on-dark-muted);
+    }
+
+    /* ============ FOOTER — Rippling-style dark ============ */
+    .footer {
+      padding: 80px 0 0;
+      background: #1a1a1a;
+      color: var(--text-on-dark);
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 32px;
+      padding-bottom: 64px;
+    }
+
+    .footer-links-col h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .footer-links-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .footer-links-col ul a {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      transition: var(--transition);
+    }
+
+    .footer-links-col ul a:hover { color: var(--white); }
+
+    .footer-demo-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 48px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-demo-bar h3 {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--white);
+    }
+
+    .footer-install-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-socials a {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.6);
+      transition: var(--transition);
+    }
+
+    .footer-socials a:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--white);
+    }
+
+    .footer-install-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-install-right span {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-shopify-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .footer-shopify-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-brand-large {
+      padding: 40px 0 0;
+      text-align: center;
+      font-size: clamp(100px, 15vw, 220px);
+      font-weight: 900;
+      letter-spacing: -6px;
+      line-height: 0.85;
+      text-transform: uppercase;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.0) 70%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-copyright {
+      text-align: center;
+      padding: 24px 0 32px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer-copyright a {
+      color: rgba(255, 255, 255, 0.5);
+      transition: var(--transition);
+    }
+
+    .footer-copyright a:hover { color: var(--white); }
+
+    .footer-socials a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      transition: var(--transition);
+    }
+
+    .footer-socials a:hover {
+      background: var(--brand);
+      color: var(--amber);
+    }
+
+    /* ============ ANIMATIONS ============ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 991px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: flex; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 24px;
+        border-bottom: 1px solid var(--gray-200);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-tabs { gap: 8px; }
+      .feature-tab { min-width: 140px; padding: 12px 16px; }
+      .how-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-grid-bottom { grid-template-columns: 1fr !important; max-width: 100% !important; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-links { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 767px) {
+      .hero { padding: 120px 0 60px; }
+      .hero-ctas { flex-direction: column; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .stat-card { padding: 28px 16px; }
+      .stat-number { font-size: 36px; }
+      .how-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .pricing-cards { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .footer-links { grid-template-columns: repeat(2, 1fr); }
+      .footer-demo-bar { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-install-bar { flex-direction: column; gap: 24px; }
+      .nav-ctas .btn-secondary { display: none; }
+    }
+
+    @media (max-width: 479px) {
+      .container { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <img src="Logo.svg" alt="NetWise">
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-ctas">
+        <a href="https://cal.com/deekshith.suvarna/30min" target="_blank" rel="noopener" class="btn btn-secondary">Book a Demo <span class="btn-arrow">&rarr;</span></a>
+        <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary">Install on Shopify <span class="btn-arrow">&rarr;</span></a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO — dark brand background ===== -->
+  <section class="hero dark-ctx">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        60-Day Free Trial &mdash; One Plan, Everything Included
+      </div>
+      <h1>
+        Turn your store into a<br>
+        <span class="highlight">B2B growth engine</span>
+      </h1>
+      <p class="hero-subtitle">
+        The all-in-one Shopify app for B2B and wholesale pricing, bulk orders, net terms, and a powerful B2B cart. Set up in hours, not days.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary" style="">
+          Try 60-Day Free Trial <span class="btn-arrow">&rarr;</span>
+        </a>
+        <a href="https://cal.com/deekshith.suvarna/30min" target="_blank" rel="noopener" class="btn btn-demo" style="">
+          Book a Demo <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
+      <p class="hero-note">No credit card required &middot; Works with any Shopify theme</p>
+      <div class="hero-visual" id="heroVideo" style="width: 100%; max-width: 960px; margin: 0 auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 20px 80px rgba(0,0,0,0.4); aspect-ratio: 16/9; background: #000; position: relative; cursor: pointer;">
+        <img src="https://img.youtube.com/vi/wPKWJakdSZU/maxresdefault.jpg" alt="NetWise B2B Demo" style="width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85; transition: opacity 0.3s;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: transform 0.3s;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="#171717"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOGO CAROUSEL — white bg ===== -->
+  <section class="logos-section">
+    <p>Trusted by B2B merchants on Shopify</p>
+    <div class="logo-rows">
+      <div class="logo-track-wrapper">
+        <div class="logo-track">
+          <img class="logo-item" src="logos/Logo_1.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_2.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_3.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_4.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_5.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_6.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_1.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_2.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_3.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_4.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_5.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_6.png" alt="Merchant logo">
+        </div>
+      </div>
+      <div class="logo-track-wrapper">
+        <div class="logo-track reverse">
+          <img class="logo-item" src="logos/Logo_4.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_5.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_6.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_1.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_2.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_3.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_4.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_5.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_6.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_1.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_2.png" alt="Merchant logo">
+          <img class="logo-item" src="logos/Logo_3.png" alt="Merchant logo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== FEATURES TABS — white bg ===== -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="features-header reveal">
+        <h2 class="section-title">Everything you need to <span>sell B2B and wholesale</span></h2>
+      </div>
+
+      <div class="features-tabs reveal">
+        <button class="feature-tab active" data-tab="pricing">
+          <div class="feature-tab-title">B2B Pricing</div>
+          <div class="feature-tab-sub">Custom prices per group</div>
+        </button>
+        <button class="feature-tab" data-tab="cart">
+          <div class="feature-tab-title">Smart Cart</div>
+          <div class="feature-tab-sub">Built for wholesale</div>
+        </button>
+        <button class="feature-tab" data-tab="bulk">
+          <div class="feature-tab-title">Bulk Orders</div>
+          <div class="feature-tab-sub">CSV and quick order</div>
+        </button>
+        <button class="feature-tab" data-tab="payments">
+          <div class="feature-tab-title">Net Terms</div>
+          <div class="feature-tab-sub">Flexible payments</div>
+        </button>
+        <button class="feature-tab" data-tab="shipping">
+          <div class="feature-tab-title">Shipping Rules</div>
+          <div class="feature-tab-sub">Custom rates</div>
+        </button>
+        <button class="feature-tab" data-tab="applications">
+          <div class="feature-tab-title">Registration</div>
+          <div class="feature-tab-sub">B2B signup form</div>
+        </button>
+      </div>
+
+      <div class="feature-panel active" data-panel="pricing">
+        <img src="NetWise V2 - 2026 App Listing/1.png" alt="B2B Pricing">
+      </div>
+      <div class="feature-panel" data-panel="cart">
+        <img src="NetWise V2 - 2026 App Listing/3.png" alt="Smart Cart">
+      </div>
+      <div class="feature-panel" data-panel="bulk">
+        <img src="NetWise V2 - 2026 App Listing/4.png" alt="Bulk Orders">
+      </div>
+      <div class="feature-panel" data-panel="payments">
+        <img src="NetWise V2 - 2026 App Listing/8.png" alt="Net Terms">
+      </div>
+      <div class="feature-panel" data-panel="shipping">
+        <img src="NetWise V2 - 2026 App Listing/9.png" alt="Shipping Rules">
+      </div>
+      <div class="feature-panel" data-panel="applications">
+        <img src="NetWise V2 - 2026 App Listing/5.png" alt="Registration">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS — brand dark background ===== -->
+  <section class="how-section" id="how">
+    <div class="container">
+      <div class="how-header reveal">
+        <span class="section-label">How It Works</span>
+        <h2 class="section-title">Go live in simple steps</h2>
+      </div>
+      <div class="how-grid reveal">
+        <div class="how-card">
+          <div class="how-card-visual">
+            <video autoplay muted loop playsinline><source src="videos/step-1.mp4" type="video/mp4"></video>
+          </div>
+          <h3>Create Pricing Catalog</h3>
+          <p>Name your catalog, set discount rules, and add products with percentage or fixed pricing.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-visual">
+            <video autoplay muted loop playsinline><source src="videos/step-2.mp4" type="video/mp4"></video>
+          </div>
+          <h3>Set Up Customer Groups</h3>
+          <p>Assign Shopify segments, link pricing catalogs, and configure shipping or cart limits.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-visual">
+            <video autoplay muted loop playsinline><source src="videos/step-3.mp4" type="video/mp4"></video>
+          </div>
+          <h3>Enable Storefront Widget</h3>
+          <p>One click to activate B2B pricing on your product pages. No code required.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-visual">
+            <video autoplay muted loop playsinline><source src="videos/step-1.mp4" type="video/mp4"></video>
+          </div>
+          <h3>Test Your Setup</h3>
+          <p>Add your email as a test account and preview the wholesale experience live.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-visual">
+            <video autoplay muted loop playsinline><source src="videos/step-2.mp4" type="video/mp4"></video>
+          </div>
+          <h3>Review and Publish</h3>
+          <p>Review all configurations in one screen, then hit Publish to go live instantly.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-visual">
+            <video autoplay muted loop playsinline><source src="videos/step-3.mp4" type="video/mp4"></video>
+          </div>
+          <h3>Manage from Shopify Admin</h3>
+          <p>Track orders, manage customers, and update pricing — all from your Shopify dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== TESTIMONIALS — sand bg ===== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="testimonials-header reveal">
+        <h2 class="section-title">What our merchants are saying.</h2>
+      </div>
+      <div class="testimonials-columns">
+        <!-- Column 1 -->
+        <div class="testimonials-col">
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">BBG (BrandsByG)</div><div class="testimonial-role">Australia</div></div></div>
+            <p class="testimonial-text">After trying and discarding three Wholesale-style apps, I found Netwise. The design and integration within Shopify are just beautiful. I've been blown away by the support team's ability to quickly address any concerns, and they even made small changes for me. Kudos to Netwise!</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">PadeLMQ</div><div class="testimonial-role">Belgium</div></div></div>
+            <p class="testimonial-text">I've been using the NetWise Wholesale App since its very beginning, and it has everything I had been looking for. Their support team responded incredibly fast — always providing quick and effective solutions. I can truly recommend this app to everyone.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Kinnd Tallow Skincare</div><div class="testimonial-role">Australia</div></div></div>
+            <p class="testimonial-text">This is the BEST Wholesale app I've seen and used. Super easy to set up and use and install the features you need. Support is great. Fast response times and super efficient with communication. Thanks Netwise Team 5 STARS!!!</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">101storiescollection.ca</div><div class="testimonial-role">Canada</div></div></div>
+            <p class="testimonial-text">I had a great experience with this app and the support team. The app works perfectly and provides exactly the features I need, such as setting tiered discounts for B2B customers and creating special pricing for individual products. Highly recommended!</p>
+          </div>
+          <!-- duplicate for seamless loop -->
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">BBG (BrandsByG)</div><div class="testimonial-role">Australia</div></div></div>
+            <p class="testimonial-text">After trying and discarding three Wholesale-style apps, I found Netwise. The design and integration within Shopify are just beautiful. I've been blown away by the support team's ability to quickly address any concerns, and they even made small changes for me. Kudos to Netwise!</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">PadeLMQ</div><div class="testimonial-role">Belgium</div></div></div>
+            <p class="testimonial-text">I've been using the NetWise Wholesale App since its very beginning, and it has everything I had been looking for. Their support team responded incredibly fast — always providing quick and effective solutions. I can truly recommend this app to everyone.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Kinnd Tallow Skincare</div><div class="testimonial-role">Australia</div></div></div>
+            <p class="testimonial-text">This is the BEST Wholesale app I've seen and used. Super easy to set up and use and install the features you need. Support is great. Fast response times and super efficient with communication. Thanks Netwise Team 5 STARS!!!</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">101storiescollection.ca</div><div class="testimonial-role">Canada</div></div></div>
+            <p class="testimonial-text">I had a great experience with this app and the support team. The app works perfectly and provides exactly the features I need, such as setting tiered discounts for B2B customers and creating special pricing for individual products. Highly recommended!</p>
+          </div>
+        </div>
+        <!-- Column 2 -->
+        <div class="testimonials-col">
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">The Space Safe</div><div class="testimonial-role">United States</div></div></div>
+            <p class="testimonial-text">Love this app! We were looking for something easy to use and NetWise was it. We love the customizations and simplicity. But most importantly, we love that we can use our normal store for wholesale with NetWise.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Girlsmusthave Italy</div><div class="testimonial-role">Italy</div></div></div>
+            <p class="testimonial-text">The interface is intuitive and straightforward, making it simple to get started and use daily. Their support team has been quick to respond and very helpful in resolving any issues. A great tool!</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Extreme Audio</div><div class="testimonial-role">United States</div></div></div>
+            <p class="testimonial-text">Awesome customer service. Everyone I've spoken to from their team has been very friendly and quick to help, which made this whole B2B process way less intimidating.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Armstrong Smart Access</div><div class="testimonial-role">Australia</div></div></div>
+            <p class="testimonial-text">These guys are awesome and so is the product. Being a novice, they walked me through the setup and more. I would highly recommend NetWise.</p>
+          </div>
+          <!-- duplicate for seamless loop -->
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">The Space Safe</div><div class="testimonial-role">United States</div></div></div>
+            <p class="testimonial-text">Love this app! We were looking for something easy to use and NetWise was it. We love the customizations and simplicity. But most importantly, we love that we can use our normal store for wholesale with NetWise.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Girlsmusthave Italy</div><div class="testimonial-role">Italy</div></div></div>
+            <p class="testimonial-text">The interface is intuitive and straightforward, making it simple to get started and use daily. Their support team has been quick to respond and very helpful in resolving any issues. A great tool!</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Extreme Audio</div><div class="testimonial-role">United States</div></div></div>
+            <p class="testimonial-text">Awesome customer service. Everyone I've spoken to from their team has been very friendly and quick to help, which made this whole B2B process way less intimidating.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Armstrong Smart Access</div><div class="testimonial-role">Australia</div></div></div>
+            <p class="testimonial-text">These guys are awesome and so is the product. Being a novice, they walked me through the setup and more. I would highly recommend NetWise.</p>
+          </div>
+        </div>
+        <!-- Column 3 -->
+        <div class="testimonials-col">
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Didi Beauty Ng</div><div class="testimonial-role">Nigeria</div></div></div>
+            <p class="testimonial-text">I was looking for an app that can give me B2B &amp; Wholesale experience without upgrading my account. Netwise is a go-to app and their support is 24/7 helping in all ways to make sure my service runs smoothly.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">ISO-Team Danmark</div><div class="testimonial-role">Denmark</div></div></div>
+            <p class="testimonial-text">Really good B2B app with fantastic customer service. Would recommend this to any store looking to add wholesale to their site.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Snovix</div><div class="testimonial-role">United States</div></div></div>
+            <p class="testimonial-text">There's a reason for all these 5 star reviews — they're super helpful and friendly, the product works great, and they get it done quick!</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Kader Jewelry</div><div class="testimonial-role">United States</div></div></div>
+            <p class="testimonial-text">Netwise is an excellent app and a must-have for wholesale businesses. Perfect for managing wholesale applications and tracking bulk orders seamlessly!</p>
+          </div>
+          <!-- duplicate for seamless loop -->
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Didi Beauty Ng</div><div class="testimonial-role">Nigeria</div></div></div>
+            <p class="testimonial-text">I was looking for an app that can give me B2B &amp; Wholesale experience without upgrading my account. Netwise is a go-to app and their support is 24/7 helping in all ways to make sure my service runs smoothly.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">ISO-Team Danmark</div><div class="testimonial-role">Denmark</div></div></div>
+            <p class="testimonial-text">Really good B2B app with fantastic customer service. Would recommend this to any store looking to add wholesale to their site.</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Snovix</div><div class="testimonial-role">United States</div></div></div>
+            <p class="testimonial-text">There's a reason for all these 5 star reviews — they're super helpful and friendly, the product works great, and they get it done quick!</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-author"><div class="testimonial-avatar"><svg width="22" height="22" viewBox="0 0 109 124" fill="#96BF48"><path d="M95.6 28.2c-.1-.6-.6-1-1.1-1-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.7-.7-2.1-.5-2.6-.3-.1 0-1.4.4-3.6 1.1-2.1-6.2-5.9-11.8-12.5-11.8h-.6C55.5 3.8 53.1 3 51.1 3c-15.8.2-23.4 19.7-25.7 29.7-6.1 1.9-10.4 3.2-10.9 3.4-3.4 1.1-3.5 1.2-4 4.4-.3 2.4-9.3 71.3-9.3 71.3l69.4 13 37.7-8.2S95.7 28.8 95.6 28.2zM67.3 19.8l-5.7 1.8c0-3-.4-7.3-1.7-10.9 4.3.8 6.4 5.6 7.4 9.1zm-9.6 3l-12.3 3.8c1.2-4.6 3.5-9.2 7.9-12.2 1.7-1.2 4.1-2.4 6.1-2.8.6 2.4.3 5.8-.2 8.7.1.2 0 .3-.1.5h.6zm-7.4-14.5c2 0 3.6.7 5.1 1.8-5.8 2.7-8.5 9.5-9.9 15.2l-9.8 3c2.1-9.1 7.5-20 14.6-20z"/><path d="M94.5 27.2c-.5-.1-10.3-2.2-10.3-2.2s-6.8-6.8-7.5-7.5c-.3-.3-.6-.4-1-.4l-5.3 108.1 37.7-8.2S95.6 28.8 95.5 28.2c-.1-.5-.5-1-1-1z" fill="#5E8E3E"/><path d="M57.6 43.6l-4.9 14.6s-4.3-2.3-9.5-2.3c-7.7 0-8.1 4.8-8.1 6 0 6.6 17.3 9.2 17.3 24.7 0 12.2-7.7 20.1-18.2 20.1-12.5 0-18.9-7.8-18.9-7.8l3.4-11.1s6.6 5.6 12.1 5.6c3.6 0 5.1-2.8 5.1-4.9 0-8.6-14.2-9-14.2-23.3 0-12 8.6-23.5 26-23.5 6.6-.1 9.9 1.9 9.9 1.9z" fill="#FFF"/></svg></div><div><div class="testimonial-name">Kader Jewelry</div><div class="testimonial-role">United States</div></div></div>
+            <p class="testimonial-text">Netwise is an excellent app and a must-have for wholesale businesses. Perfect for managing wholesale applications and tracking bulk orders seamlessly!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonials-cta" style="margin-top: 40px;">
+        <a href="https://apps.shopify.com/netwise#reviews" target="_blank" rel="noopener" class="btn btn-secondary">
+          View all reviews on Shopify <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING — white bg ===== -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="pricing-header reveal">
+        <span class="section-label">Simple Pricing</span>
+        <h2 class="section-title">One plan. Everything included.</h2>
+      </div>
+      <div class="pricing-cards reveal">
+        <div class="pricing-card">
+          <div class="pricing-badge">All In One Plan</div>
+          <h3>NetWise B2B and Wholesale</h3>
+          <div class="pricing-amount">
+            <span class="price">$24.95</span>
+            <span class="period">/month</span>
+          </div>
+          <p class="pricing-desc">Everything included — one simple plan. No hidden fees or usage limits.</p>
+          <ul class="pricing-features">
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything included — one simple plan</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No hidden fees or usage limits</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Free onboarding setup assistance</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated support team</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>All future feature updates included</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Free for development stores</li>
+          </ul>
+          <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
+            Start 60-Day Free Trial <span class="btn-arrow">&rarr;</span>
+          </a>
+          <p class="pricing-trial">No credit card required &middot; Cancel anytime</p>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-badge">Agency and Experts</div>
+          <h3>For Shopify Partners</h3>
+          <div class="pricing-amount">
+            <span class="price">FREE</span>
+          </div>
+          <p class="pricing-desc">Install NetWise on unlimited client stores at no cost. Built for agencies and Shopify Experts.</p>
+          <ul class="pricing-features">
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Free on all development stores</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Unlimited client installations</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Priority onboarding support</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated partner manager</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Co-marketing opportunities</li>
+            <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Revenue share program</li>
+          </ul>
+          <a href="mailto:hello@getnetwise.co?subject=Agency%20%2F%20Expert%20Access%20Request" class="btn btn-secondary" style="width: 100%;">
+            Request Access <span class="btn-arrow">&rarr;</span>
+          </a>
+          <p class="pricing-trial">For verified Shopify Partners only</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOG ===== -->
+  <section class="blog-section">
+    <div class="container">
+      <div class="blog-header reveal">
+        <div class="blog-header-text">
+          <span class="section-label">From the Blog</span>
+          <h2 class="section-title">Learn how to grow your B2B business</h2>
+        </div>
+        <a href="#" class="btn btn-demo">View All</a>
+      </div>
+      <div class="blog-scroll reveal">
+
+        <a href="#" class="blog-card">
+          <div class="blog-card-img">
+            <img src="blog/blog-1.jpg" alt="Blog post">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Guide</span>
+            <h3>How to set up wholesale pricing on Shopify in under 2 hours</h3>
+            <p>A step-by-step walkthrough for merchants new to B2B selling on Shopify.</p>
+          </div>
+        </a>
+
+        <a href="#" class="blog-card">
+          <div class="blog-card-img">
+            <img src="blog/blog-2.jpg" alt="Blog post">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Strategy</span>
+            <h3>5 ways to increase your wholesale order value with tiered pricing</h3>
+            <p>Learn how volume discounts and quantity breaks can boost your average order size.</p>
+          </div>
+        </a>
+
+        <a href="#" class="blog-card">
+          <div class="blog-card-img">
+            <img src="blog/blog-3.jpg" alt="Blog post">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Product</span>
+            <h3>Net terms explained: offering flexible payment options to B2B buyers</h3>
+            <p>Everything you need to know about Net 7, 30, 60 and 90 day payment terms.</p>
+          </div>
+        </a>
+
+        <a href="#" class="blog-card">
+          <div class="blog-card-img">
+            <img src="blog/blog-4.jpg" alt="Blog post">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Tips</span>
+            <h3>Managing B2B customer groups for better wholesale operations</h3>
+            <p>How to segment your buyers and offer tailored pricing to each group.</p>
+          </div>
+        </a>
+
+        <a href="#" class="blog-card">
+          <div class="blog-card-img">
+            <img src="blog/blog-5.jpg" alt="Blog post">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Case Study</span>
+            <h3>How merchants use CSV bulk ordering to save hours every week</h3>
+            <p>Real stories from NetWise merchants who streamlined their wholesale workflow.</p>
+          </div>
+        </a>
+
+        <a href="#" class="blog-card">
+          <div class="blog-card-img">
+            <img src="blog/blog-6.jpg" alt="Blog post">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Guide</span>
+            <h3>Custom shipping rules: a complete guide for B2B merchants</h3>
+            <p>Set up value-based, weight-based, and free shipping thresholds for wholesale orders.</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ — light gray bg ===== -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="faq-header reveal">
+        <span class="section-label">FAQ</span>
+        <h2 class="section-title">Frequently asked questions</h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item"><button class="faq-question">Does NetWise work with my existing Shopify theme?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes! NetWise works with any Shopify theme. It uses Shopify's native app embeds and theme extensions, so there's no custom coding required. Just install and activate.</div></div></div>
+        <div class="faq-item"><button class="faq-question">Can I run both retail and wholesale from the same store?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Absolutely. NetWise is designed for hybrid stores. Your retail customers see standard prices and the default cart, while tagged B2B customers see wholesale pricing and the dedicated B2B cart.</div></div></div>
+        <div class="faq-item"><button class="faq-question">How long does setup take?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Most merchants are fully set up in 1-2 hours. Install the app, configure your customer groups and pricing, and you're ready to go. Our team also offers free onboarding support to help you get started.</div></div></div>
+        <div class="faq-item"><button class="faq-question">What payment methods do B2B customers get?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">B2B customers can pay online immediately, use net terms (Net 7 to Net 90 days), or submit orders for review. You control which payment options are available to each customer group.</div></div></div>
+        <div class="faq-item"><button class="faq-question">Can customers place orders via CSV upload?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes. Customers can upload a CSV with SKUs and quantities to place bulk orders instantly. They can also save orders as drafts and come back to complete them later.</div></div></div>
+        <div class="faq-item"><button class="faq-question">Is there a free trial?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes — NetWise offers a generous 60-day free trial with full access to every feature. No credit card required. One plan, everything included.</div></div></div>
+        <div class="faq-item"><button class="faq-question">Do you offer onboarding help?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes, every merchant gets free expert onboarding from our team. We'll help you configure pricing, customer groups, and get your B2B store live.</div></div></div>
+        <div class="faq-item"><button class="faq-question">Can I set minimum order amounts?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes. Set minimum order values and per-product quantity limits to ensure every B2B order meets your business requirements. This helps reduce low-value orders and encourages bulk purchases.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA — brand dark ===== -->
+  <section class="cta-section dark-ctx">
+    <div class="container">
+      <h2>Ready to grow your<br><span style="color: var(--gray-400);">B2B and wholesale business?</span></h2>
+      <p>Start your 60-day free trial today. No credit card, no risk — just results.</p>
+      <div class="cta-buttons">
+        <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary" style="">
+          Try 60-Day Free Trial <span class="btn-arrow">&rarr;</span>
+        </a>
+        <a href="https://cal.com/deekshith.suvarna/30min" target="_blank" rel="noopener" class="btn btn-secondary" style="">
+          Book a Demo <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
+      <p class="cta-note">60-day free trial &middot; One plan &middot; Everything included</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER — dark charcoal ===== -->
+  <footer class="footer">
+    <div class="container">
+      <!-- Link columns -->
+      <div class="footer-links">
+        <div class="footer-links-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="#features">B2B Pricing</a></li>
+            <li><a href="#features">Smart Cart</a></li>
+            <li><a href="#features">Bulk Orders</a></li>
+            <li><a href="#features">Net Terms</a></li>
+            <li><a href="#features">Shipping Rules</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="https://help.getnetwise.co" target="_blank" rel="noopener">Help Center</a></li>
+            <li><a href="https://help.getnetwise.co/article/20-start-up-guide-and-sync-data" target="_blank" rel="noopener">Setup Guide</a></li>
+            <li><a href="mailto:hello@getnetwise.co?subject=Enquiry%20from%20website">Contact Support</a></li>
+            <li><a href="https://cal.com/deekshith.suvarna/30min" target="_blank" rel="noopener">Book a Demo</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="https://www.getnetwise.co/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/company/netwise-b2b/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://x.com/NetWise_B2B" target="_blank" rel="noopener">X (Twitter)</a></li>
+            <li><a href="mailto:hello@getnetwise.co">hello@getnetwise.co</a></li>
+          </ul>
+          <p style="font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 20px; line-height: 1.6;">160 Robinson Rd, #14-04<br>Singapore Business Federation Center<br>Singapore 068914</p>
+        </div>
+      </div>
+
+
+
+      <!-- Large brand text -->
+      <div class="footer-brand-large">NETWISE</div>
+
+      <!-- Copyright -->
+      <div class="footer-copyright">
+        &copy; 2026 NetWise. All rights reserved. <a href="mailto:hello@getnetwise.co">hello@getnetwise.co</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    mobileToggle.addEventListener('click', () => { navLinks.classList.toggle('open'); });
+
+    // Features tabs
+    const featureTabs = document.querySelectorAll('.feature-tab');
+    const featurePanels = document.querySelectorAll('.feature-panel');
+    let featureInterval;
+
+    function activateFeatureTab(tabName) {
+      featureTabs.forEach(t => t.classList.remove('active'));
+      featurePanels.forEach(p => p.classList.remove('active'));
+      document.querySelector(`.feature-tab[data-tab="${tabName}"]`).classList.add('active');
+      document.querySelector(`.feature-panel[data-panel="${tabName}"]`).classList.add('active');
+    }
+
+    function startFeatureRotate() {
+      const names = Array.from(featureTabs).map(t => t.dataset.tab);
+      let current = 0;
+      featureInterval = setInterval(() => {
+        current = (current + 1) % names.length;
+        activateFeatureTab(names[current]);
+      }, 5000);
+    }
+
+    featureTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        clearInterval(featureInterval);
+        activateFeatureTab(tab.dataset.tab);
+        startFeatureRotate();
+      });
+    });
+    startFeatureRotate();
+
+    // Hero video — play inline, only pause on scroll (no auto-resume)
+    const heroVideo = document.getElementById('heroVideo');
+
+    heroVideo.addEventListener('click', function() {
+      if (document.getElementById('heroIframe')) return;
+      this.innerHTML = '<iframe id="heroIframe" src="https://www.youtube.com/embed/wPKWJakdSZU?autoplay=1&rel=0&enablejsapi=1" style="width:100%;height:100%;border:none;position:absolute;top:0;left:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      this.style.cursor = 'default';
+    });
+
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const iframe = document.getElementById('heroIframe');
+        if (!iframe) return;
+        if (!entry.isIntersecting) {
+          iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        }
+      });
+    }, { threshold: 0.3 });
+    heroObserver.observe(heroVideo);
+
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); navLinks.classList.remove('open'); }
+      });
+    });
+  </script>
+</body>
+</html>
