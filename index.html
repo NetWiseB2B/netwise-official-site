@@ -1464,42 +1464,42 @@
       <div class="how-grid reveal">
         <div class="how-card">
           <div class="how-card-visual">
-            <video autoplay muted loop playsinline><source src="videos/step-1.mp4" type="video/mp4"></video>
+            <video muted loop playsinline><source src="videos/step-1.mp4" type="video/mp4"></video>
           </div>
           <h3>Create Pricing Catalog</h3>
           <p>Name your catalog, set discount rules, and add products with percentage or fixed pricing.</p>
         </div>
         <div class="how-card">
           <div class="how-card-visual">
-            <video autoplay muted loop playsinline><source src="videos/step-2.mp4" type="video/mp4"></video>
+            <video muted loop playsinline><source src="videos/step-2.mp4" type="video/mp4"></video>
           </div>
           <h3>Set Up Customer Groups</h3>
           <p>Assign Shopify segments, link pricing catalogs, and configure shipping or cart limits.</p>
         </div>
         <div class="how-card">
           <div class="how-card-visual">
-            <video autoplay muted loop playsinline><source src="videos/step-3.mp4" type="video/mp4"></video>
+            <video muted loop playsinline><source src="videos/step-3.mp4" type="video/mp4"></video>
           </div>
           <h3>Enable Storefront Widget</h3>
           <p>One click to activate B2B pricing on your product pages. No code required.</p>
         </div>
         <div class="how-card">
           <div class="how-card-visual">
-            <video autoplay muted loop playsinline><source src="videos/step-1.mp4" type="video/mp4"></video>
+            <video muted loop playsinline><source src="videos/step-1.mp4" type="video/mp4"></video>
           </div>
           <h3>Test Your Setup</h3>
           <p>Add your email as a test account and preview the wholesale experience live.</p>
         </div>
         <div class="how-card">
           <div class="how-card-visual">
-            <video autoplay muted loop playsinline><source src="videos/step-2.mp4" type="video/mp4"></video>
+            <video muted loop playsinline><source src="videos/step-2.mp4" type="video/mp4"></video>
           </div>
           <h3>Review and Publish</h3>
           <p>Review all configurations in one screen, then hit Publish to go live instantly.</p>
         </div>
         <div class="how-card">
           <div class="how-card-visual">
-            <video autoplay muted loop playsinline><source src="videos/step-3.mp4" type="video/mp4"></video>
+            <video muted loop playsinline><source src="videos/step-3.mp4" type="video/mp4"></video>
           </div>
           <h3>Manage from Shopify Admin</h3>
           <p>Track orders, manage customers, and update pricing — all from your Shopify dashboard.</p>
@@ -1910,6 +1910,14 @@
       });
     });
     startFeatureRotate();
+
+    // How It Works — play video on hover only
+    document.querySelectorAll('.how-card-visual').forEach(card => {
+      const video = card.querySelector('video');
+      if (!video) return;
+      card.addEventListener('mouseenter', () => video.play());
+      card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+    });
 
     // Hero video — play inline, only pause on scroll (no auto-resume)
     const heroVideo = document.getElementById('heroVideo');
