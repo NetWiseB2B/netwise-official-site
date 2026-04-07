@@ -793,13 +793,7 @@
     }
 
     .pricing-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--text-dark);
+      display: none;
     }
 
     .pricing-badge {
@@ -811,7 +805,7 @@
       font-size: 14px;
       font-weight: 600;
       color: var(--text-dark);
-      margin-bottom: 20px;
+      margin-bottom: 8px;
     }
 
     .pricing-card h3 {
@@ -822,7 +816,7 @@
     }
 
     .pricing-amount {
-      margin: 24px 0;
+      margin: 12px 0 16px;
       display: flex;
       align-items: baseline;
       justify-content: center;
@@ -1817,7 +1811,7 @@
           Book a Demo <span class="btn-arrow">&rarr;</span>
         </a>
       </div>
-      <p class="hero-note">No credit card required &middot; Works with any Shopify theme</p>
+      <p class="hero-note">Risk free trial &middot; Works with any Shopify theme</p>
       <div class="hero-visual" id="heroVideo" style="width: 100%; max-width: 960px; margin: 0 auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 20px 80px rgba(0,0,0,0.4); aspect-ratio: 16/9; background: #000; position: relative; cursor: pointer;">
         <img src="https://img.youtube.com/vi/wPKWJakdSZU/maxresdefault.jpg" alt="NetWise B2B Demo" style="width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85; transition: opacity 0.3s;">
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: transform 0.3s;">
@@ -2119,7 +2113,6 @@
       <div class="pricing-cards reveal">
         <div class="pricing-card">
           <div class="pricing-badge">All In One Plan</div>
-          <h3>NetWise B2B and Wholesale</h3>
           <div class="pricing-amount">
             <span class="price">$24.95</span>
             <span class="period">/month</span>
@@ -2136,12 +2129,11 @@
           <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
             Start 60-Day Free Trial <span class="btn-arrow">&rarr;</span>
           </a>
-          <p class="pricing-trial">No credit card required &middot; Cancel anytime</p>
+          <p class="pricing-trial">Risk free trial &middot; Cancel anytime</p>
         </div>
 
         <div class="pricing-card">
-          <div class="pricing-badge">Agency and Experts</div>
-          <h3>For Shopify Partners</h3>
+          <div class="pricing-badge">Shopify Experts</div>
           <div class="pricing-amount">
             <span class="price">FREE</span>
           </div>
@@ -2157,7 +2149,7 @@
           <button class="btn btn-secondary" style="width: 100%;" onclick="openPartnerModal()">
             Request Access <span class="btn-arrow">&rarr;</span>
           </button>
-          <p class="pricing-trial">For verified Shopify Partners only</p>
+          <p class="pricing-trial">For verified Shopify Experts only</p>
         </div>
       </div>
     </div>
@@ -2177,7 +2169,7 @@
 
         <a href="blog/blog-1.html" class="blog-card">
           <div class="blog-card-img">
-            <img src="blog/blog-1.jpg" alt="Blog post">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="Wholesale pricing setup">
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">Guide</span>
@@ -2188,7 +2180,7 @@
 
         <a href="blog/blog-2.html" class="blog-card">
           <div class="blog-card-img">
-            <img src="blog/blog-2.jpg" alt="Blog post">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="Tiered pricing strategy">
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">Strategy</span>
@@ -2199,7 +2191,7 @@
 
         <a href="blog/blog-3.html" class="blog-card">
           <div class="blog-card-img">
-            <img src="blog/blog-3.jpg" alt="Blog post">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop" alt="Net terms payment options">
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">Product</span>
@@ -2210,7 +2202,7 @@
 
         <a href="blog/blog-4.html" class="blog-card">
           <div class="blog-card-img">
-            <img src="blog/blog-4.jpg" alt="Blog post">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" alt="B2B customer groups">
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">Tips</span>
@@ -2221,7 +2213,7 @@
 
         <a href="#" class="blog-card">
           <div class="blog-card-img">
-            <img src="blog/blog-5.jpg" alt="Blog post">
+            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop" alt="CSV bulk ordering">
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">Case Study</span>
@@ -2232,7 +2224,7 @@
 
         <a href="#" class="blog-card">
           <div class="blog-card-img">
-            <img src="blog/blog-6.jpg" alt="Blog post">
+            <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&h=400&fit=crop" alt="Custom shipping rules">
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">Guide</span>
@@ -2259,7 +2251,7 @@
         <div class="faq-item"><button class="faq-question">How long does setup take?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Most merchants are fully set up in 1-2 hours. Install the app, configure your customer groups and pricing, and you're ready to go. Our team also offers free onboarding support to help you get started.</div></div></div>
         <div class="faq-item"><button class="faq-question">What payment methods do B2B customers get?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">B2B customers can pay online immediately, use net terms (Net 7 to Net 90 days), or submit orders for review. You control which payment options are available to each customer group.</div></div></div>
         <div class="faq-item"><button class="faq-question">Can customers place orders via CSV upload?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes. Customers can upload a CSV with SKUs and quantities to place bulk orders instantly. They can also save orders as drafts and come back to complete them later.</div></div></div>
-        <div class="faq-item"><button class="faq-question">Is there a free trial?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes — NetWise offers a generous 60-day free trial with full access to every feature. No credit card required. One plan, everything included.</div></div></div>
+        <div class="faq-item"><button class="faq-question">Is there a free trial?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes — NetWise offers a generous 60-day free trial with full access to every feature. Risk free trial. One plan, everything included.</div></div></div>
         <div class="faq-item"><button class="faq-question">Do you offer onboarding help?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes, every merchant gets free expert onboarding from our team. We'll help you configure pricing, customer groups, and get your B2B store live.</div></div></div>
         <div class="faq-item"><button class="faq-question">Can I set minimum order amounts?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes. Set minimum order values and per-product quantity limits to ensure every B2B order meets your business requirements. This helps reduce low-value orders and encourages bulk purchases.</div></div></div>
       </div>
@@ -2270,7 +2262,7 @@
   <section class="cta-section dark-ctx">
     <div class="container">
       <h2>Ready to grow your<br><span style="color: #FFAB41;">B2B and wholesale business?</span></h2>
-      <p>Start your 60-day free trial today. No credit card, no risk — just results.</p>
+      <p>Start your 60-day free trial today. Risk free trial — just results.</p>
       <div class="cta-buttons">
         <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary" style="background: #FFAB41; color: #000;">
           Try 60-Day Free Trial <span class="btn-arrow">&rarr;</span>
@@ -2319,7 +2311,7 @@
         <div class="footer-links-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="https://www.getnetwise.co/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
             <li><a href="#">Terms of Service</a></li>
           </ul>
         </div>
