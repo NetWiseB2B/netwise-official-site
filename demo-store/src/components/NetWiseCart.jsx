@@ -13,13 +13,14 @@ const STOCK_CONFIG = {
 };
 
 export default function NetWiseCart() {
-  const { items, addItem, updateQuantity, removeItem, isCartOpen, setIsCartOpen } = useCart();
+  const { items, addItem, updateQuantity, removeItem, clearCart, isCartOpen, setIsCartOpen } = useCart();
   const { company } = useAuth();
   const [maximised, setMaximised] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [showAddAddress, setShowAddAddress] = useState(false);
+  const [showActions, setShowActions] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('net_terms');
 
   const searchResults = useMemo(() => {
@@ -139,10 +140,25 @@ export default function NetWiseCart() {
                 </div>
               )}
             </div>
-            <button className="px-3 py-2 border border-border rounded-lg text-[13px] text-muted hover:text-primary hover:border-gray-300 flex items-center gap-1.5 flex-shrink-0">
-              Actions
-              <ChevronDown size={12} />
-            </button>
+            <div className="relative flex-shrink-0">
+              <button
+                onClick={() => setShowActions(prev => !prev)}
+                className="px-3 py-2 border border-border rounded-lg text-[13px] text-muted hover:text-primary hover:border-gray-300 flex items-center gap-1.5"
+              >
+                Actions
+                <ChevronDown size={12} />
+              </button>
+              {showActions && (
+                <div className="absolute right-0 top-full mt-1 bg-white border border-border rounded-lg shadow-lg z-10 min-w-[160px] overflow-hidden">
+                  <button
+                    onClick={() => { clearCart(); setShowActions(false); }}
+                    className="w-full text-left px-4 py-3 text-[14px] text-red-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Clear cart
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
