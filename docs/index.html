@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — NetWise</title>
+  <link rel="icon" type="image/svg+xml" href="../Icon_NetWise.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --brand: #171717;
+      --white: #ffffff;
+      --off-white: #FAFAFA;
+      --gray-100: #F1F1F1;
+      --gray-200: #E5E5E5;
+      --gray-300: #D4D4D4;
+      --gray-400: #A3A3A3;
+      --gray-500: #737373;
+      --text-dark: #171717;
+      --text-body: #404040;
+      --text-muted: #737373;
+      --text-on-dark: #ffffff;
+      --purple: #580A46;
+      --purple-hover: #6E1058;
+      --amber: #FFAB41;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-body);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .navbar .container {
+      max-width: 1600px;
+    }
+
+    /* ============ NAVBAR ============ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 14px 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--gray-200);
+      transition: var(--transition);
+    }
+    .navbar.scrolled { padding: 10px 0; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 44px; width: auto; }
+    .logo-icon { display: none; }
+    .logo-full { display: block; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .mobile-menu-close { display: none; }
+    .mobile-menu-cta { display: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-body); transition: var(--transition); }
+    .nav-links a:hover { color: var(--brand); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-trigger { cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; color: var(--text-body); transition: var(--transition); }
+    .nav-dropdown-trigger:hover { color: var(--brand); }
+    .nav-dropdown-arrow { display: inline-block; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 0.2s; }
+    .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(-135deg) translateY(1px); }
+    .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: var(--white); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); padding: 20px 8px 8px; min-width: 260px; z-index: 100; margin-top: 0; }
+    .nav-dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 20px; }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+    .nav-dropdown-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 8px; transition: background 0.15s; }
+    .nav-dropdown-item:hover { background: var(--gray-100); }
+    .nav-dropdown-icon { width: 42px; height: 42px; border-radius: 10px; background: #1a3c24; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .nav-dropdown-icon svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-dropdown-text strong { display: block; font-size: 15px; font-weight: 600; color: var(--text-dark); }
+    .nav-dropdown-text span { font-size: 13px; color: var(--text-body); font-weight: 400; }
+    .nav-ctas { display: flex; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 28px; height: 52px; border-radius: 100px; font-size: 16px; font-weight: 500; transition: var(--transition); white-space: nowrap; border: none; cursor: pointer; }
+    .btn-primary { background: var(--purple); color: var(--white); }
+    .btn-primary:hover { background: var(--purple-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(88,10,70,0.25); }
+    .btn-secondary { background: var(--white); color: var(--text-dark); border: 2px solid #171717; }
+    .btn-secondary:hover { background: var(--amber); border-color: var(--amber); color: var(--purple); }
+    .btn-arrow { transition: transform 0.2s; }
+    .btn:hover .btn-arrow { transform: translateX(3px); }
+    .mobile-toggle { display: none; flex-direction: column; gap: 5px; background: none; padding: 4px; border: none; cursor: pointer; }
+    .mobile-toggle span { width: 24px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: var(--transition); }
+
+    /* ============ HERO ============ */
+    .docs-hero {
+      padding: 140px 0 60px;
+      background: var(--purple);
+      text-align: center;
+    }
+    .docs-hero h1 { font-size: 52px; font-weight: 800; color: var(--white); letter-spacing: -1.5px; margin-bottom: 32px; }
+    .search-bar { display: flex; align-items: center; gap: 12px; max-width: 560px; margin: 0 auto; }
+    .search-bar input { flex: 1; height: 52px; padding: 0 20px; border: 2px solid transparent; border-radius: var(--radius-sm); font-size: 16px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .search-bar input:focus { border-color: var(--amber); }
+    .search-bar input::placeholder { color: var(--gray-400); }
+    .search-btn { height: 52px; padding: 0 28px; border: none; border-radius: var(--radius-sm); background: var(--amber); color: var(--text-dark); font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; transition: var(--transition); white-space: nowrap; }
+    .search-btn:hover { background: #ffbe66; transform: translateY(-1px); }
+
+    /* ============ CATEGORIES GRID ============ */
+    .docs-categories { padding: 60px 0 80px; background: var(--off-white); }
+    .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .category-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 36px 32px; display: flex; flex-direction: column; gap: 16px; transition: var(--transition); cursor: pointer; }
+    .category-card:hover { border-color: var(--gray-300); box-shadow: 0 4px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .category-icon { width: 56px; height: 56px; border-radius: var(--radius-md); background: var(--purple); display: flex; align-items: center; justify-content: center; }
+    .category-icon svg { width: 28px; height: 28px; fill: none; stroke: var(--amber); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .category-card h3 { font-size: 20px; font-weight: 700; color: var(--text-dark); }
+    .category-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; flex: 1; }
+    .category-count { font-size: 14px; font-weight: 600; color: var(--text-dark); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ============ SEARCH RESULTS ============ */
+    .search-results { display: none; padding: 60px 0 80px; background: var(--off-white); }
+    .search-results.active { display: block; }
+    .search-results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .search-results-header h2 { font-size: 24px; font-weight: 700; color: var(--text-dark); }
+    .search-clear { font-size: 14px; font-weight: 500; color: var(--text-muted); cursor: pointer; background: none; border: none; font-family: inherit; text-decoration: underline; text-underline-offset: 3px; }
+    .search-clear:hover { color: var(--text-dark); }
+    .search-result-item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 24px 28px; margin-bottom: 12px; transition: var(--transition); display: block; cursor: pointer; }
+    .search-result-item:hover { border-color: var(--gray-300); box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .search-result-item h4 { font-size: 17px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+    .search-result-item .result-category { font-size: 13px; font-weight: 500; color: var(--purple); margin-bottom: 4px; }
+    .search-result-item p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+    .no-results { text-align: center; padding: 60px 0; color: var(--text-muted); font-size: 16px; }
+
+    /* ============ CATEGORY VIEW ============ */
+    .category-view { display: none; padding: 60px 0 80px; background: var(--off-white); }
+    .category-view.active { display: block; }
+    .category-view-header { margin-bottom: 32px; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--text-muted); cursor: pointer; margin-bottom: 16px; transition: var(--transition); }
+    .back-link:hover { color: var(--text-dark); }
+    .back-link svg { width: 16px; height: 16px; }
+    .category-view-header h2 { font-size: 28px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+    .category-view-header p { font-size: 16px; color: var(--text-muted); }
+    .article-list-item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 24px 28px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); }
+    .article-list-item:hover { border-color: var(--gray-300); box-shadow: 0 2px 12px rgba(0,0,0,0.05); transform: translateX(4px); }
+    .article-list-item h4 { font-size: 17px; font-weight: 600; color: var(--text-dark); }
+    .article-list-item svg { width: 20px; height: 20px; stroke: var(--gray-400); fill: none; stroke-width: 2; flex-shrink: 0; }
+
+    /* ============ ARTICLE VIEW ============ */
+    .article-view { display: none; padding: 60px 0 80px; background: var(--off-white); }
+    .article-view.active { display: block; }
+    .article-container { max-width: 780px; margin: 0 auto; background: var(--white); border-radius: var(--radius-lg); padding: 48px 56px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    .article-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-bottom: 24px; flex-wrap: wrap; }
+    .article-breadcrumb a { color: var(--purple); cursor: pointer; font-weight: 500; }
+    .article-breadcrumb a:hover { text-decoration: underline; }
+    .article-container h1 { font-size: 32px; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; letter-spacing: -0.5px; line-height: 1.25; }
+    .article-meta { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
+    .article-body h2 { font-size: 22px; font-weight: 700; color: var(--text-dark); margin: 32px 0 12px; }
+    .article-body h3 { font-size: 18px; font-weight: 600; color: var(--text-dark); margin: 24px 0 10px; }
+    .article-body h4 { font-size: 16px; font-weight: 600; color: var(--text-dark); margin: 20px 0 8px; }
+    .article-body p { font-size: 15px; line-height: 1.75; margin-bottom: 16px; color: var(--text-body); }
+    .article-body ul, .article-body ol { margin: 12px 0 16px 24px; font-size: 15px; line-height: 1.75; }
+    .article-body li { margin-bottom: 6px; }
+    .article-body strong { color: var(--text-dark); }
+    .article-body code { background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: 14px; font-family: 'SF Mono', Consolas, monospace; }
+    .article-body pre { background: var(--gray-100); padding: 16px 20px; border-radius: var(--radius-sm); overflow-x: auto; margin: 16px 0; font-size: 14px; line-height: 1.6; }
+    .article-body pre code { background: none; padding: 0; }
+    .article-body table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    .article-body th { text-align: left; padding: 10px 14px; background: var(--gray-100); font-weight: 600; color: var(--text-dark); border-bottom: 2px solid var(--gray-200); }
+    .article-body td { padding: 10px 14px; border-bottom: 1px solid var(--gray-200); }
+    .article-body blockquote { border-left: 3px solid var(--purple); padding: 12px 20px; margin: 16px 0; background: #faf5f9; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-style: italic; }
+    .article-body .note { background: #fef9e7; border: 1px solid #f5e6b8; border-radius: var(--radius-sm); padding: 14px 18px; margin: 16px 0; font-size: 14px; }
+    .article-body .note strong { color: #92600a; }
+    .article-body img { max-width: 100%; height: auto; border-radius: var(--radius-sm); margin: 16px 0; border: 1px solid var(--gray-200); display: block; }
+
+    /* ============ FOOTER ============ */
+    .footer { padding: 80px 0 0; background: #1a1a1a; color: var(--text-on-dark); }
+    .footer-links { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; padding-bottom: 64px; }
+    .footer-links-col h4 { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 20px; }
+    .footer-links-col ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .footer-links-col a { font-size: 14px; color: rgba(255,255,255,0.55); transition: var(--transition); }
+    .footer-links-col a:hover { color: var(--white); }
+    .footer-brand-large { padding: 40px 0 0; text-align: center; font-size: clamp(100px,15vw,220px); font-weight: 900; letter-spacing: -6px; line-height: 0.85; text-transform: uppercase; overflow: hidden; background: linear-gradient(180deg,rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.0) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-copyright { text-align: center; padding: 24px 0 32px; font-size: 13px; color: rgba(255,255,255,0.35); }
+    .footer-copyright a { color: rgba(255,255,255,0.35); }
+    .footer-copyright a:hover { color: var(--white); }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 991px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: flex; }
+      .nav-ctas .btn-secondary { display: none; }
+      .nav-links.open { display: flex !important; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100vh; height: 100dvh; background: #f8f8f8; padding: 80px 32px 40px; z-index: 99999; gap: 8px; align-items: flex-start; overflow-y: auto; margin: 0; }
+      .nav-links.open li { width: 100%; }
+      .nav-links.open li a { font-size: 32px; font-weight: 700; color: var(--text-dark); padding: 8px 0; display: block; }
+      .nav-links.open .nav-dropdown-trigger { font-size: 32px; font-weight: 700; color: var(--text-dark); padding: 8px 0; }
+      .nav-links.open .nav-dropdown-menu { display: block; position: static; transform: none; box-shadow: none; background: transparent; padding: 0 0 0 8px; min-width: unset; }
+      .nav-links.open .nav-dropdown-item { padding: 8px 0; }
+      .nav-links.open .nav-dropdown-text strong { font-size: 18px; }
+      .nav-links.open .mobile-menu-close { display: flex !important; position: absolute; top: 8px; right: 16px; background: none; border: none; font-size: 36px; cursor: pointer; color: var(--text-dark); width: 40px; height: 40px; align-items: center; justify-content: center; }
+      .nav-links.open .mobile-menu-cta { display: block !important; margin-top: auto; width: 100%; }
+      .nav-links.open .mobile-menu-cta .btn { width: 100%; text-align: center; font-size: 16px; padding: 16px; display: flex; justify-content: center; color: var(--white) !important; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-links { grid-template-columns: repeat(3, 1fr); }
+      .article-container { padding: 32px 28px; }
+    }
+    @media (max-width: 767px) {
+      .docs-hero h1 { font-size: 36px; }
+      .search-bar { flex-direction: column; }
+      .search-bar input, .search-btn { width: 100%; }
+      .categories-grid { grid-template-columns: 1fr; }
+      .footer-links { grid-template-columns: repeat(2, 1fr); }
+      .article-container { padding: 24px 20px; }
+      .article-container h1 { font-size: 24px; }
+    }
+    @media (max-width: 480px) {
+      .docs-hero { padding: 120px 0 40px; }
+      .docs-hero h1 { font-size: 28px; }
+      .footer-links { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="../index.html" class="nav-logo">
+        <img src="../Logo.svg" alt="NetWise" class="logo-full">
+        <img src="../Icon_NetWise.svg" alt="NetWise" class="logo-icon">
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <button class="mobile-menu-close" onclick="document.getElementById('navLinks').classList.remove('open')">&times;</button>
+        <li><a href="../index.html#features" onclick="document.getElementById('navLinks').classList.remove('open')">Features</a></li>
+        <li><a href="../index.html#how" onclick="document.getElementById('navLinks').classList.remove('open')">How It Works</a></li>
+        <li><a href="../index.html#pricing" onclick="document.getElementById('navLinks').classList.remove('open')">Pricing</a></li>
+        <li><a href="../index.html#faq" onclick="document.getElementById('navLinks').classList.remove('open')">FAQ</a></li>
+        <li class="nav-dropdown">
+          <span class="nav-dropdown-trigger">Resources <span class="nav-dropdown-arrow"></span></span>
+          <div class="nav-dropdown-menu">
+            <a href="../blog/blog-1.html" class="nav-dropdown-item">
+              <div class="nav-dropdown-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+              <div class="nav-dropdown-text"><strong>Articles</strong><span>Read the latest updates</span></div>
+            </a>
+            <a href="index.html" class="nav-dropdown-item">
+              <div class="nav-dropdown-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+              <div class="nav-dropdown-text"><strong>Documentation</strong><span>Learn how to use NetWise</span></div>
+            </a>
+          </div>
+        </li>
+        <li class="mobile-menu-cta">
+          <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary">Install on Shopify <span class="btn-arrow">&rarr;</span></a>
+        </li>
+      </ul>
+      <div class="nav-ctas">
+        <a href="#" class="btn btn-secondary" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>Book a Demo</a>
+        <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary">Install on Shopify <span class="btn-arrow">&rarr;</span></a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="docs-hero">
+    <div class="container">
+      <h1>How can we help?</h1>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search the knowledge base" autocomplete="off">
+        <button class="search-btn" id="searchBtn">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORIES (home) ===== -->
+  <section class="docs-categories" id="categoriesSection">
+    <div class="container">
+      <div class="categories-grid">
+        <div class="category-card" onclick="showCategory('getting-started')">
+          <div class="category-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <h3>Getting Started</h3>
+          <p>A document that provides an overview of NetWise and how to use the platform</p>
+          <span class="category-count">3 articles</span>
+        </div>
+        <div class="category-card" onclick="showCategory('price-list')">
+          <div class="category-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <h3>Price List</h3>
+          <p>Manage and customize product pricing for different customer groups</p>
+          <span class="category-count">3 articles</span>
+        </div>
+        <div class="category-card" onclick="showCategory('applications')">
+          <div class="category-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+          <h3>Applications</h3>
+          <p>Integrate and manage third-party applications with NetWise</p>
+          <span class="category-count">1 article</span>
+        </div>
+        <div class="category-card" onclick="showCategory('bulk-orders')">
+          <div class="category-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+          <h3>Bulk Orders</h3>
+          <p>Manage large orders quickly with a streamlined ordering experience</p>
+          <span class="category-count">2 articles</span>
+        </div>
+        <div class="category-card" onclick="showCategory('billing')">
+          <div class="category-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <h3>Billing</h3>
+          <p>Billing-related questions and answers — everything you need to know</p>
+          <span class="category-count">1 article</span>
+        </div>
+        <div class="category-card" onclick="showCategory('theme-settings')">
+          <div class="category-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <h3>Theme Settings</h3>
+          <p>Control how prices and volume discounts are displayed across your store</p>
+          <span class="category-count">4 articles</span>
+        </div>
+        <div class="category-card" onclick="showCategory('useful-info')">
+          <div class="category-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+          <h3>Useful Information</h3>
+          <p>Find the latest Shopify updates and app-related updates here</p>
+          <span class="category-count">1 article</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SEARCH RESULTS ===== -->
+  <section class="search-results" id="searchResults">
+    <div class="container">
+      <div class="search-results-header">
+        <h2 id="searchResultsTitle"></h2>
+        <button class="search-clear" id="searchClear">Clear search</button>
+      </div>
+      <div id="searchResultsList"></div>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORY VIEW ===== -->
+  <section class="category-view" id="categoryView">
+    <div class="container">
+      <div class="category-view-header">
+        <div class="back-link" onclick="showHome()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          All categories
+        </div>
+        <h2 id="categoryTitle"></h2>
+        <p id="categoryDesc"></p>
+      </div>
+      <div id="categoryArticles"></div>
+    </div>
+  </section>
+
+  <!-- ===== ARTICLE VIEW ===== -->
+  <section class="article-view" id="articleView">
+    <div class="container">
+      <div class="article-container">
+        <div class="article-breadcrumb">
+          <a onclick="showHome()">Docs</a> <span>/</span>
+          <a id="articleBreadcrumbCat"></a> <span>/</span>
+          <span id="articleBreadcrumbTitle"></span>
+        </div>
+        <h1 id="articleTitle"></h1>
+        <div class="article-meta" id="articleMeta"></div>
+        <div class="article-body" id="articleBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <div class="footer-links-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="../index.html#features">Features</a></li>
+            <li><a href="../index.html#pricing">Pricing</a></li>
+            <li><a href="../index.html#how">How It Works</a></li>
+            <li><a href="../index.html#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="../index.html#features">B2B Pricing</a></li>
+            <li><a href="../index.html#features">Smart Cart</a></li>
+            <li><a href="../index.html#features">Bulk Orders</a></li>
+            <li><a href="../index.html#features">Net Terms</a></li>
+            <li><a href="../index.html#features">Shipping Rules</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="index.html">Documentation</a></li>
+            <li><a href="../blog/blog-1.html">Articles</a></li>
+            <li><a href="mailto:hello@getnetwise.co?subject=Enquiry%20from%20website">Contact Support</a></li>
+            <li><a href="#" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>Book a Demo</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/company/netwise-b2b/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://x.com/NetWise_B2B" target="_blank" rel="noopener">X (Twitter)</a></li>
+            <li><a href="mailto:hello@getnetwise.co">hello@getnetwise.co</a></li>
+          </ul>
+          <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:20px;line-height:1.6;">160 Robinson Rd, #14-04<br>Singapore Business Federation Center<br>Singapore 068914</p>
+        </div>
+      </div>
+      <div class="footer-brand-large">NETWISE</div>
+      <div class="footer-copyright">&copy; 2026 NetWise. All rights reserved. <a href="mailto:hello@getnetwise.co">hello@getnetwise.co</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+    document.getElementById('mobileToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+    // ===== DATA =====
+    const categories = {
+      'getting-started': {
+        title: 'Getting Started',
+        desc: 'A document that provides an overview of NetWise and how to use the platform',
+        articles: ['setup-guide', 'net-terms', 'testing-guide']
+      },
+      'price-list': {
+        title: 'Price List',
+        desc: 'Manage and customize product pricing for different customer groups',
+        articles: ['pricing-catalog', 'customer-group', 'volume-discount-display']
+      },
+      'applications': {
+        title: 'Applications',
+        desc: 'Integrate and manage third-party applications with NetWise',
+        articles: ['email-domain']
+      },
+      'bulk-orders': {
+        title: 'Bulk Orders',
+        desc: 'Manage large orders quickly with a streamlined ordering experience',
+        articles: ['bulk-order', 'bulk-order-access']
+      },
+      'billing': {
+        title: 'Billing',
+        desc: 'Billing-related questions and answers — everything you need to know',
+        articles: ['billing']
+      },
+      'theme-settings': {
+        title: 'Theme Settings',
+        desc: 'Control how prices and volume discounts are displayed across your store',
+        articles: ['app-embed', 'net-terms-theme', 'discount-table', 'wholesale-email']
+      },
+      'useful-info': {
+        title: 'Useful Information',
+        desc: 'Find the latest Shopify updates and app-related updates here',
+        articles: ['new-customer-accounts']
+      }
+    };
+
+    const articles = {
+      'setup-guide': {
+        title: 'NetWise B2B Setup Guide!',
+        category: 'getting-started',
+        updated: 'March 31, 2026',
+        body: `
+<h2>Overview</h2>
+<p>This guide walks merchants through setting up wholesale B2B pricing for Shopify stores using NetWise in five steps.</p>
+
+<h2>Step 1: Create Catalog</h2>
+<p>Establish a pricing catalog defining products and discounts available to wholesale customers.</p>
+<h4>Key Fields:</h4>
+<ul>
+<li><strong>Title:</strong> Name your catalog (e.g., "Wholesale Catalog")</li>
+<li><strong>Primary Currency:</strong> Automatically set based on store's primary market</li>
+<li><strong>Price Adjustment:</strong> Apply percentage decrease across all products</li>
+<li><strong>Rule Type:</strong> Choose "Product and variant level" or "Cart and checkout level"</li>
+<li><strong>Products:</strong> Search and select items to include</li>
+</ul>
+<div class="note"><strong>Important:</strong> You must include at least one product to your catalog before you can proceed to the next step.</div>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69cbb81c5504a58f18ed5145/file-JfjDLcZRzQ.png" alt="Catalog setup interface">
+
+<h2>Step 2: Create Customer Group</h2>
+<p>Define which customers receive B2B pricing through Shopify customer segments.</p>
+<h4>Configuration options:</h4>
+<ul>
+<li><strong>Title:</strong> Name your group (e.g., "Wholesale Customers")</li>
+<li><strong>Customer Segments:</strong> Assign Shopify segments for automatic matching</li>
+<li><strong>Catalogs:</strong> Link one or more pricing catalogs</li>
+<li><strong>Extra Discount</strong> (Optional): Additional percentage or fixed-amount discount</li>
+<li><strong>Shipping Rules</strong> (Optional): Custom shipping configurations</li>
+<li><strong>Cart Limits</strong> (Optional): Minimum/maximum order values</li>
+</ul>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69cbba0b879ade0e6210b1da/file-rtp5rwFrN2.png" alt="Customer group configuration">
+
+<h2>Step 3: Enable Store Widget</h2>
+<p>Activate the storefront widget to display B2B pricing on product pages.</p>
+<ol>
+<li>Click "Enable" to open Shopify Theme Editor</li>
+<li>Verify NetWise app embed is toggled ON</li>
+<li>Click "Save" in Theme Editor</li>
+<li>Return to NetWise and click "Refresh"</li>
+</ol>
+<div class="note"><strong>Note:</strong> The widget is a global app embed that works across all product pages.</div>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69cbc0a7879ade0e6210b1f2/file-yfsE7vCORS.png" alt="Store widget enable">
+
+<h2>Step 4: Add Testing Account</h2>
+<p>Add a test email to preview the B2B experience before going live.</p>
+<ol>
+<li>Enter email address in text field</li>
+<li>Click "Add" to save</li>
+<li>Email automatically joins the customer segment</li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69cbc3f2eaa67dc49eb4bba7/file-pkrM8iUggN.png" alt="Testing account">
+
+<h2>Step 5: Review & Publish</h2>
+<p>Final overview screen displays all configurations before activation.</p>
+<h4>Review items:</h4>
+<ul>
+<li>Customer Group details</li>
+<li>Catalog adjustment settings</li>
+<li>Testing Account confirmation</li>
+<li>Product Page Widget status</li>
+</ul>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69cbc407879ade0e6210b206/file-l5krVChC8V.png" alt="Review and publish">
+<p>Clicking <strong>"Publish"</strong> will activate both your catalog and customer group, making B2B pricing live on your store.</p>
+`
+      },
+
+      'net-terms': {
+        title: 'How to Enable Net Terms on Your Store',
+        category: 'getting-started',
+        updated: 'January 9, 2026',
+        body: `
+<h2>Step 1: Access Your Online Store</h2>
+<ol>
+<li>Go to your store's dashboard</li>
+<li>Click on <strong>Online Store</strong></li>
+<li>Select <strong>Customize</strong> on your live theme</li>
+</ol>
+<img src="https://loom.com/i/f8ee486a3ecd4d90b0f18c342879c77f?workflows_screenshot=true" alt="Access online store">
+
+<h2>Step 2: Navigate to App Embeds</h2>
+<p>In the customization menu, look for three options: Sections, Theme Settings, and Apps. Click on <strong>App Embeds</strong>.</p>
+
+<h2>Step 3: Enable Net-Term Extension</h2>
+<ol>
+<li>Find the NetWise theme extension</li>
+<li>Ensure it is enabled</li>
+<li>Click on the arrow to select your theme</li>
+</ol>
+<img src="https://loom.com/i/79e786f7bf80401b81735f8693fb805d?workflows_screenshot=true" alt="Enable net-term extension">
+
+<h2>Step 4: Configure Net-Term Settings</h2>
+<ul>
+<li>Enable the Net-Term button by selecting <strong>"Yes"</strong></li>
+<li>Optionally, set a background color (e.g., white text on a colored background)</li>
+<li>Center the text and adjust the font size as needed</li>
+</ul>
+<img src="https://loom.com/i/628bc35dd6a54836be6f1ad04b2302bb?workflows_screenshot=true" alt="Configure net-term settings">
+
+<h2>Step 5: Customize Button Text</h2>
+<p>Choose the button text (e.g., "Pay Later" or "Net Term Checkout"). For the demo, keep it as "Net Term Checkout".</p>
+<img src="https://loom.com/i/c4750c7ac7134b299af968ea16323480?workflows_screenshot=true" alt="Customize button text">
+
+<h2>Step 6: Manage Customer Settings</h2>
+<p>Go back to the app and navigate to the customer section. View all approved customers.</p>
+<img src="https://loom.com/i/94ea9942da034e3db714f60e13a37d02?workflows_screenshot=true" alt="Customer settings">
+
+<h2>Step 7: Assign Net-Term to Customers</h2>
+<ul>
+<li>Select a customer to view their settings</li>
+<li>You can enable or disable Net-Term for individual customers</li>
+</ul>
+<img src="https://loom.com/i/53edd93112e74247b1954a689e60e359?workflows_screenshot=true" alt="Assign net-term">
+
+<h2>Step 8: Save Changes</h2>
+<p>After making adjustments, save your changes.</p>
+<img src="https://loom.com/i/ffd67d3b0ecd47fe96ea1ded1348552d?workflows_screenshot=true" alt="Save changes">
+
+<h2>Step 9: Review Net-Term Visibility</h2>
+<blockquote>Net-Term will appear in the drawer cart and cart page. It is only visible to customers who are logged in and assigned to Net-Term.</blockquote>
+<img src="https://loom.com/i/a67699b7f73a44cbaa1fc4e88c2e48a8?workflows_screenshot=true" alt="Net-term visibility">
+
+<h2>Step 10: Further Customization</h2>
+<p>Return to app embeds to make additional adjustments. The app automatically adapts to your store's CSS.</p>
+<img src="https://loom.com/i/72ffbfda5a1b497cac06139d11c31f81?workflows_screenshot=true" alt="Further customization">
+
+<h2>Step 11: Disable Net-Term if Needed</h2>
+<p>If you do not want to offer Net-Term, set it to <strong>"No"</strong>.</p>
+<img src="https://loom.com/i/75ce745af8ab4cab999b9cac42d64ff6?workflows_screenshot=true" alt="Disable net-term">
+`
+      },
+
+      'testing-guide': {
+        title: 'Testing Your Wholesale B2B Setup',
+        category: 'getting-started',
+        updated: 'January 8, 2026',
+        body: `
+<h2>Overview</h2>
+<p>This guide provides step-by-step instructions for validating your NetWise B2B wholesale configuration through seven key steps.</p>
+
+<h2>Step 1: Verify Catalog Setup</h2>
+<ul>
+<li>Ensure the catalog is active</li>
+<li>Check that the discount is set correctly and update if needed</li>
+<li>Verify any price overrides and review the total number of products included</li>
+</ul>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695ceea98b00ac066854a917/file-aEGIp4weOq.gif" alt="Catalog verification">
+
+<h2>Step 2: Verify Customer Group Setup</h2>
+<ul>
+<li>Ensure the customer group is active</li>
+<li>Confirm the pricing catalog is properly assigned with correct pricing</li>
+<li>Verify that customers are imported correctly</li>
+</ul>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695cf1120629552b152f3382/file-T9vtdA03VQ.gif" alt="Customer group verification">
+
+<h2>Step 3: Ensure Active Testing Account</h2>
+<ul>
+<li>Check if your testing account is included in the "customer group"; add it if missing (critical step)</li>
+<li>Ensure the customer status is approved to access catalog pricing in the <strong>Customers</strong> section</li>
+</ul>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695cf3d160e1ea16c8d4c08b/file-gNUadgFC5o.gif" alt="Testing account verification">
+
+<h2>Step 4: Log In to Online Store</h2>
+<p>Log in using the testing email account.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695cf46240f9b260bdfb4ac2/file-a6krIPl4i4.gif" alt="Store login">
+
+<h2>Step 5: Confirm Wholesale Pricing Application</h2>
+<ul>
+<li>Navigate to a collection, visit a product page, add item to cart</li>
+<li>Verify discounted price applies in cart drawer and checkout</li>
+</ul>
+<div class="note"><strong>Note:</strong> Pricing may not display on collection/product pages initially.</div>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d32f44503d97611a3af5a/file-zSLzmihbF7.gif" alt="Pricing verification in checkout">
+
+<h2>Step 6: Enable Pricing on Store Pages</h2>
+<ol>
+<li>Go to <strong>Online Store</strong> → select <strong>live theme</strong> → click <strong>Edit theme</strong></li>
+<li>Navigate to <strong>App embeds</strong> from the left panel</li>
+<li>Locate <strong>NetWise: Theme Extension</strong>, select theme from dropdown</li>
+<li><strong>Enable the app embed</strong> and <strong>save</strong> changes</li>
+<li>Verify pricing displays on collection and product pages while logged in</li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d34808b00ac066854aa99/file-MLYMnu36G5.gif" alt="Theme extension setup">
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d35ed5b13e907cfe728b2/file-PnOusqet4s.gif" alt="Pricing on store pages">
+
+<h2>Step 7: Enable Volume Discount Table</h2>
+<ol>
+<li>Ensure <strong>volume pricing is configured for each product</strong> in the pricing catalog</li>
+<li>Open <strong>Theme Editor</strong>, select a product, navigate to product page</li>
+<li>Choose a template section, hover, click <strong>+ (plus)</strong> icon</li>
+<li>Select <strong>App block</strong> and choose <strong>NetWise</strong></li>
+<li>Apply branding to the discount table as desired</li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d3fa30629552b152f34fe/file-UUJwGU6tkk.gif" alt="Volume discount configuration">
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d41c69a2bf55712d12630/file-oVJENbyJEp.gif" alt="Product variant setup">
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d43615b13e907cfe728f4/file-bl0LEeiQc0.gif" alt="Discount table app block">
+<div class="note"><strong>Note:</strong> Volume discount table requires volume pricing configuration at catalog level; only "Static table" option currently supported.</div>
+`
+      },
+
+      'pricing-catalog': {
+        title: 'Creating Your First Pricing Catalog',
+        category: 'price-list',
+        updated: 'March 31, 2026',
+        body: `
+<h2>Overview</h2>
+<p>This guide teaches users how to establish personalized pricing catalogs featuring global discounts, individual product pricing, quantity-based rules, volume tiers, and CSV import functionality.</p>
+
+<h2>Prerequisites</h2>
+<p>You need administrative access to the NetWise B2B application and synced Shopify store products. Catalogs enable creation of customized pricing for different customer segments including wholesalers, VIPs, and retailers.</p>
+
+<h2>Step 1: Navigate to Price Lists &gt; Catalogs</h2>
+<ol>
+<li>Access the NetWise dashboard and select "Price List" from the left navigation</li>
+<li>Confirm you're viewing the "Catalog" tab at page top</li>
+<li>Click "Create Catalog" button (top-right corner)</li>
+</ol>
+
+<h2>Step 2: Name Your Catalog</h2>
+<p>Enter a descriptive catalog name for future identification.</p>
+<blockquote>Use audience-focused labels like "Wholesale 50% Off," "VIP Pricing," or "Retailer Catalog Q2."</blockquote>
+
+<h2>Step 3: Configure Pricing Settings</h2>
+<h3>A. Price Adjustment (Global Discount)</h3>
+<p>Apply a blanket percentage discount across all catalog products.</p>
+<ul>
+<li><strong>Type:</strong> Select "Decrease" for percentage-based reduction</li>
+<li><strong>Value:</strong> Input 0–100% (e.g., 30 = 30% discount on all items)</li>
+</ul>
+<div class="note"><strong>Note:</strong> Product and variant-level pricing override global discounts.</div>
+
+<h3>B. Quantity Rules & Volume Pricing Mode</h3>
+<table>
+<tr><th>Mode</th><th>Application</th><th>Use Case</th></tr>
+<tr><td>Product & Variant Level</td><td>Individual per-product rules</td><td>Granular item-specific volume pricing</td></tr>
+<tr><td>Cart & Checkout Level</td><td>Entire cart/checkout totals</td><td>Minimum order values, bulk cart discounts</td></tr>
+</table>
+
+<h3>C. Cart-Level Rules</h3>
+<p>When "Cart & Checkout Level" mode is selected, define tiered rules by:</p>
+<ul>
+<li><strong>Minimum Quantity:</strong> Set item count threshold, then apply fixed or percentage discount</li>
+<li><strong>Minimum Order Value:</strong> Set dollar threshold, then apply fixed or percentage discount</li>
+</ul>
+<p>Use "Add break" for multiple tiers (e.g., 10+ items = 5% off; 50+ items = 10% off; 100+ items = 15% off).</p>
+
+<h2>Step 4: Add Products</h2>
+<h3>Manual Selection</h3>
+<ol>
+<li>Switch to "All" tab</li>
+<li>Search or browse products</li>
+<li>Select products via checkboxes</li>
+<li>Click "Include" button</li>
+</ol>
+
+<h3>CSV Import</h3>
+<ol>
+<li>Click "Import" button in Products section</li>
+<li>Download the sample CSV template</li>
+<li>Complete pricing data using product SKUs</li>
+<li>Upload finished CSV file</li>
+<li>Review preview showing valid/invalid SKUs</li>
+<li>Confirm import; view success/error summary</li>
+</ol>
+<div class="note"><strong>Note:</strong> Invalid SKUs not found in your Shopify store will be skipped during import.</div>
+
+<h2>Step 5: Configure Per-Product Pricing (Optional)</h2>
+<ol>
+<li>Open "Included" tab in Products section</li>
+<li>Click product row to expand variants</li>
+<li>Set custom product-level price (overrides global discount)</li>
+<li>Set custom variant-level price (overrides both product and global pricing)</li>
+</ol>
+
+<h2>Step 6: Set Up MSRP (Optional)</h2>
+<table>
+<tr><th>MSRP Source</th><th>Editable?</th><th>Description</th></tr>
+<tr><td>Custom</td><td>Yes</td><td>Manual per-product MSRP entry</td></tr>
+<tr><td>Compare at Price</td><td>No</td><td>Auto-pulled from Shopify "Compare at Price" field</td></tr>
+<tr><td>Base Price</td><td>No</td><td>Uses original Shopify product price</td></tr>
+</table>
+
+<h2>Step 7: Add Quantity Rules & Volume Pricing (Optional)</h2>
+<h3>Quantity Rules</h3>
+<table>
+<tr><th>Rule</th><th>Description</th><th>Example</th></tr>
+<tr><td>Increment</td><td>Required order multiples</td><td>6-unit increments = 6, 12, 18...</td></tr>
+<tr><td>Minimum</td><td>Lowest purchasable units</td><td>12-unit minimum = must order &ge;12</td></tr>
+<tr><td>Maximum</td><td>Highest purchasable units</td><td>100-unit cap = can't exceed 100</td></tr>
+</table>
+
+<h3>Volume Pricing (Tiered Discounts)</h3>
+<ol>
+<li>Click "Add quantity price break" on product/variant</li>
+<li>Enter minimum quantity threshold</li>
+<li>Set discount (fixed price or percentage)</li>
+<li>Repeat to add additional tiers</li>
+</ol>
+
+<h2>Step 8: Save Your Catalog</h2>
+<p>Click <strong>"Save"</strong> in bottom save bar. Catalog status becomes <strong>Draft</strong>.</p>
+<div class="note"><strong>Important:</strong> Draft catalogs remain invisible on the storefront until publication.</div>
+
+<h2>Step 9: Publish Your Catalog</h2>
+<ol>
+<li>Click "Publish" button</li>
+<li>Confirmation modal appears: "Ready to go live?"</li>
+<li>Confirm publication</li>
+<li>Status progression: <strong>Draft → Publishing... → Live</strong></li>
+</ol>
+
+<h2>Step 10: Export Catalog (Optional)</h2>
+<ol>
+<li>Click "Export" button on catalog page</li>
+<li>CSV file containing all products, variants, and pricing generates</li>
+<li>File is emailed to store email address</li>
+</ol>
+
+<h2>Understanding the Price Hierarchy</h2>
+<table>
+<tr><th>Priority</th><th>Price Level</th><th>Description</th></tr>
+<tr><td>1 (Highest)</td><td>Variant-level price</td><td>Custom variant pricing</td></tr>
+<tr><td>2</td><td>Product-level price</td><td>Custom product pricing</td></tr>
+<tr><td>3</td><td>Global adjustment</td><td>Catalog-wide percentage discount</td></tr>
+<tr><td>4 (Lowest)</td><td>Base price</td><td>Original Shopify product price</td></tr>
+</table>
+
+<h2>Catalog Status States</h2>
+<table>
+<tr><th>Status</th><th>Meaning</th></tr>
+<tr><td>Draft</td><td>Invisible on storefront; safe to edit</td></tr>
+<tr><td>Publishing...</td><td>Background processing; typically seconds</td></tr>
+<tr><td>Live</td><td>Active on storefront; customers see prices</td></tr>
+</table>
+`
+      },
+
+      'customer-group': {
+        title: 'How to Create a Customer Group',
+        category: 'price-list',
+        updated: 'March 31, 2026',
+        body: `
+<h2>Overview</h2>
+<p>Customer Groups function as pricing-enabled customer cohorts allowing you to assign custom catalogs, discounts, shipping rules, and order constraints. Groups begin in Draft mode and require publishing before pricing becomes active.</p>
+
+<h2>Step 1: Navigate to Customer Groups</h2>
+<ol>
+<li>Access the NetWise dashboard</li>
+<li>Select "Price List" from the left navigation</li>
+<li>Click the "Customer Group" tab (second tab)</li>
+<li>Click "Create group" button</li>
+</ol>
+
+<h2>Step 2: Name Your Group</h2>
+<p>Provide a descriptive identifier. Suggested examples: "Wholesale Buyers," "VIP Retailers," or "Gold Tier."</p>
+
+<h2>Step 3: Add Shopify Segments</h2>
+<ol>
+<li>Click "Add" next to Shopify Segments</li>
+<li>Select segments from the searchable modal</li>
+<li>Click "Confirm"</li>
+</ol>
+<p>Multiple segments can be assigned; customers matching any selected segment are automatically included.</p>
+
+<h2>Step 4: Assign Pricing Catalogs</h2>
+<ol>
+<li>Click "Add" next to Catalogs</li>
+<li>Select catalogs from the modal</li>
+<li>Click "Confirm"</li>
+</ol>
+<div class="note"><strong>Critical:</strong> Without assigned catalogs, customers won't access wholesale pricing.</div>
+
+<h2>Step 5: Configure Extra Group Discount (Optional)</h2>
+<ul>
+<li>Toggle "Extra group level discount" on</li>
+<li>Choose type: Percentage or Fixed amount</li>
+<li>Enter discount value</li>
+</ul>
+<p>Example: A catalog price of $80 with 10% group discount results in $72 customer cost.</p>
+
+<h2>Step 6: Configure Shipping Discount (Optional)</h2>
+<ul>
+<li>Toggle "Shipping discount" on and click "Add rules"</li>
+<li><strong>Condition Type:</strong> Order Value or Total Weight</li>
+<li><strong>Condition Rule:</strong> Greater than or Less than</li>
+<li><strong>Rate Type:</strong> Percentage, Fixed price, or Free</li>
+</ul>
+<p>Rules use first-match evaluation; place specific rules before broader ones.</p>
+
+<h2>Step 7: Set Cart/Order Limits (Optional)</h2>
+<ul>
+<li>Toggle "Cart limits" on and click "Add rules"</li>
+<li><strong>Minimum order value ($):</strong> Required cart subtotal</li>
+<li><strong>Minimum total units:</strong> Required item count</li>
+</ul>
+<p>Customers cannot complete checkout without meeting all restrictions.</p>
+
+<h2>Step 8: Save Your Group</h2>
+<p>Click "Save" in the bottom bar. The group enters <strong>Draft</strong> status.</p>
+
+<h2>Step 9: Publish Your Group</h2>
+<ol>
+<li>Click "Publish" button</li>
+<li>Confirm in the dialog</li>
+<li>Status: <strong>Draft → Publishing... → Live</strong></li>
+</ol>
+
+<h2>Managing Your Group</h2>
+<table>
+<tr><th>Action</th><th>Function</th></tr>
+<tr><td>Edit</td><td>Modify any field; requires re-publishing</td></tr>
+<tr><td>Unpublish</td><td>Revert to Draft; deactivate pricing</td></tr>
+<tr><td>Delete</td><td>Permanent removal</td></tr>
+</table>
+
+<h2>Customer Management & Approval</h2>
+<p>Control individual B2B ordering access through the Customers section:</p>
+<ul>
+<li><strong>Ordering approved:</strong> Activated customers with B2B access</li>
+<li><strong>Ordering not approved:</strong> Deactivated customers blocked from B2B ordering</li>
+<li><strong>Activate:</strong> Removes the <code>netwise-disable</code> tag from Shopify profiles</li>
+<li><strong>Deactivate:</strong> Adds the <code>netwise-disable</code> tag to Shopify profiles</li>
+</ul>
+`
+      },
+
+      'volume-discount-display': {
+        title: 'How to Enable Volume Discount Display Settings',
+        category: 'price-list',
+        updated: 'January 2026',
+        body: `
+<h2>Prerequisites</h2>
+<p>Ensure that <strong>volume pricing is configured for each product and its variants</strong> in the pricing catalog before proceeding.</p>
+
+<h2>Step 1: Configure Volume Pricing</h2>
+<p>Set up volume pricing for each product and variant in the pricing catalog.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d3fa30629552b152f34fe/file-UUJwGU6tkk.gif" alt="Volume discount setup">
+
+<h2>Step 2: Access Theme Editor</h2>
+<p>Open the Theme Editor, select a product, navigate to the product page, and choose a location from the left-side template blocks.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d41c69a2bf55712d12630/file-oVJENbyJEp.gif" alt="Theme editor navigation">
+
+<h2>Step 3: Add App Block</h2>
+<p>Hover over the desired section in the template, click the <strong>+ (plus)</strong> icon, select <strong>App block</strong>, and choose the <strong>NetWise</strong> app.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695d43615b13e907cfe728f4/file-bl0LEeiQc0.gif" alt="App block addition">
+
+<h2>Step 4: Apply Branding</h2>
+<p>Customize the discount table appearance with branding options.</p>
+
+<h2>Important Notes</h2>
+<ul>
+<li>The discount table will only appear if volume discounts are configured at the catalog level</li>
+<li>Currently, only the <strong>"Static table"</strong> option is supported for display</li>
+</ul>
+`
+      },
+
+      'email-domain': {
+        title: 'Email Domain Verification',
+        category: 'applications',
+        updated: 'March 2026',
+        body: `
+<h2>Overview</h2>
+<p>This guide explains how to configure a branded sender email so NetWise notifications originate from your domain rather than a generic address.</p>
+
+<h2>Step 1: Go to Settings</h2>
+<p>Navigate to settings within the NetWise app in your Shopify admin. You'll locate the Domain tab displaying "No emails added."</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69bac37ba4ce8d0dd6281ce2/file-I0fnhL0S4q.gif" alt="Settings navigation">
+
+<h2>Step 2: Click "Add email"</h2>
+<p>Select the <strong>"Add email"</strong> button located in the top-right corner or center of the page.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69bac39ba4ce8d0dd6281ce5/file-Q3Va7SnxDm.gif" alt="Add email button">
+
+<h2>Step 3: Enter Your Email Address</h2>
+<p>A popup dialog will appear with an "Enter your email" field.</p>
+<ul>
+<li>Input your desired sender email (e.g., support@yourstore.com)</li>
+<li>Click "Add"</li>
+</ul>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69bac411a4ce8d0dd6281cf0/file-2h47LsLZy7.gif" alt="Email entry popup">
+<blockquote>Use a professional email matching your store domain. Avoid Gmail or Yahoo addresses.</blockquote>
+
+<h2>Step 4: Add the DNS Record</h2>
+<p>After entering your email, the settings page displays a DNS record table with required details. Add this CNAME record to your domain's DNS settings:</p>
+<ol>
+<li>Log in to your domain provider (GoDaddy, Namecheap, Cloudflare, etc.)</li>
+<li>Navigate to DNS settings or DNS management</li>
+<li>Create a new CNAME record:
+  <ul>
+  <li><strong>Name/Host:</strong> Copy from the "Name" column</li>
+  <li><strong>Value/Points to:</strong> Copy from the "Value" column</li>
+  <li><strong>TTL:</strong> Leave as default or set to Auto</li>
+  </ul>
+</li>
+<li>Save the DNS record</li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69bac218a4ce8d0dd6281ccf/file-z0KoGGDAeH.png" alt="DNS record table">
+<div class="note"><strong>Note:</strong> DNS propagation typically takes anywhere from a few minutes to 48 hours.</div>
+
+<h2>Step 5: Verify the Record</h2>
+<ol>
+<li>Return to NetWise &gt; Settings &gt; Domain</li>
+<li>Click the <strong>"Verify records"</strong> button (top-right of the email card)</li>
+<li>Upon successful propagation, status changes from "Not verified" to <strong>"Verified"</strong> (green)</li>
+</ol>
+<p>If verification fails, wait several hours before retrying.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69bac2b2aad0b3a49a4538de/file-2S8SlyTMU.gif" alt="Verification process">
+
+<h2>Step 6: You're Done</h2>
+<p>Once verified, a green "Verified" badge appears next to "Email." All branded NetWise emails will now originate from your domain.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69bac48caad0b3a49a4538f3/file-iwD61SRgET.png" alt="Verified email">
+
+<h2>Managing Your Email</h2>
+<p>Click the three-dot menu (...) next to your email address to:</p>
+<ul>
+<li><strong>Change email</strong> — Switch to a different sender email</li>
+<li><strong>Remove</strong> — Delete this email and its domain verification</li>
+</ul>
+`
+      },
+
+      'bulk-order': {
+        title: 'Bulk Order',
+        category: 'bulk-orders',
+        updated: 'February 18, 2026',
+        body: `
+<h2>Overview</h2>
+<p>This guide explains how to activate the Bulk Order feature for customer accounts, enabling customers to access bulk ordering directly from their account interface.</p>
+<div class="note"><strong>Important:</strong> This feature requires Shopify's new customer accounts system. Legacy customer accounts are incompatible.</div>
+
+<h2>Steps to Enable the Customer UI Extension</h2>
+
+<h3>1. Open Theme Customizer</h3>
+<ol>
+<li>Navigate to <strong>Online Store</strong></li>
+<li>Select <strong>Themes</strong></li>
+<li>Click <strong>Customise</strong> on your active theme</li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69958ffdd9a1a02238d0e0cd/file-CZc5OHkRDC.png" alt="Theme customizer">
+
+<h3>2. Navigate to Customer Accounts</h3>
+<ol>
+<li>Use the top center dropdown to select <strong>Checkout and Customer Accounts</strong></li>
+<li>From the same dropdown, choose <strong>Customer Account</strong></li>
+<li>Select <strong>Orders</strong></li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69959110d9a1a02238d0e0d7/file-pn8yWim6cS.png" alt="Customer accounts dropdown">
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/699591196bf749ff6c2b8dfb/file-j5iHy17w3t.png" alt="Orders section">
+
+<h3>3. Add the App Extension</h3>
+<ol>
+<li>In the left sidebar, click <strong>Apps</strong></li>
+<li>Find the <strong>Customer Account UI Extension</strong></li>
+<li>Click <strong>Add</strong> to activate it</li>
+<li>Save your changes</li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/6995925ad9a1a02238d0e109/file-NZkEAGHlYa.png" alt="Apps panel">
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/699593736bf749ff6c2b8e5d/file-pitZiwZdzX.png" alt="Customer account UI extension">
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/699593a76bf749ff6c2b8e72/file-ybytI03xkq.png" alt="Add extension">
+
+<h2>Result</h2>
+<p>After completion, the Bulk Order experience activates within the customer account section.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/6995945dd9a1a02238d0e199/file-DhuRXRO6aL.png" alt="Bulk order interface">
+`
+      },
+
+      'bulk-order-access': {
+        title: 'Bulk Order Access Settings',
+        category: 'bulk-orders',
+        updated: 'March 13, 2026',
+        body: `
+<h2>How Bulk Order Access Settings Works</h2>
+<p>When <strong>Bulk Order</strong> is activated for <strong>"All" customers</strong>, the entire user base gains access to the bulk order portal within their account section. This includes both standard shoppers and members of specialized customer groups.</p>
+
+<h3>General Customers</h3>
+<p>Standard customers viewing the bulk order portal see the full product catalog, but pricing appears at regular rates without any promotional discounts applied.</p>
+
+<h3>Regular Customer Benefits</h3>
+<p>Regular customers leverage this portal as a <strong>quick order tool</strong>. Rather than navigating separate product pages and collections, they can add items and finalize purchases more efficiently, streamlining the checkout experience.</p>
+
+<h3>Wholesale/B2B Customer Benefits</h3>
+<p>Wholesale and B2B customers similarly use this portal as a <strong>quick order tool</strong> for expedited purchasing. However, their experience differs in one critical way:</p>
+<blockquote>Wholesale / B2B customers can view only the catalog products listed here, along with the prices assigned to them based on their customer group.</blockquote>
+<p>They cannot access products excluded from their assigned catalog, ensuring price integrity and inventory control.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/69b12d2ccde8713599ec5a5f/file-VRTGmonfga.png" alt="Bulk order access settings">
+`
+      },
+
+      'billing': {
+        title: 'Billing',
+        category: 'billing',
+        updated: 'January 2026',
+        body: `
+<h2>One Plan. Unlimited Access. Zero Restrictions.</h2>
+<p><strong>Try free trial for 60 Days!</strong></p>
+<h3>$24.95 USD/month</h3>
+
+<h2>Everything Included</h2>
+<p>No feature limits. No hidden caps. Full access from day one.</p>
+<ul>
+<li>Advanced wholesale B2B registration form</li>
+<li>CSV Wholesale B2B pricing import / export</li>
+<li>Bulk / Quick ordering portal</li>
+<li>Quantity & Volume pricing rules</li>
+<li>Custom pricing at product & variant level</li>
+<li>Manual order creation for sales teams</li>
+<li>Custom Shipping rules</li>
+<li>Net term checkout</li>
+<li>Dedicated onboarding assistance</li>
+<li>Access to all future feature releases</li>
+<li>Dedicated Support team</li>
+</ul>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/695e2edf9a2bf55712d128df/file-ospGzs8SJa.png" alt="NetWise billing interface">
+
+<h2>Frequently Asked Questions</h2>
+
+<h4>Is there really only one plan?</h4>
+<p>NetWise provides a single plan at $24.95 monthly with complete feature access from the beginning, with no restrictions.</p>
+
+<h4>Do you offer a free trial?</h4>
+<p>A 60-day complimentary trial period allows users to evaluate all features before committing financially.</p>
+
+<h4>Are there any feature limits or hidden charges?</h4>
+<p>No caps, usage restrictions, or undisclosed fees. All existing and upcoming features are included.</p>
+
+<h4>What happens after the free trial ends?</h4>
+<p>Users transition automatically to the standard $24.95/month subscription. Uninstalling the app incurs no charges.</p>
+
+<h4>Does this plan support wholesale and B2B pricing?</h4>
+<p>NetWise specifically supports B2B operations including custom pricing, volume discounts, quantity rules, and bulk ordering.</p>
+
+<h4>How many products can I manage with NetWise?</h4>
+<p>The platform accommodates up to 20,000 products including variants. Larger inventories receive specialized assistance.</p>
+
+<h4>Can I import pricing using CSV files?</h4>
+<p>CSV-based custom pricing imports enable large-scale pricing management.</p>
+
+<h4>Do you provide onboarding or setup support?</h4>
+<p>One-on-one onboarding, email support, and in-app chat assistance are provided.</p>
+
+<h4>Is NetWise branding visible on my store?</h4>
+<p>The storefront remains completely white-labeled without NetWise branding.</p>
+
+<h4>What kind of support do you offer?</h4>
+<p>Priority technical assistance through email and in-app chat ensures rapid issue resolution.</p>
+
+<h4>Will I get access to future features?</h4>
+<p>All future feature releases are automatically included at no extra cost.</p>
+
+<h4>Is NetWise compatible with my Shopify plan?</h4>
+<p>NetWise integrates with all non-Shopify Plus plans, serving growing and mid-market merchants.</p>
+
+<h4>Can I cancel anytime?</h4>
+<p>Yes. Cancel or uninstall directly through Shopify — no long-term contracts.</p>
+`
+      },
+
+      'app-embed': {
+        title: 'How to Enable the App Embed on Your Store',
+        category: 'theme-settings',
+        updated: 'January 2026',
+        body: `
+<h2>Overview</h2>
+<p>NetWise requires app embed activation to modify prices across your Shopify store's product displays.</p>
+
+<h2>Setup Instructions</h2>
+<p>Navigate to <strong>Online Store → Themes → Edit theme → App embeds</strong>, then activate <strong>NetWise: Theme Extension</strong> and save changes.</p>
+<p>Verify you've selected the correct theme and configured necessary settings beforehand.</p>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/6953bb17194028262d515382/file-3lasXnLhyQ.gif" alt="App embed activation process">
+
+<h2>Supported Themes</h2>
+<p>NetWise is fully compatible with 26+ Shopify themes, including:</p>
+<ul>
+<li>Dawn, Refresh, Impact, Vision, Canopy, Prestige</li>
+<li>Symmetry, Trade, Story, Honey, Impulse, Pursuit</li>
+<li>Atlantic, Shapes, Empire, Local, Ascent, Sleek</li>
+<li>Dwell, Stockmart, Xtra, Showcase, Crave, Atelier</li>
+<li>Be Yours, Sitar</li>
+</ul>
+
+<h2>Where App Embed is Required</h2>
+<ul>
+<li>Collection pages</li>
+<li>Product pages</li>
+<li>Search functionality</li>
+<li>Search results pages</li>
+</ul>
+
+<h2>Where App Embed is NOT Required</h2>
+<ul>
+<li>Cart drawer</li>
+<li>Cart page</li>
+<li>Checkout</li>
+</ul>
+<blockquote>The theme app embed is required to modify prices on the collection page, product page, search, and search results pages.</blockquote>
+
+<div class="note"><strong>Theme not listed?</strong> Contact support at hello@getnetwise.co for addition within 12–24 working hours.</div>
+`
+      },
+
+      'net-terms-theme': {
+        title: 'How to Enable Net Terms on Your Store',
+        category: 'theme-settings',
+        updated: 'January 9, 2026',
+        body: `
+<h2>Step 1: Access Your Online Store</h2>
+<ol>
+<li>Go to your store's dashboard</li>
+<li>Click on <strong>Online Store</strong></li>
+<li>Select <strong>Customize</strong> on your live theme</li>
+</ol>
+
+<h2>Step 2: Navigate to App Embeds</h2>
+<p>In the customization menu, look for three options: Sections, Theme Settings, and Apps. Click on <strong>App Embeds</strong>.</p>
+
+<h2>Step 3: Enable Net-Term Extension</h2>
+<ol>
+<li>Find the NetWise theme extension</li>
+<li>Ensure it is enabled</li>
+<li>Click on the arrow to select your theme</li>
+</ol>
+
+<h2>Step 4: Configure Net-Term Settings</h2>
+<ul>
+<li>Enable the Net-Term button by selecting <strong>"Yes"</strong></li>
+<li>Optionally, set a background color</li>
+<li>Center the text and adjust the font size as needed</li>
+</ul>
+
+<h2>Step 5: Customize Button Text</h2>
+<p>Choose the button text (e.g., "Pay Later" or "Net Term Checkout").</p>
+
+<h2>Step 6: Assign Net-Term to Customers</h2>
+<ul>
+<li>Go to the app and navigate to the customer section</li>
+<li>Select a customer to enable or disable Net-Term for them individually</li>
+<li>Save your changes</li>
+</ul>
+
+<h2>Visibility</h2>
+<blockquote>Net-Term will appear in the drawer cart and cart page. It is only visible to customers who are logged in and assigned to Net-Term.</blockquote>
+
+<p>The app automatically adapts to your store's CSS. If you do not want to offer Net-Term, set it to <strong>"No"</strong> in the settings.</p>
+`
+      },
+
+      'discount-table': {
+        title: 'How to Enable the Discount Table on the Product Page',
+        category: 'theme-settings',
+        updated: 'January 18, 2026',
+        body: `
+<h2>Step 1: Access Price List</h2>
+<p>Open the app and navigate to <strong>Price List</strong> section. Click on the <strong>Display Settings</strong> tab.</p>
+<img src="https://loom.com/i/4caf66d700c84f388c98e50219a83eca?workflows_screenshot=true" alt="Price list display settings">
+
+<h2>Step 2: Choose Discount Table Template</h2>
+<ul>
+<li>Select from 6 available templates for the discount table</li>
+<li>Pick the option that best serves your customers</li>
+<li>Click <strong>Save</strong></li>
+</ul>
+<img src="https://loom.com/i/4f2284e25df2401d8339bcf5a253cff3?workflows_screenshot=true" alt="Discount table template selection">
+
+<h2>Step 3: Configure Table Display Settings</h2>
+<ul>
+<li>Set the table display to <strong>Static Table View</strong></li>
+<li>Choose line style (solid or dotted) for borders</li>
+<li>Adjust border size and radius settings</li>
+<li>Set text alignment preferences</li>
+</ul>
+<img src="https://loom.com/i/9c102c2e515d441baf9d13b07015f7cd?workflows_screenshot=true" alt="Table display settings">
+
+<h2>Step 4: Add Branding Color</h2>
+<p>Optionally apply a branding color to the discount table and modify other color options as needed.</p>
+<img src="https://loom.com/i/04b86e7dd3b748639d88385f0c796c3f?workflows_screenshot=true" alt="Branding color settings">
+
+<h2>Step 5: Save Display Settings</h2>
+<p>Click <strong>Save</strong> after configuring all settings.</p>
+
+<h2>Step 6: Set Up Price Breaks in Catalog</h2>
+<ol>
+<li>Return to <strong>Price List</strong> and go to <strong>Catalog</strong></li>
+<li>Select your desired catalog (e.g., Wholesale 50)</li>
+<li>Add quantity breakups with pricing tiers (e.g., 1 unit at $250, 50 units at $200)</li>
+<li>Click <strong>Add Quantity</strong> for each pricing tier</li>
+</ol>
+<img src="https://loom.com/i/7cae108aa2784c449d7d91596198874c?workflows_screenshot=true" alt="Price breaks in catalog">
+
+<h2>Step 7: Add Discount Table to Product Page</h2>
+<ol>
+<li>Go to <strong>Online Store</strong> and select your live theme</li>
+<li>Choose a product to edit</li>
+<li>Decide table placement (e.g., below the buy button)</li>
+<li>Hover over the buy button and click the <strong>plus</strong> button</li>
+<li>Select <strong>Apps</strong> and choose your discount table app</li>
+<li>Save changes</li>
+</ol>
+<img src="https://loom.com/i/4a309539e526433db347437b99b9c01f?workflows_screenshot=true" alt="Add discount table to page">
+
+<h2>Step 8: Test the Discount Table</h2>
+<ol>
+<li>Log into your testing account with correct catalog assignment</li>
+<li>Refresh the store and navigate to the product</li>
+<li>Verify the discount table displays correctly</li>
+</ol>
+<img src="https://loom.com/i/ac8f87a3a73c419d9df6d1a52f0d15b8?workflows_screenshot=true" alt="Test discount table">
+<img src="https://loom.com/i/b159553954494f3aa2419e3ec7cf6ad9?workflows_screenshot=true" alt="Discount table result">
+`
+      },
+
+      'wholesale-email': {
+        title: 'Disable Shopify Welcome Email, Enable NetWise Wholesale Email',
+        category: 'theme-settings',
+        updated: 'January 30, 2026',
+        body: `
+<h2>Overview</h2>
+<p>This guide explains how to disable Shopify's default welcome email for customers tagged with NetWise B2B wholesale accounts.</p>
+
+<h2>Implementation</h2>
+<p>Insert the following Liquid code at the top of your email template:</p>
+<pre><code>{% if customer.tags contains 'netwise-b2b' %}
+  {% break %}
+{% endif %}</code></pre>
+<p>This conditional logic prevents the standard welcome email from being sent to wholesale customers.</p>
+
+<h2>Configuration Steps</h2>
+<ol>
+<li>Navigate to <strong>Settings</strong> in your Shopify admin</li>
+<li>Select <strong>Notifications</strong></li>
+<li>Choose <strong>Customer Notifications</strong></li>
+<li>Click on <strong>Customer account welcome</strong></li>
+<li>Select <strong>Edit Customer account welcome</strong></li>
+<li>Insert the Liquid code snippet at the beginning of the email template</li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/697c51fe8f22c979c9a74f36/file-dYPAcRRSlp.png" alt="Shopify notification settings">
+`
+      },
+
+      'new-customer-accounts': {
+        title: 'Enabling New Customer Accounts',
+        category: 'useful-info',
+        updated: 'February 18, 2026',
+        body: `
+<h2>Overview</h2>
+<p>The new Customer Accounts experience eliminates password requirements, streamlining login procedures while maintaining security. Users receive a unique verification code for each login attempt instead of managing passwords.</p>
+<div class="note"><strong>Important:</strong> This feature is mandatory for accessing the Bulk Order functionality within the app.</div>
+
+<h2>Setup Instructions</h2>
+<ol>
+<li>Navigate to your Shopify homepage and select <strong>Settings &gt; Customer accounts</strong></li>
+<li>Under <strong>Sign-in links</strong>, choose <strong>Customer account (Recommended)</strong></li>
+<li>Click <strong>Save</strong> to apply the changes</li>
+</ol>
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/699596866bf749ff6c2b8ef8/file-IrQh2F6PHp.png" alt="Settings configuration">
+<img src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/6499c376e6fd6d68c617eeea/images/6995968c6bf749ff6c2b8ef9/file-v3Bpayq8vD.png" alt="Customer account selection">
+`
+      }
+    };
+
+    // ===== NAVIGATION =====
+    const categoriesSection = document.getElementById('categoriesSection');
+    const searchResults = document.getElementById('searchResults');
+    const categoryView = document.getElementById('categoryView');
+    const articleView = document.getElementById('articleView');
+    const searchInput = document.getElementById('searchInput');
+
+    function hideAll() {
+      categoriesSection.style.display = 'none';
+      searchResults.classList.remove('active');
+      categoryView.classList.remove('active');
+      articleView.classList.remove('active');
+    }
+
+    function showHome() {
+      hideAll();
+      categoriesSection.style.display = '';
+      searchInput.value = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showCategory(catId) {
+      hideAll();
+      const cat = categories[catId];
+      document.getElementById('categoryTitle').textContent = cat.title;
+      document.getElementById('categoryDesc').textContent = cat.desc;
+      const list = document.getElementById('categoryArticles');
+      list.innerHTML = cat.articles.map(aId => {
+        const a = articles[aId];
+        return `<div class="article-list-item" onclick="showArticle('${aId}')">
+          <h4>${a.title}</h4>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>`;
+      }).join('');
+      categoryView.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showArticle(aId) {
+      hideAll();
+      const a = articles[aId];
+      const cat = categories[a.category];
+      document.getElementById('articleTitle').textContent = a.title;
+      document.getElementById('articleMeta').textContent = 'Last updated: ' + a.updated;
+      document.getElementById('articleBody').innerHTML = a.body;
+      const breadCat = document.getElementById('articleBreadcrumbCat');
+      breadCat.textContent = cat.title;
+      breadCat.setAttribute('onclick', `showCategory('${a.category}')`);
+      document.getElementById('articleBreadcrumbTitle').textContent = a.title;
+      articleView.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ===== SEARCH =====
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) { showHome(); return; }
+
+      const results = [];
+      for (const [id, a] of Object.entries(articles)) {
+        const cat = categories[a.category];
+        if (a.title.toLowerCase().includes(query) || a.body.toLowerCase().includes(query) || cat.title.toLowerCase().includes(query)) {
+          results.push({ id, ...a, catTitle: cat.title });
+        }
+      }
+
+      hideAll();
+      document.getElementById('searchResultsTitle').textContent = `Results for "${searchInput.value.trim()}"`;
+      const list = document.getElementById('searchResultsList');
+
+      if (results.length === 0) {
+        list.innerHTML = '<div class="no-results">No articles found. Try a different search term.</div>';
+      } else {
+        list.innerHTML = results.map(r => `
+          <div class="search-result-item" onclick="showArticle('${r.id}')">
+            <div class="result-category">${r.catTitle}</div>
+            <h4>${r.title}</h4>
+            <p>${r.updated ? 'Last updated: ' + r.updated : ''}</p>
+          </div>
+        `).join('');
+      }
+      searchResults.classList.add('active');
+    }
+
+    document.getElementById('searchBtn').addEventListener('click', performSearch);
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') performSearch(); });
+    document.getElementById('searchClear').addEventListener('click', showHome);
+  </script>
+
+</body>
+</html>

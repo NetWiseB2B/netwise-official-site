@@ -133,6 +133,21 @@
 
     .nav-links a:hover { color: var(--brand); }
 
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-trigger { cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; color: var(--text-body); transition: var(--transition); }
+    .nav-dropdown-trigger:hover { color: var(--brand); }
+    .nav-dropdown-arrow { display: inline-block; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 0.2s; }
+    .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(-135deg) translateY(1px); }
+    .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: var(--white); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); padding: 20px 8px 8px; min-width: 260px; z-index: 100; }
+    .nav-dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 20px; }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+    .nav-dropdown-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 8px; text-decoration: none; transition: background 0.15s; }
+    .nav-dropdown-item:hover { background: var(--gray-100); }
+    .nav-dropdown-icon { width: 42px; height: 42px; border-radius: 10px; background: #1a3c24; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .nav-dropdown-icon svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-dropdown-text strong { display: block; font-size: 15px; font-weight: 600; color: var(--text-dark); }
+    .nav-dropdown-text span { font-size: 13px; color: var(--text-body); font-weight: 400; }
+
     .nav-ctas {
       display: flex;
       align-items: center;
@@ -375,6 +390,10 @@
         padding: 8px 0;
         display: block;
       }
+      .nav-links.open .nav-dropdown-trigger { font-size: 32px; font-weight: 700; color: var(--text-dark); padding: 8px 0; }
+      .nav-links.open .nav-dropdown-menu { display: block; position: static; transform: none; box-shadow: none; background: transparent; padding: 0 0 0 8px; min-width: unset; }
+      .nav-links.open .nav-dropdown-item { padding: 8px 0; }
+      .nav-links.open .nav-dropdown-text strong { font-size: 18px; }
 
       .nav-links.open .mobile-menu-cta {
         display: block !important;
@@ -455,12 +474,25 @@
         <li><a href="../index.html#how" onclick="document.getElementById('navLinks').classList.remove('open'); if(window.Beacon) Beacon('init','af71785c-4204-4353-ba0c-159775152818');">How It Works</a></li>
         <li><a href="../index.html#pricing" onclick="document.getElementById('navLinks').classList.remove('open'); if(window.Beacon) Beacon('init','af71785c-4204-4353-ba0c-159775152818');">Pricing</a></li>
         <li><a href="../index.html#faq" onclick="document.getElementById('navLinks').classList.remove('open'); if(window.Beacon) Beacon('init','af71785c-4204-4353-ba0c-159775152818');">FAQ</a></li>
+        <li class="nav-dropdown">
+          <span class="nav-dropdown-trigger">Resources <span class="nav-dropdown-arrow"></span></span>
+          <div class="nav-dropdown-menu">
+            <a href="blog-1.html" class="nav-dropdown-item">
+              <div class="nav-dropdown-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+              <div class="nav-dropdown-text"><strong>Articles</strong><span>Read the latest updates</span></div>
+            </a>
+            <a href="../docs/index.html" class="nav-dropdown-item">
+              <div class="nav-dropdown-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+              <div class="nav-dropdown-text"><strong>Documentation</strong><span>Learn how to use NetWise</span></div>
+            </a>
+          </div>
+        </li>
         <li class="mobile-menu-cta">
           <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary">Install on Shopify <span class="btn-arrow">&rarr;</span></a>
         </li>
       </ul>
       <div class="nav-ctas">
-        <a href="#" class="btn btn-secondary" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>Book a Demo <span class="btn-arrow">&rarr;</span></a>
+        <a href="#" class="btn btn-secondary" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>Book a Demo</a>
         <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary">Install on Shopify <span class="btn-arrow">&rarr;</span></a>
       </div>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
