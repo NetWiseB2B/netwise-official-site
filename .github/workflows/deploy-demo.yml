@@ -1,9 +1,8 @@
-name: Deploy Demo Store to GitHub Pages
+name: Deploy Site + Demo Store to GitHub Pages
 
 on:
   push:
     branches: [main]
-    paths: [demo-store/**]
   workflow_dispatch:
 
 permissions:
@@ -27,16 +26,24 @@ jobs:
           cache: npm
           cache-dependency-path: demo-store/package-lock.json
 
-      - name: Install & Build
+      - name: Build demo store
         working-directory: demo-store
         run: |
           npm ci
           npm run build
           cp dist/index.html dist/404.html
 
+      - name: Combine landing page + demo store
+        run: |
+          mkdir -p _site/demo
+          # Copy landing page root files (everything except demo-store, node_modules, .git, .github)
+          rsync -a --exclude='demo-store' --exclude='node_modules' --exclude='.git' --exclude='.github' --exclude='_site' . _site/
+          # Copy demo store build into /demo/
+          cp -r demo-store/dist/* _site/demo/
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: demo-store/dist
+          path: _site
 
   deploy:
     needs: build
