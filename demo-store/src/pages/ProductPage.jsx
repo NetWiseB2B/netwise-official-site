@@ -6,10 +6,10 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
 const STOCK_CONFIG = {
-  in_stock: { color: 'bg-green-500', label: 'In stock' },
-  low_stock: { color: 'bg-yellow-500', label: 'Low stock' },
-  out_of_stock: { color: 'bg-red-500', label: 'Out of stock' },
-  pre_order: { color: 'bg-orange-500', label: 'Pre-order' },
+  in_stock: { dot: 'bg-green-500', text: 'text-green-600', label: 'In stock' },
+  low_stock: { dot: 'bg-yellow-500', text: 'text-yellow-600', label: 'Low stock' },
+  out_of_stock: { dot: 'bg-red-500', text: 'text-red-500', label: 'Out of stock' },
+  pre_order: { dot: 'bg-blue-500', text: 'text-blue-600', label: 'Pre-order' },
 };
 
 function VariantOrderTable({ product, onAddToCart }) {
@@ -26,6 +26,8 @@ function VariantOrderTable({ product, onAddToCart }) {
       return next;
     });
   };
+
+  const expandAll = () => setExpandedColors(new Set(product.variantColors || []));
 
   const setQty = (sku, val) => {
     const num = Math.max(0, parseInt(val) || 0);
@@ -69,18 +71,19 @@ function VariantOrderTable({ product, onAddToCart }) {
   };
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden text-[13px]">
-      {/* Table Header */}
-      <div className="grid grid-cols-[1fr_130px_70px_110px] bg-gray-50 border-b border-border px-3 py-2 text-[11px] font-semibold text-muted uppercase tracking-wider">
-        <div className="flex items-center gap-2">
-          Product / Variant
-          <span className="font-normal normal-case tracking-normal text-blue-500 cursor-pointer">Expand</span>
+    <div className="border border-border rounded-lg overflow-hidden">
+      {/* Header */}
+      <div className="grid grid-cols-[1fr_140px_80px_120px] border-b border-border px-4 py-2.5 text-[11px] font-semibold text-muted uppercase tracking-wider">
+        <div className="flex items-center gap-3">
+          <span>Product / Variant</span>
+          <button onClick={expandAll} className="font-normal normal-case tracking-normal text-blue-600 cursor-pointer hover:underline">Expand</button>
         </div>
         <div>Price</div>
         <div className="text-center">Stock</div>
         <div className="text-center">Qty</div>
       </div>
 
+      {/* Groups */}
       <div className="divide-y divide-border">
         {Object.entries(groupedVariants).map(([color, variants]) => {
           const isExpanded = expandedColors.has(color);
@@ -88,33 +91,31 @@ function VariantOrderTable({ product, onAddToCart }) {
           const colorVariantCount = variants.length;
           const prices = variants.map(v => v.price);
           const minP = Math.min(...prices);
-          const maxP = Math.max(...prices);
-          const priceRange = minP === maxP ? `$${minP.toFixed(2)}` : `$${minP.toFixed(2)} -\n$${maxP.toFixed(2)}`;
 
           return (
             <div key={color}>
               {/* Color Group Row */}
               <div
-                className="grid grid-cols-[1fr_130px_70px_110px] items-center px-3 py-2.5 cursor-pointer hover:bg-gray-50 transition-colors"
+                className="grid grid-cols-[1fr_140px_80px_120px] items-center px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors"
                 onClick={() => toggleColor(color)}
               >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded overflow-hidden bg-surface flex-shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-md overflow-hidden bg-surface flex-shrink-0 border border-gray-100">
                     <img src={product.image} alt="" className="w-full h-full object-cover" />
                   </div>
-                  <div className="leading-tight">
+                  <div>
                     <div className="flex items-center gap-1.5">
-                      <span className="font-semibold text-primary text-[13px]">{color}</span>
+                      <span className="font-bold text-primary text-[13px]">{color}</span>
                       {isExpanded
-                        ? <ChevronUp size={12} className="text-muted" />
-                        : <ChevronDown size={12} className="text-muted" />
+                        ? <ChevronUp size={13} className="text-muted" />
+                        : <ChevronDown size={13} className="text-muted" />
                       }
                     </div>
                     <span className="text-[11px] text-muted">{colorVariantCount} Variants</span>
                   </div>
                 </div>
-                <div className="text-[12px] text-primary font-medium whitespace-pre-line">{priceRange}</div>
-                <div className="text-center text-[12px] text-muted">{colorStock > 0 ? `${colorStock}+` : '0'}</div>
+                <div className="text-[13px] text-primary font-semibold">${minP.toFixed(2)}</div>
+                <div className="text-center text-[13px] text-muted">{colorStock > 0 ? `${colorStock}+` : '0'}</div>
                 <div />
               </div>
 
@@ -124,22 +125,21 @@ function VariantOrderTable({ product, onAddToCart }) {
                   {variants.map(variant => {
                     const qty = quantities[variant.sku] || 0;
                     const unitPrice = getVariantB2BPrice(variant, product, totalQty);
-                    const hasVolumeDiscount = unitPrice < variant.price;
                     const stockInfo = STOCK_CONFIG[variant.stock];
                     const isDisabled = variant.stock === 'out_of_stock';
 
                     return (
                       <div
                         key={variant.sku}
-                        className={`grid grid-cols-[1fr_130px_70px_110px] items-center px-3 py-2 ${isDisabled ? 'opacity-40' : ''}`}
+                        className={`grid grid-cols-[1fr_140px_80px_120px] items-center px-4 py-3 ${isDisabled ? 'opacity-40' : ''}`}
                       >
                         {/* Variant info */}
-                        <div className="flex items-center gap-2.5 pl-[46px]">
-                          <div className="w-9 h-9 rounded overflow-hidden bg-surface flex-shrink-0">
+                        <div className="flex items-center gap-3 pl-[52px]">
+                          <div className="w-10 h-10 rounded-md overflow-hidden bg-surface flex-shrink-0 border border-gray-100">
                             <img src={product.image} alt="" className="w-full h-full object-cover" />
                           </div>
-                          <div className="leading-tight">
-                            <div className="font-medium text-primary text-[12px]">{variant.name}</div>
+                          <div>
+                            <div className="font-semibold text-primary text-[13px]">{variant.name}</div>
                             <div className="text-[10px] text-muted leading-relaxed">
                               SKU: {variant.sku}<br />
                               CODE: {variant.code}
@@ -148,20 +148,41 @@ function VariantOrderTable({ product, onAddToCart }) {
                         </div>
 
                         {/* Price */}
-                        <div className="leading-tight">
-                          <div className="font-semibold text-primary text-[12px]">${unitPrice.toFixed(2)} USD</div>
-                          <div className="text-[10px] text-muted">MSRP ${variant.retailPrice.toFixed(2)} USD</div>
-                          {hasVolumeDiscount ? (
-                            <span className="text-[10px] text-blue-600 font-medium cursor-pointer hover:underline">Volume discount</span>
-                          ) : (
-                            <span className="text-[10px] text-blue-600 font-medium cursor-pointer hover:underline">Volume discount</span>
-                          )}
+                        <div>
+                          <div className="font-bold text-primary text-[13px]">${unitPrice.toFixed(2)} USD</div>
+                          <div className="text-[11px] text-muted line-through">MSRP ${variant.retailPrice.toFixed(2)} USD</div>
+                          <span className="relative group/vol inline-block">
+                            <span className="text-[11px] text-blue-600 cursor-pointer hover:underline">Volume discount</span>
+                            <div className="hidden group-hover/vol:block absolute bottom-full left-0 mb-1.5 z-20 bg-white border border-border rounded-lg shadow-xl min-w-[260px] animate-[fadeIn_0.15s_ease-out]">
+                              <table className="w-full text-[12px]">
+                                <thead>
+                                  <tr className="border-b border-border">
+                                    <th className="text-left px-3 py-2 font-semibold text-primary">Quantity</th>
+                                    <th className="text-left px-3 py-2 font-semibold text-primary">Price</th>
+                                    <th className="text-left px-3 py-2 font-semibold text-primary">Discount</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {product.quantityBreaks.map((tier, ti) => {
+                                    const disc = Math.round((1 - tier.price / variant.retailPrice) * 100);
+                                    return (
+                                      <tr key={ti} className="border-b border-gray-100 last:border-0">
+                                        <td className="px-3 py-1.5 text-primary">{tier.min}+</td>
+                                        <td className="px-3 py-1.5 text-primary font-medium">${tier.price.toFixed(2)}</td>
+                                        <td className="px-3 py-1.5">{disc > 0 ? <span className="text-blue-600">{disc}.0% Off</span> : <span className="text-muted">-</span>}</td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          </span>
                         </div>
 
                         {/* Stock */}
-                        <div className="flex items-center justify-center gap-1">
-                          <span className={`w-[6px] h-[6px] rounded-full flex-shrink-0 ${stockInfo.color}`} />
-                          <span className="text-[11px] text-muted">
+                        <div className="flex items-center justify-center gap-1.5">
+                          <span className={`w-[7px] h-[7px] rounded-full flex-shrink-0 ${stockInfo.dot}`} />
+                          <span className={`text-[13px] font-medium ${stockInfo.text}`}>
                             {variant.stockQty > 0 ? variant.stockQty : stockInfo.label}
                           </span>
                         </div>
@@ -170,28 +191,34 @@ function VariantOrderTable({ product, onAddToCart }) {
                         <div className="text-center">
                           {!isDisabled ? (
                             <div>
-                              <div className="inline-flex items-center">
+                              <div className="inline-flex items-center border border-border rounded-md overflow-hidden">
                                 <button
                                   onClick={() => setQty(variant.sku, qty - 1)}
-                                  className="w-6 h-6 flex items-center justify-center border border-border rounded-l text-muted hover:text-primary hover:bg-gray-50 text-[11px]"
+                                  className="w-7 h-7 flex items-center justify-center text-muted hover:text-primary hover:bg-gray-50 border-r border-border"
                                 >
-                                  <Minus size={10} />
+                                  <Minus size={12} />
                                 </button>
                                 <input
                                   type="number"
                                   value={qty || ''}
                                   placeholder="0"
                                   onChange={e => setQty(variant.sku, e.target.value)}
-                                  className="w-9 h-6 text-center text-[11px] border-y border-border focus:outline-none focus:border-b2b [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                  className="w-10 h-7 text-center text-[12px] font-semibold border-0 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 />
                                 <button
                                   onClick={() => setQty(variant.sku, qty + 1)}
-                                  className="w-6 h-6 flex items-center justify-center border border-border rounded-r text-muted hover:text-primary hover:bg-gray-50 text-[11px]"
+                                  className="w-7 h-7 flex items-center justify-center text-muted hover:text-primary hover:bg-gray-50 border-l border-border"
                                 >
-                                  <Plus size={10} />
+                                  <Plus size={12} />
                                 </button>
                               </div>
-                              <div className="text-[9px] text-blue-500 hover:underline cursor-pointer mt-0.5">Qty rules apply</div>
+                              <div className="relative group/qty inline-block mt-0.5">
+                                <span className="text-[10px] text-blue-500 hover:underline cursor-pointer">Qty rules apply</span>
+                                <div className="hidden group-hover/qty:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 z-20 bg-white border border-border rounded-lg shadow-xl min-w-[120px] px-3 py-2 animate-[fadeIn_0.15s_ease-out]">
+                                  <p className="text-[12px] text-primary font-medium whitespace-nowrap">Min: {product.quantityBreaks[0]?.min || 1}</p>
+                                  <p className="text-[12px] text-primary font-medium whitespace-nowrap">Max: {product.quantityBreaks[product.quantityBreaks.length - 1]?.min * 4 || 200}</p>
+                                </div>
+                              </div>
                             </div>
                           ) : (
                             <span className="text-[11px] text-muted">Unavailable</span>
@@ -208,25 +235,25 @@ function VariantOrderTable({ product, onAddToCart }) {
       </div>
 
       {/* Stock Legend */}
-      <div className="px-3 py-1.5 border-t border-border bg-gray-50 flex items-center gap-3 text-[10px] text-muted">
-        <span className="flex items-center gap-1"><span className="w-[6px] h-[6px] rounded-full bg-green-500" /> In stock</span>
-        <span className="flex items-center gap-1"><span className="w-[6px] h-[6px] rounded-full bg-red-500" /> Out of stock</span>
-        <span className="flex items-center gap-1"><span className="w-[6px] h-[6px] rounded-full bg-orange-500" /> Pre-order</span>
-        <span className="flex items-center gap-1"><span className="w-[6px] h-[6px] rounded-full bg-yellow-500" /> Low stock</span>
+      <div className="px-4 py-2 border-t border-border flex items-center gap-4 text-[11px] text-muted">
+        <span className="flex items-center gap-1.5"><span className="w-[7px] h-[7px] rounded-full bg-green-500" /> In stock</span>
+        <span className="flex items-center gap-1.5"><span className="w-[7px] h-[7px] rounded-full bg-red-500" /> Out of stock</span>
+        <span className="flex items-center gap-1.5"><span className="w-[7px] h-[7px] rounded-full bg-blue-500" /> Pre-order</span>
+        <span className="flex items-center gap-1.5"><span className="w-[7px] h-[7px] rounded-full bg-yellow-500" /> Low stock</span>
       </div>
 
       {/* Add to Cart Bar */}
-      <div className="px-3 py-2.5 bg-b2b">
+      <div className="px-4 py-3 border-t border-border">
         <button
           onClick={handleAddAll}
           disabled={totalQty === 0}
-          className={`w-full py-2.5 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all ${
+          className={`w-full py-3.5 rounded-lg font-bold text-[15px] flex items-center justify-center gap-2 transition-all ${
             totalQty > 0
-              ? 'bg-white text-b2b hover:bg-teal-50 cursor-pointer'
-              : 'bg-white/20 text-white/60 cursor-not-allowed'
+              ? 'bg-b2b text-white hover:bg-b2b-hover cursor-pointer'
+              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
           }`}
         >
-          <ShoppingCart size={16} />
+          <ShoppingCart size={18} />
           {totalQty > 0
             ? `Add to cart - $${totalPrice.toFixed(2)}`
             : 'Select quantities to add'
