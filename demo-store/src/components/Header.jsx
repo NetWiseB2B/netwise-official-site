@@ -3,6 +3,7 @@ import { ShoppingCart, User, LogOut, Building2, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { collections } from '../data/products';
+import logoSvg from '/netwise-logo.svg';
 import { useState } from 'react';
 
 export default function Header() {
@@ -18,7 +19,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="no-underline flex-shrink-0">
-            <img src="/netwise-logo.svg" alt="NetWise DEMO STORE" className="h-8" />
+            <img src={logoSvg} alt="NetWise DEMO STORE" className="h-8" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
