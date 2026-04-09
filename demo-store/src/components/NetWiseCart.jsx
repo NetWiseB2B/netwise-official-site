@@ -256,11 +256,49 @@ export default function NetWiseCart() {
 
                         {/* Qty rules + Volume discount */}
                         <div className="flex items-center gap-1 mt-2">
-                          <span className="text-[11px] text-muted">@</span>
-                          <span className="text-[11px] text-blue-600 cursor-pointer hover:underline">Qty rules apply</span>
+                          <span className="relative group/qty inline-flex items-center gap-1">
+                            <span className="text-[11px] text-muted">@</span>
+                            <span className="text-[11px] text-blue-600 cursor-pointer hover:underline">Qty rules apply</span>
+                            {/* Qty rules popover */}
+                            <div className="hidden group-hover/qty:block absolute bottom-full left-0 mb-1.5 z-20 bg-white border border-border rounded-lg shadow-xl min-w-[140px] px-3.5 py-2.5 animate-[fadeIn_0.15s_ease-out]">
+                              <p className="text-[13px] text-primary font-medium">Min: {item.product.quantityBreaks[0]?.min || 1}</p>
+                              <p className="text-[13px] text-primary font-medium">Max: {item.product.quantityBreaks[item.product.quantityBreaks.length - 1]?.min * 4 || 200}</p>
+                            </div>
+                          </span>
                           <span className="text-[11px] text-muted mx-0.5">|</span>
                           <span className="text-[11px] text-muted">@</span>
-                          <span className="text-[11px] text-blue-600 cursor-pointer hover:underline">Volume discount</span>
+                          <span className="relative group/vol inline-block">
+                            <span className="text-[11px] text-blue-600 cursor-pointer hover:underline">Volume discount</span>
+                            {/* Volume discount popover */}
+                            <div className="hidden group-hover/vol:block absolute bottom-full left-0 mb-1.5 z-20 bg-white border border-border rounded-lg shadow-xl min-w-[280px] animate-[fadeIn_0.15s_ease-out]">
+                              <table className="w-full text-[13px]">
+                                <thead>
+                                  <tr className="border-b border-border">
+                                    <th className="text-left px-3.5 py-2.5 font-semibold text-primary">Quantity</th>
+                                    <th className="text-left px-3.5 py-2.5 font-semibold text-primary">Price</th>
+                                    <th className="text-left px-3.5 py-2.5 font-semibold text-primary">Discount</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {item.product.quantityBreaks.map((tier, ti) => {
+                                    const discount = Math.round((1 - tier.price / item.retailPrice) * 100);
+                                    return (
+                                      <tr key={ti} className="border-b border-gray-100 last:border-0">
+                                        <td className="px-3.5 py-2 text-primary">{tier.min}+</td>
+                                        <td className="px-3.5 py-2 text-primary font-medium">${tier.price.toFixed(2)}</td>
+                                        <td className="px-3.5 py-2">
+                                          {discount > 0
+                                            ? <span className="text-blue-600 font-medium">{discount}.0% Off</span>
+                                            : <span className="text-muted">-</span>
+                                          }
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          </span>
                         </div>
                       </div>
                     </div>
