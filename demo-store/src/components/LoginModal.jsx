@@ -56,9 +56,7 @@ export default function LoginModal() {
 
           <div className="bg-b2b-light border border-b2b/10 rounded-lg p-3 mt-4">
             <p className="text-xs text-b2b leading-relaxed">
-              <strong>Demo Mode:</strong> Click "Sign In" to see the B2B experience.
-              No real credentials are needed. This demonstrates how your B2B customers
-              will see wholesale pricing, quantity breaks, and the NetWise cart.
+              This login is for demonstration purposes only. The Shopify login experience may differ from what you see here, as Shopify uses its new customer account login system.
             </p>
           </div>
         </div>

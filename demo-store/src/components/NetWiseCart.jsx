@@ -1,4 +1,4 @@
-import { X, Minus, Plus, Trash2, ShoppingCart, Search, ChevronDown, Maximize2, Minimize2, ArrowLeft } from 'lucide-react';
+import { X, Minus, Plus, Trash2, ShoppingCart, Search, ChevronDown, Maximize2, Minimize2, ArrowLeft, Info, BadgePercent } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { products } from '../data/products';
@@ -20,28 +20,54 @@ export default function NetWiseCart() {
   const [showSearch, setShowSearch] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [showAddAddress, setShowAddAddress] = useState(false);
-  const [showActions, setShowActions] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('net_terms');
+
+  const [searchQtys, setSearchQtys] = useState({});
 
   const searchResults = useMemo(() => {
     if (!searchQuery || searchQuery.length < 2) return [];
     const q = searchQuery.toLowerCase();
-    const results = [];
+    const matched = [];
     for (const p of products) {
-      for (const v of p.variants) {
-        if (
-          v.name.toLowerCase().includes(q) ||
-          v.sku.toLowerCase().includes(q) ||
-          p.name.toLowerCase().includes(q)
-        ) {
-          results.push({ product: p, variant: v });
+      const matchedVariants = p.variants.filter(v =>
+        v.name.toLowerCase().includes(q) ||
+        v.sku.toLowerCase().includes(q) ||
+        v.code?.toLowerCase().includes(q) ||
+        p.name.toLowerCase().includes(q)
+      );
+      if (matchedVariants.length > 0) {
+        // Group by color
+        const colors = [...new Set(matchedVariants.map(v => v.name.split(' / ')[1] || v.name))];
+        for (const color of colors) {
+          const colorVariants = matchedVariants.filter(v => v.name.includes(color));
+          matched.push({ product: p, color, variants: colorVariants });
         }
-        if (results.length >= 6) break;
       }
-      if (results.length >= 6) break;
+      if (matched.length >= 4) break;
     }
-    return results;
+    return matched;
   }, [searchQuery]);
+
+  const searchTotalItems = useMemo(() =>
+    Object.values(searchQtys).reduce((s, q) => s + q, 0),
+  [searchQtys]);
+
+  const setSearchQty = (sku, val) => {
+    const num = Math.max(0, parseInt(val) || 0);
+    setSearchQtys(prev => ({ ...prev, [sku]: num }));
+  };
+
+  const handleSearchAddAll = () => {
+    for (const group of searchResults) {
+      for (const v of group.variants) {
+        const qty = searchQtys[v.sku] || 0;
+        if (qty > 0) addItem(group.product, qty, v.name);
+      }
+    }
+    setSearchQtys({});
+    setSearchQuery('');
+    setShowSearch(false);
+  };
 
   if (!isCartOpen) return null;
 
@@ -120,44 +146,88 @@ export default function NetWiseCart() {
                 className="w-full pl-8 pr-3 py-2 border border-border rounded-lg text-[13px] focus:outline-none focus:border-b2b focus:ring-1 focus:ring-b2b/20"
               />
               {showSearch && searchResults.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-border rounded-lg shadow-lg z-10 max-h-64 overflow-y-auto">
-                  {searchResults.map(({ product, variant }) => (
-                    <button
-                      key={variant.sku}
-                      onClick={() => handleSearchAdd(product, variant)}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 hover:bg-gray-50 text-left border-b border-gray-50 last:border-0"
-                    >
-                      <div className="w-8 h-8 rounded overflow-hidden bg-surface flex-shrink-0">
-                        <img src={product.image} alt="" className="w-full h-full object-cover" />
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-border rounded-xl shadow-xl z-10 max-h-[420px] overflow-y-auto">
+                  {searchResults.map(({ product, color, variants }) => (
+                    <div key={`${product.id}-${color}`} className="border-b border-border last:border-0">
+                      {/* Color group header */}
+                      <div className="flex items-center gap-2.5 px-4 py-3 bg-gray-50">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-surface flex-shrink-0">
+                          <img src={product.image} alt="" className="w-full h-full object-cover object-top" />
+                        </div>
+                        <span className="font-bold text-primary text-[14px]">{color}</span>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="text-[12px] font-medium text-primary truncate">{product.name}</div>
-                        <div className="text-[10px] text-muted">{variant.name} &middot; {variant.sku}</div>
-                      </div>
-                      <div className="text-[12px] font-semibold text-primary">${variant.price.toFixed(2)}</div>
-                    </button>
+                      {/* Variant rows */}
+                      {variants.map(variant => {
+                        const qty = searchQtys[variant.sku] || 0;
+                        const stockCfg = STOCK_CONFIG[variant.stock];
+                        return (
+                          <div key={variant.sku} className="grid grid-cols-[1fr_100px_80px_110px] items-center px-4 py-2.5 border-t border-gray-100">
+                            <div>
+                              <div className="text-[13px] font-medium text-primary">{variant.name}</div>
+                              <div className="text-[11px] text-muted">SKU: {variant.sku}</div>
+                            </div>
+                            <div>
+                              <div className="text-[13px] font-semibold text-primary">${variant.price.toFixed(2)} USD</div>
+                              <div className="text-[11px] text-muted">${variant.retailPrice.toFixed(2)} USD</div>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <span className={`w-[7px] h-[7px] rounded-full ${stockCfg.color}`} />
+                              <span className={`text-[12px] font-medium ${stockCfg.textColor}`}>
+                                {variant.stockQty > 100 ? '100+' : variant.stockQty > 0 ? `${variant.stockQty}+` : stockCfg.label}
+                              </span>
+                            </div>
+                            <div className="flex justify-end">
+                              <div className="inline-flex items-center border border-border rounded">
+                                <button onClick={() => setSearchQty(variant.sku, qty - 1)} className="w-8 h-8 flex items-center justify-center text-muted hover:text-primary text-[14px]">–</button>
+                                <input
+                                  type="number"
+                                  value={qty || ''}
+                                  placeholder="0"
+                                  onChange={e => setSearchQty(variant.sku, e.target.value)}
+                                  className="w-10 h-8 text-center text-[13px] font-medium border-x border-border focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                />
+                                <button onClick={() => setSearchQty(variant.sku, qty + 1)} className="w-8 h-8 flex items-center justify-center text-muted hover:text-primary text-[14px]">+</button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   ))}
+                  {/* Footer */}
+                  <div className="sticky bottom-0 bg-white border-t border-border px-4 py-3 flex items-center justify-between">
+                    <div>
+                      <div className="text-[11px] text-muted">Total selected items</div>
+                      <div className="text-[15px] font-bold text-primary">{searchTotalItems}</div>
+                    </div>
+                    <button
+                      onClick={handleSearchAddAll}
+                      disabled={searchTotalItems === 0}
+                      className={`px-6 py-2.5 rounded-lg font-semibold text-[14px] transition-all ${
+                        searchTotalItems > 0
+                          ? 'bg-b2b text-white hover:bg-b2b-hover cursor-pointer'
+                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      }`}
+                    >
+                      + Add
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
-            <div className="relative flex-shrink-0">
-              <button
-                onClick={() => setShowActions(prev => !prev)}
-                className="px-3 py-2 border border-border rounded-lg text-[13px] text-muted hover:text-primary hover:border-gray-300 flex items-center gap-1.5"
-              >
+            <div className="relative group/actions flex-shrink-0">
+              <button className="px-3 py-2 border border-border rounded-lg text-[13px] text-muted hover:text-primary hover:border-gray-300 flex items-center gap-1.5">
                 Actions
                 <ChevronDown size={12} />
               </button>
-              {showActions && (
-                <div className="absolute right-0 top-full mt-1 bg-white border border-border rounded-lg shadow-lg z-10 min-w-[160px] overflow-hidden">
-                  <button
-                    onClick={() => { clearCart(); setShowActions(false); }}
-                    className="w-full text-left px-4 py-3 text-[14px] text-red-700 hover:bg-gray-50 transition-colors"
-                  >
-                    Clear cart
-                  </button>
-                </div>
-              )}
+              <div className="absolute right-0 top-full mt-1 z-50 hidden group-hover/actions:block bg-white border border-border rounded-lg shadow-lg min-w-[140px] py-1">
+                <button
+                  onClick={clearCart}
+                  className="w-full text-left px-3 py-2 text-[13px] text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
+                >
+                  <Trash2 size={13} /> Clear cart
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -197,8 +267,7 @@ export default function NetWiseCart() {
                           </div>
                           <div className="text-right flex-shrink-0">
                             <div className="text-[14px] font-bold text-primary">${item.lineTotal.toFixed(2)} USD</div>
-                            <div className="text-[11px] text-muted line-through">${(item.retailPrice * item.quantity).toFixed(2)} USD</div>
-                            <div className="text-[11px] text-muted">${item.unitPrice.toFixed(2)} USD Per unit</div>
+                            <div className="text-[11px] text-muted">MRP ${(item.retailPrice * item.quantity).toFixed(2)} USD</div>
                           </div>
                         </div>
 
@@ -256,49 +325,45 @@ export default function NetWiseCart() {
 
                         {/* Qty rules + Volume discount */}
                         <div className="flex items-center gap-1 mt-2">
-                          <span className="relative group/qty inline-flex items-center gap-1">
-                            <span className="text-[11px] text-muted">@</span>
-                            <span className="text-[11px] text-blue-600 cursor-pointer hover:underline">Qty rules apply</span>
-                            {/* Qty rules popover */}
-                            <div className="hidden group-hover/qty:block absolute bottom-full left-0 mb-1.5 z-20 bg-white border border-border rounded-lg shadow-xl min-w-[140px] px-3.5 py-2.5 animate-[fadeIn_0.15s_ease-out]">
-                              <p className="text-[13px] text-primary font-medium">Min: {item.product.quantityBreaks[0]?.min || 1}</p>
-                              <p className="text-[13px] text-primary font-medium">Max: {item.product.quantityBreaks[item.product.quantityBreaks.length - 1]?.min * 4 || 200}</p>
+                          <div className="relative group/qtyr inline-flex items-center gap-0.5">
+                            <Info size={11} className="text-muted" />
+                            <span className="text-[11px] text-blue-600 cursor-pointer">Qty rules apply</span>
+                            <div className="absolute left-0 bottom-full mb-1 z-50 hidden group-hover/qtyr:block bg-white border border-border rounded-lg shadow-lg px-3 py-2 min-w-[100px]">
+                              <div className="text-[11px] text-primary leading-relaxed">
+                                <div>Min: {item.product.quantityBreaks[0]?.min || 1}</div>
+                                <div>Max: {item.product.quantityBreaks[item.product.quantityBreaks.length - 1]?.max || item.product.quantityBreaks[item.product.quantityBreaks.length - 1]?.min * 4}</div>
+                              </div>
                             </div>
-                          </span>
+                          </div>
                           <span className="text-[11px] text-muted mx-0.5">|</span>
-                          <span className="text-[11px] text-muted">@</span>
-                          <span className="relative group/vol inline-block">
-                            <span className="text-[11px] text-blue-600 cursor-pointer hover:underline">Volume discount</span>
-                            {/* Volume discount popover */}
-                            <div className="hidden group-hover/vol:block absolute bottom-full left-0 mb-1.5 z-20 bg-white border border-border rounded-lg shadow-xl min-w-[280px] animate-[fadeIn_0.15s_ease-out]">
-                              <table className="w-full text-[13px]">
+                          <div className="relative group/vold inline-flex items-center gap-0.5">
+                            <BadgePercent size={11} className="text-blue-600" />
+                            <span className="text-[11px] text-blue-600 cursor-pointer">Volume discount</span>
+                            <div className="absolute left-0 bottom-full mb-1 z-50 hidden group-hover/vold:block bg-white border border-border rounded-lg shadow-lg p-0 min-w-[220px]">
+                              <table className="w-full text-[11px]">
                                 <thead>
                                   <tr className="border-b border-border">
-                                    <th className="text-left px-3.5 py-2.5 font-semibold text-primary">Quantity</th>
-                                    <th className="text-left px-3.5 py-2.5 font-semibold text-primary">Price</th>
-                                    <th className="text-left px-3.5 py-2.5 font-semibold text-primary">Discount</th>
+                                    <th className="text-left font-semibold text-primary px-3 py-2">Quantity</th>
+                                    <th className="text-left font-semibold text-primary px-3 py-2">Price</th>
+                                    <th className="text-left font-semibold text-primary px-3 py-2">Discount</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {item.product.quantityBreaks.map((tier, ti) => {
-                                    const discount = Math.round((1 - tier.price / item.retailPrice) * 100);
+                                  {item.product.quantityBreaks.map((qb, i) => {
+                                    const basePrice = item.product.quantityBreaks[0].price;
+                                    const discount = i === 0 ? 0 : Math.round(((basePrice - qb.price) / basePrice) * 100 * 10) / 10;
                                     return (
-                                      <tr key={ti} className="border-b border-gray-100 last:border-0">
-                                        <td className="px-3.5 py-2 text-primary">{tier.min}+</td>
-                                        <td className="px-3.5 py-2 text-primary font-medium">${tier.price.toFixed(2)}</td>
-                                        <td className="px-3.5 py-2">
-                                          {discount > 0
-                                            ? <span className="text-blue-600 font-medium">{discount}.0% Off</span>
-                                            : <span className="text-muted">-</span>
-                                          }
-                                        </td>
+                                      <tr key={i} className="border-b border-gray-100 last:border-0">
+                                        <td className="px-3 py-1.5 font-semibold text-primary">{qb.min}+</td>
+                                        <td className="px-3 py-1.5 font-semibold text-primary">${qb.price.toFixed(2)}</td>
+                                        <td className="px-3 py-1.5 font-semibold text-blue-600">{i === 0 ? '-' : `${discount}% Off`}</td>
                                       </tr>
                                     );
                                   })}
                                 </tbody>
                               </table>
                             </div>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </div>

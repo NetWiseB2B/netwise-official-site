@@ -10,6 +10,7 @@ import NetWiseCart from './components/NetWiseCart';
 import HomePage from './pages/HomePage';
 import CollectionPage from './pages/CollectionPage';
 import ProductPage from './pages/ProductPage';
+import B2BApplicationPage from './pages/B2BApplicationPage';
 
 function CartSwitch() {
   const { isLoggedIn } = useAuth();
@@ -27,6 +28,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/collections/:handle" element={<CollectionPage />} />
               <Route path="/products/:handle" element={<ProductPage />} />
+              <Route path="/b2b-application" element={<B2BApplicationPage />} />
             </Routes>
           </main>
           <Footer />

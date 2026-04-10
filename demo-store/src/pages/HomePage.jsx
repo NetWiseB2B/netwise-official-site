@@ -15,7 +15,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="" className="w-full h-full object-cover" />
+          <img src={HERO_IMG} alt="" className="w-full h-full object-cover object-top" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-24 sm:py-36">
@@ -81,10 +81,10 @@ export default function HomePage() {
               <Link
                 key={collection.id}
                 to={`/collections/${collection.handle}`}
-                className="group relative rounded-xl overflow-hidden aspect-[4/3] no-underline"
+                className="group relative rounded-xl overflow-hidden aspect-[3/4] no-underline"
               >
                 {previewImg && (
-                  <img src={previewImg} alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={previewImg} alt="" className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -119,24 +119,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* B2B CTA (guest only) */}
-      {!isLoggedIn && (
-        <section className="bg-gradient-to-r from-b2b to-b2b-hover text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 text-center">
-            <h2 className="text-3xl font-bold">Unlock B2B Pricing</h2>
-            <p className="text-pink-200 mt-3 max-w-lg mx-auto">
-              Sign in with your business account to access wholesale prices,
-              volume discounts, and Net 30 payment terms.
-            </p>
-            <button
-              onClick={() => setShowLoginModal(true)}
-              className="mt-6 px-8 py-3 bg-b2b-gold text-primary font-semibold rounded-lg hover:bg-amber-400 transition-colors"
-            >
-              Access B2B Account
-            </button>
-          </div>
-        </section>
-      )}
     </div>
   );
 }

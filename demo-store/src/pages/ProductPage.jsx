@@ -552,11 +552,11 @@ export default function ProductPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Images */}
           <div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-surface mb-3">
+            <div className="aspect-[3/4] rounded-2xl overflow-hidden bg-surface mb-3">
               <img
                 src={product.images[selectedImage] || product.image}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
               />
             </div>
             {product.images.length > 1 && (

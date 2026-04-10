@@ -3,7 +3,6 @@ import { ShoppingCart, User, LogOut, Building2, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { collections } from '../data/products';
-import logoSvg from '/netwise-logo.svg';
 import { useState } from 'react';
 
 export default function Header() {
@@ -16,27 +15,33 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white border-b border-border">
 
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
+          <div className="flex items-center gap-6">
           <Link to="/" className="no-underline flex-shrink-0">
-            <img src={logoSvg} alt="NetWise DEMO STORE" className="h-8" />
+            <img src="/netwise-logo.svg" alt="NetWise DEMO STORE" className="h-8" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
-            {collections.map(c => (
+            {[
+              { label: 'Catalog', to: '/collections/all' },
+              { label: 'B2B Application', to: '/b2b-application' },
+              { label: 'Quick Order', to: '/quick-order' },
+            ].map(item => (
               <Link
-                key={c.id}
-                to={`/collections/${c.handle}`}
+                key={item.label}
+                to={item.to}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors no-underline ${
-                  location.pathname === `/collections/${c.handle}`
+                  location.pathname === item.to
                     ? 'bg-gray-100 text-primary'
                     : 'text-muted hover:text-primary hover:bg-gray-50'
                 }`}
               >
-                {c.name}
+                {item.label}
               </Link>
             ))}
           </nav>
+          </div>
 
           <div className="flex items-center gap-2">
             {isLoggedIn ? (
@@ -80,18 +85,22 @@ export default function Header() {
 
         {mobileMenuOpen && (
           <nav className="md:hidden pb-4 border-t border-border pt-2">
-            {collections.map(c => (
+            {[
+              { label: 'Catalog', to: '/collections/all' },
+              { label: 'B2B Application', to: '/b2b-application' },
+              { label: 'Quick Order', to: '/quick-order' },
+            ].map(item => (
               <Link
-                key={c.id}
-                to={`/collections/${c.handle}`}
+                key={item.label}
+                to={item.to}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2.5 rounded-lg text-sm font-medium no-underline ${
-                  location.pathname === `/collections/${c.handle}`
+                  location.pathname === item.to
                     ? 'bg-gray-100 text-primary'
                     : 'text-muted hover:text-primary'
                 }`}
               >
-                {c.name}
+                {item.label}
               </Link>
             ))}
           </nav>

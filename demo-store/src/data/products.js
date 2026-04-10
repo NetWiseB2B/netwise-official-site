@@ -1,4 +1,4 @@
-const HORIZON_CDN = 'https://theme-horizon-demo.myshopify.com/cdn/shop/files';
+const FABRIC_CDN = 'https://theme-fabric-demo.myshopify.com/cdn/shop/files';
 
 export const collections = [
   { id: 'all', name: 'All Products', handle: 'all' },
@@ -16,11 +16,11 @@ export const products = [
     collection: 'knitwear',
     price: 289.00,
     b2bPrice: 195.00,
-    image: `${HORIZON_CDN}/M32413CA01-PUMICE_02.jpg?v=1746043559&width=800`,
+    image: `${FABRIC_CDN}/Women_sHamatahSweater_GoldenOak1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/M32413CA01-PUMICE_02.jpg?v=1746043559&width=800`,
-      `${HORIZON_CDN}/M32413CA01-PUMICE_03_1.jpg?v=1746043559&width=800`,
-      `${HORIZON_CDN}/M32413CA01-BLACK_04.jpg?v=1754057526&width=800`,
+      `${FABRIC_CDN}/Women_sHamatahSweater_GoldenOak1.jpg?width=800`,
+      `${FABRIC_CDN}/Women_sHamatahSweater_RacingGreen1.jpg?width=800`,
+      `${FABRIC_CDN}/Women_sHamatahSweater_Fuchsia1.jpg?width=800`,
     ],
     description: 'Luxurious shaggy wool cardigan with an oversized fit. Crafted from premium Italian wool blend for warmth and texture. Perfect layering piece for the season.',
     variants: [
@@ -50,11 +50,11 @@ export const products = [
     collection: 'tops',
     price: 149.00,
     b2bPrice: 99.00,
-    image: `${HORIZON_CDN}/WF2413PO01-BLACK_07.jpg?v=1746043241&width=800`,
+    image: `${FABRIC_CDN}/Women_sEssentialCrew_OatMelange1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/WF2413PO01-BLACK_07.jpg?v=1746043241&width=800`,
-      `${HORIZON_CDN}/BKM64010_c01.jpg?v=1746043241&width=800`,
-      `${HORIZON_CDN}/WF2413PO01-BLACK_08.jpg?v=1746043241&width=800`,
+      `${FABRIC_CDN}/Women_sEssentialCrew_OatMelange1.jpg?width=800`,
+      `${FABRIC_CDN}/WomensEssentialCrew-Fog-1.jpg?width=800`,
+      `${FABRIC_CDN}/WomensEssentialCrew-Violet-1.jpg?width=800`,
     ],
     description: 'A refined lightweight turtleneck crafted from ultra-soft pima cotton. Slim silhouette with ribbed cuffs and hem for a polished everyday look.',
     variants: [
@@ -83,11 +83,11 @@ export const products = [
     collection: 'knitwear',
     price: 245.00,
     b2bPrice: 165.00,
-    image: `${HORIZON_CDN}/L4_090_1607fd19-2ec3-4692-86a9-a363a93bceaa.jpg?v=1744824362&width=800`,
+    image: `${FABRIC_CDN}/TefnutBeachHoodie_Black1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/L4_090_1607fd19-2ec3-4692-86a9-a363a93bceaa.jpg?v=1744824362&width=800`,
-      `${HORIZON_CDN}/L4_103_af4a2923-839b-498b-80fc-46a5b5bf1f4e.jpg?v=1744824363&width=800`,
-      `${HORIZON_CDN}/L4_100_122539cd-c8f1-4650-8d39-40f48864aa66.jpg?v=1744824363&width=800`,
+      `${FABRIC_CDN}/TefnutBeachHoodie_Black1.jpg?width=800`,
+      `${FABRIC_CDN}/TefnutBeachHoodie_Plum1.jpg?width=800`,
+      `${FABRIC_CDN}/TefnutBeachHoodie_Midnight1_12c2bcad-803a-4966-b88e-d86d37a2b0ab.jpg?width=800`,
     ],
     description: 'Soft and textured mohair-blend shaggy knit sweater. Relaxed fit with a cozy hand-feel. A statement piece that adds depth to any outfit.',
     variants: [
@@ -116,11 +116,11 @@ export const products = [
     collection: 'tops',
     price: 89.00,
     b2bPrice: 59.00,
-    image: `${HORIZON_CDN}/WF2429LT01-FRENCH-VANILLA_08.jpg?v=1746042086&width=800`,
+    image: `${FABRIC_CDN}/Women_sSetLongsleeve_Black2.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/WF2429LT01-FRENCH-VANILLA_08.jpg?v=1746042086&width=800`,
-      `${HORIZON_CDN}/BKM64110_c83.jpg?v=1746042086&width=800`,
-      `${HORIZON_CDN}/WF2429LT01-FRENCH-VANILLA_05.jpg?v=1746042086&width=800`,
+      `${FABRIC_CDN}/Women_sSetLongsleeve_Black2.jpg?width=800`,
+      `${FABRIC_CDN}/Women_sSetLongsleeve_Marshmallow2.jpg?width=800`,
+      `${FABRIC_CDN}/Women_sSetLongsleeve_Plum1.jpg?width=800`,
     ],
     description: 'Textured waffle-knit long sleeve tee with tonal stripes. Lightweight and breathable cotton construction. A versatile layering essential.',
     variants: [
@@ -149,11 +149,11 @@ export const products = [
     collection: 'outerwear',
     price: 329.00,
     b2bPrice: 225.00,
-    image: `${HORIZON_CDN}/M00034DE01-INDIGO_02.jpg?v=1752254127&width=800`,
+    image: `${FABRIC_CDN}/Women_sTefnutBeachJacket_Plum1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/M00034DE01-INDIGO_02.jpg?v=1752254127&width=800`,
-      `${HORIZON_CDN}/BBL64080_m.jpg?v=1746043758&width=800`,
-      `${HORIZON_CDN}/M00034DE01-INDIGO_05.jpg?v=1746043758&width=800`,
+      `${FABRIC_CDN}/Women_sTefnutBeachJacket_Plum1.jpg?width=800`,
+      `${FABRIC_CDN}/Women_sTefnutBeachJacket_Black1.jpg?width=800`,
+      `${FABRIC_CDN}/Men_sTefnutBeachJacket_Sycamore1.jpg?width=800`,
     ],
     description: 'Classic denim jacket in premium Japanese selvedge denim. Tailored fit with copper hardware and contrast stitching. A timeless wardrobe staple.',
     variants: [
@@ -183,11 +183,11 @@ export const products = [
     collection: 'knitwear',
     price: 395.00,
     b2bPrice: 269.00,
-    image: `${HORIZON_CDN}/W32413PO02-ASH-HEATHER_08.jpg?v=1746043236&width=800`,
+    image: `${FABRIC_CDN}/WomensEssentialCrew-RacingGreen-1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/W32413PO02-ASH-HEATHER_08.jpg?v=1746043236&width=800`,
-      `${HORIZON_CDN}/BKM64020_m.jpg?v=1746043236&width=800`,
-      `${HORIZON_CDN}/W32413PO02-ASH-HEATHER_01.jpg?v=1746043236&width=800`,
+      `${FABRIC_CDN}/WomensEssentialCrew-RacingGreen-1.jpg?width=800`,
+      `${FABRIC_CDN}/WomensEssentialCrew-WhiteSand-1.jpg?width=800`,
+      `${FABRIC_CDN}/WomensEssentialCrew-Porcini-1.jpg?width=800`,
     ],
     description: 'Premium cashmere half-zip sweater with a relaxed silhouette. Incredibly soft hand-feel with ribbed collar and cuffs. Elevates any casual ensemble.',
     variants: [
@@ -216,11 +216,11 @@ export const products = [
     collection: 'tops',
     price: 119.00,
     b2bPrice: 79.00,
-    image: `${HORIZON_CDN}/MF2420PL02-FERN_08.jpg?v=1746043607&width=800`,
+    image: `${FABRIC_CDN}/Men_sLinenCampShirt_NaturalEmbroidery1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/MF2420PL02-FERN_08.jpg?v=1746043607&width=800`,
-      `${HORIZON_CDN}/BBM64200_c34.jpg?v=1746043607&width=800`,
-      `${HORIZON_CDN}/MF2420PL02-FERN_02.jpg?v=1746043607&width=800`,
+      `${FABRIC_CDN}/Men_sLinenCampShirt_NaturalEmbroidery1.jpg?width=800`,
+      `${FABRIC_CDN}/Men_sLinenCampShirt_Olive1.jpg?width=800`,
+      `${FABRIC_CDN}/Men_sLinenCampShirt_Rosewood1.jpg?width=800`,
     ],
     description: 'Modern long sleeve polo in a textured piqué knit. Three-button placket with ribbed collar and cuffs. Versatile enough for work or weekend.',
     variants: [
@@ -250,11 +250,11 @@ export const products = [
     collection: 'knitwear',
     price: 215.00,
     b2bPrice: 145.00,
-    image: `${HORIZON_CDN}/L35_570_b608fbb1-a9d2-4e86-b339-88df81c4cbae.jpg?v=1746044132&width=800`,
+    image: `${FABRIC_CDN}/Men_sBarbarianRugby_Black-Rust1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/L35_570_b608fbb1-a9d2-4e86-b339-88df81c4cbae.jpg?v=1746044132&width=800`,
-      `${HORIZON_CDN}/BBM74030_c20.jpg?v=1746044132&width=800`,
-      `${HORIZON_CDN}/L35_564_f65929cf-ea3e-4851-95a9-a389f8f9eab1.jpg?v=1746044132&width=800`,
+      `${FABRIC_CDN}/Men_sBarbarianRugby_Black-Rust1.jpg?width=800`,
+      `${FABRIC_CDN}/RugbyShirt-LightTaupeBlackStripe-1.jpg?width=800`,
+      `${FABRIC_CDN}/Women_sBarbarianRugby_MossTeal1.jpg?width=800`,
     ],
     description: 'Unique mole yarn construction creates a soft, heathered texture with subtle stripes. Skipper collar adds a nautical-inspired detail. Comfortable loose fit.',
     variants: [
@@ -281,10 +281,10 @@ export const products = [
     collection: 'accessories',
     price: 65.00,
     b2bPrice: 39.00,
-    image: `${HORIZON_CDN}/M32413CA01-PUMICE_06_1.jpg?v=1754057526&width=800`,
+    image: `${FABRIC_CDN}/TefnutBeachVest_Black1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/M32413CA01-PUMICE_06_1.jpg?v=1754057526&width=800`,
-      `${HORIZON_CDN}/BBK64230_sub05.jpg?v=1754057526&width=800`,
+      `${FABRIC_CDN}/TefnutBeachVest_Black1.jpg?width=800`,
+      `${FABRIC_CDN}/TefnutBeachVest_Olive1.jpg?width=800`,
     ],
     description: 'Soft cashmere-wool blend beanie with a ribbed fold-over cuff. Lightweight warmth in a timeless design. Available in seasonal colorways.',
     variants: [
@@ -311,10 +311,10 @@ export const products = [
     collection: 'outerwear',
     price: 549.00,
     b2bPrice: 375.00,
-    image: `${HORIZON_CDN}/W32413PO02-ASH-HEATHER_05.jpg?v=1744994022&width=800`,
+    image: `${FABRIC_CDN}/Women_sMariamTank_Black6.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/W32413PO02-ASH-HEATHER_05.jpg?v=1744994022&width=800`,
-      `${HORIZON_CDN}/BKM64020_sub02.jpg?v=1744825505&width=800`,
+      `${FABRIC_CDN}/Women_sMariamTank_Black6.jpg?width=800`,
+      `${FABRIC_CDN}/Women_sMariamTank_JesterRed1.jpg?width=800`,
     ],
     description: 'Tailored wool-blend overcoat with a clean, modern silhouette. Fully lined interior with interior pockets. The essential cold-weather layer.',
     variants: [
@@ -343,10 +343,10 @@ export const products = [
     collection: 'accessories',
     price: 85.00,
     b2bPrice: 52.00,
-    image: `${HORIZON_CDN}/L16_327_5aae9754-394d-461f-9dc1-74a8b044c604.jpg?v=1744824355&width=800`,
+    image: `${FABRIC_CDN}/Women_sFieldCap_Black1__1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/L16_327_5aae9754-394d-461f-9dc1-74a8b044c604.jpg?v=1744824355&width=800`,
-      `${HORIZON_CDN}/L16_323_7e5d2718-0318-4e46-aa18-206bb7356dc5.jpg?v=1744824355&width=800`,
+      `${FABRIC_CDN}/Women_sFieldCap_Black1__1.jpg?width=800`,
+      `${FABRIC_CDN}/Women_sFieldCap_Olive1.jpg?width=800`,
     ],
     description: 'Chunky textured knit scarf in a premium wool blend. Generous length for versatile wrapping styles. Adds instant warmth and character.',
     variants: [
@@ -372,10 +372,10 @@ export const products = [
     collection: 'tops',
     price: 59.00,
     b2bPrice: 35.00,
-    image: `${HORIZON_CDN}/MF2420PL02-IVORY_06_fa661c74-cf60-41c0-aa41-a8bbab27e7a4.jpg?v=1752254012&width=800`,
+    image: `${FABRIC_CDN}/Men_sClassicStripeShirt_NavyStripe1.jpg?width=800`,
     images: [
-      `${HORIZON_CDN}/MF2420PL02-IVORY_06_fa661c74-cf60-41c0-aa41-a8bbab27e7a4.jpg?v=1752254012&width=800`,
-      `${HORIZON_CDN}/MF2420PL02-BLACK_02.jpg?v=1746043604&width=800`,
+      `${FABRIC_CDN}/Men_sClassicStripeShirt_NavyStripe1.jpg?width=800`,
+      `${FABRIC_CDN}/MensEssentialCrew-Black-1.jpg?width=800`,
     ],
     description: 'Essential crew neck tee in ultra-soft Peruvian pima cotton. Pre-shrunk with a tailored fit that improves with every wash. The perfect basic.',
     variants: [
