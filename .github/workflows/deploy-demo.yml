@@ -40,6 +40,8 @@ jobs:
           rsync -a --exclude='demo-store' --exclude='node_modules' --exclude='.git' --exclude='.github' --exclude='_site' . _site/
           # Copy demo store build into /demo/
           cp -r demo-store/dist/* _site/demo/
+          # Root 404.html redirects /demo/* routes to SPA
+          cp 404.html _site/404.html
 
       - uses: actions/upload-pages-artifact@v3
         with:

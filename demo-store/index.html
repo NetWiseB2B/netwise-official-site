@@ -11,6 +11,18 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Handle SPA redirect from 404.html
+      (function(){
+        var q = window.location.search;
+        var match = q.match(/[?&]p=([^&]*)/);
+        if (match) {
+          var path = decodeURIComponent(match[1]);
+          var clean = window.location.pathname + window.location.hash;
+          window.history.replaceState(null, '', window.location.pathname.replace(/\/$/, '') + path);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

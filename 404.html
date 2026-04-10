@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // SPA redirect for GitHub Pages — handles hard refresh on /demo/* routes
+    var loc = window.location;
+    var path = loc.pathname;
+    if (path.indexOf('/netwise-official-site/demo') === 0) {
+      // Strip the base and pass the route as a query param so the SPA can pick it up
+      var route = path.replace('/netwise-official-site/demo', '') || '/';
+      loc.replace('/netwise-official-site/demo/?p=' + encodeURIComponent(route) + loc.search.replace('?', '&') + loc.hash);
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
