@@ -21,6 +21,7 @@ export default function NetWiseCart() {
   const [showCheckout, setShowCheckout] = useState(false);
   const [showAddAddress, setShowAddAddress] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('net_terms');
+  const [hoveredPopover, setHoveredPopover] = useState(null);
 
   const [searchQtys, setSearchQtys] = useState({});
 
@@ -324,25 +325,29 @@ export default function NetWiseCart() {
                         </div>
 
                         {/* Qty rules + Volume discount */}
-                        <div className="flex items-center gap-1 mt-2">
-                          <div className="relative group/qtyr inline-flex items-center gap-0.5">
-                            <Info size={11} className="text-muted" />
-                            <span className="text-[11px] text-blue-600 cursor-pointer">Qty rules apply</span>
-                            <div className="absolute left-0 bottom-full mb-1 z-50 hidden group-hover/qtyr:block bg-white border border-border rounded-lg shadow-lg px-3 py-2 min-w-[100px]">
-                              <div className="text-[11px] text-primary leading-relaxed">
-                                <div>Min: {item.product.quantityBreaks[0]?.min || 1}</div>
-                                <div>Max: {item.product.quantityBreaks[item.product.quantityBreaks.length - 1]?.max || item.product.quantityBreaks[item.product.quantityBreaks.length - 1]?.min * 4}</div>
-                              </div>
-                            </div>
+                        <div className="mt-2">
+                          <div className="flex items-center gap-1">
+                            <span
+                              className="inline-flex items-center gap-0.5 text-[11px] text-primary cursor-pointer"
+                              onMouseEnter={() => setHoveredPopover(`vol-${item.key}`)}
+                              onMouseLeave={() => setHoveredPopover(null)}
+                            >
+                              <BadgePercent size={11} /> Volume discount
+                            </span>
+                            <span className="text-[11px] text-muted mx-0.5">|</span>
+                            <span
+                              className="inline-flex items-center gap-0.5 text-[11px] text-primary cursor-pointer"
+                              onMouseEnter={() => setHoveredPopover(`qty-${item.key}`)}
+                              onMouseLeave={() => setHoveredPopover(null)}
+                            >
+                              <Info size={11} /> Qty rules apply
+                            </span>
                           </div>
-                          <span className="text-[11px] text-muted mx-0.5">|</span>
-                          <div className="relative group/vold inline-flex items-center gap-0.5">
-                            <BadgePercent size={11} className="text-blue-600" />
-                            <span className="text-[11px] text-blue-600 cursor-pointer">Volume discount</span>
-                            <div className="absolute left-0 bottom-full mb-1 z-50 hidden group-hover/vold:block bg-white border border-border rounded-lg shadow-lg p-0 min-w-[220px]">
+                          {hoveredPopover === `vol-${item.key}` && (
+                            <div className="mt-1.5 border border-border rounded-lg overflow-hidden" onMouseEnter={() => setHoveredPopover(`vol-${item.key}`)} onMouseLeave={() => setHoveredPopover(null)}>
                               <table className="w-full text-[11px]">
                                 <thead>
-                                  <tr className="border-b border-border">
+                                  <tr className="border-b border-border bg-gray-50">
                                     <th className="text-left font-semibold text-primary px-3 py-2">Quantity</th>
                                     <th className="text-left font-semibold text-primary px-3 py-2">Price</th>
                                     <th className="text-left font-semibold text-primary px-3 py-2">Discount</th>
@@ -363,7 +368,15 @@ export default function NetWiseCart() {
                                 </tbody>
                               </table>
                             </div>
-                          </div>
+                          )}
+                          {hoveredPopover === `qty-${item.key}` && (
+                            <div className="mt-1.5 border border-border rounded-lg px-3 py-2" onMouseEnter={() => setHoveredPopover(`qty-${item.key}`)} onMouseLeave={() => setHoveredPopover(null)}>
+                              <div className="text-[11px] text-primary leading-relaxed">
+                                <div>Min: {item.product.quantityBreaks[0]?.min || 1}</div>
+                                <div>Max: {item.product.quantityBreaks[item.product.quantityBreaks.length - 1]?.max || item.product.quantityBreaks[item.product.quantityBreaks.length - 1]?.min * 4}</div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { products, collections } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
-const HERO_IMG = 'https://theme-horizon-demo.myshopify.com/cdn/shop/files/055a84a1085545568fbf43ee71d66b1f.png?v=1747669841&width=1920';
+const HERO_IMG = '/hero-banner.jpg';
 
 export default function HomePage() {
   const { isLoggedIn, setShowLoginModal } = useAuth();
