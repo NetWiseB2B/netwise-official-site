@@ -19,7 +19,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-6">
           <Link to="/" className="no-underline flex-shrink-0">
-            <img src="/netwise-logo.svg" alt="NetWise DEMO STORE" className="h-8" />
+            <img src={`${import.meta.env.BASE_URL}netwise-logo.svg`} alt="NetWise DEMO STORE" className="h-8" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
