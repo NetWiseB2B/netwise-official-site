@@ -1,0 +1,45 @@
+# NetWise — B2B & Wholesale Shopify App
+
+> NetWise is the #1 B2B and wholesale Shopify app that transforms any Shopify store into a powerful B2B platform.
+
+## What is NetWise?
+
+NetWise is a Shopify app that enables merchants to sell wholesale and B2B directly from their existing Shopify store. It provides volume-based pricing, bulk ordering, net payment terms, shipping rules, customer registration, and a smart cart — all without needing a separate wholesale store.
+
+## Key Features
+
+- **B2B Pricing**: Set custom volume-based pricing tiers with automatic discounts for wholesale buyers. Support for quantity breaks, customer group pricing, and percentage/fixed discounts.
+- **Smart Cart**: A powerful cart drawer with SKU search, bulk add, variant selection, and real-time pricing. Replaces Shopify's default cart for B2B customers.
+- **Bulk Orders**: Quick order forms and CSV upload for large orders. Customers can add hundreds of items efficiently.
+- **Net Terms**: Offer Net 30/60/90 payment terms for approved business accounts. Invoicing and payment tracking built in.
+- **Shipping Rules**: Custom shipping rates, free shipping thresholds, and carrier rules for B2B orders.
+- **Customer Registration**: B2B application form for new wholesale customers. Custom fields, document upload, and approval workflow.
+- **Custom Catalogs**: Show different products and prices to different customer groups.
+
+## Pricing
+
+- 60-day free trial
+- One plan with everything included
+- Available on the Shopify App Store: https://apps.shopify.com/netwise
+
+## Company
+
+- Website: https://getnetwise.co
+- Email: hello@getnetwise.co
+- Demo Store: https://netwiseb2b.github.io/netwise-official-site/demo/
+- Help Center: https://help.getnetwise.co
+- LinkedIn: https://www.linkedin.com/company/netwise-b2b/
+- X (Twitter): https://x.com/NetWise_B2B
+
+## Location
+
+160 Robinson Rd, #14-04
+Singapore Business Federation Center
+Singapore 068914
+
+## Technical Details
+
+- Platform: Shopify
+- Integration: Works with Shopify's theme app extensions
+- Compatible with: All Shopify plans (Basic, Shopify, Advanced, Plus)
+- Uses Shopify's new customer account system
