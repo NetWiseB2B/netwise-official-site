@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Truck, Receipt, Users } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Truck, Receipt, Users, Tags, ShoppingCart, Package, FileText } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { products, collections } from '../data/products';
 import ProductCard from '../components/ProductCard';
@@ -26,9 +26,9 @@ export default function HomePage() {
                   <ShieldCheck size={16} />
                   B2B Pricing Active
                 </div>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                  Welcome back,<br />
-                  <span className="text-b2b-gold">Acme Industrial</span>
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight whitespace-nowrap">
+                  Welcome to NetWise<br />
+                  <span className="text-b2b-gold">B2B Store</span>
                 </h1>
                 <p className="text-lg text-gray-200 mt-5 leading-relaxed">
                   Your wholesale pricing and volume discounts are active.
@@ -46,9 +46,9 @@ export default function HomePage() {
               </>
             ) : (
               <>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                  New arrivals<br />
-                  <span className="text-gray-300">are here.</span>
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight whitespace-nowrap">
+                  Welcome to NetWise<br />
+                  <span className="text-gray-300">Retail Store</span>
                 </h1>
                 <p className="text-lg text-gray-200 mt-5 leading-relaxed">
                   Premium knitwear, outerwear, and essentials crafted for the modern wardrobe.
@@ -59,43 +59,14 @@ export default function HomePage() {
                     to="/collections/all"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary font-medium rounded-lg hover:bg-gray-100 transition-colors no-underline"
                   >
-                    Shop All
-                    <ArrowRight size={18} />
+                    View All
                   </Link>
-                  <button
-                    onClick={() => setShowLoginModal(true)}
-                    className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-medium rounded-lg hover:bg-white/10 transition-colors backdrop-blur-sm"
-                  >
-                    B2B Login
-                  </button>
                 </div>
               </>
             )}
           </div>
         </div>
       </section>
-
-      {/* B2B Benefits Banner (guest only) */}
-      {!isLoggedIn && (
-        <section className="bg-b2b-light border-b border-b2b/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              {[
-                { icon: Receipt, label: 'Volume Pricing', desc: 'Up to 55% off retail' },
-                { icon: Truck, label: 'Fast Shipping', desc: 'On all B2B orders' },
-                { icon: Users, label: 'Net 30 Terms', desc: 'For approved accounts' },
-                { icon: ShieldCheck, label: 'Dedicated Support', desc: 'Priority B2B service' },
-              ].map(({ icon: Icon, label, desc }) => (
-                <div key={label} className="flex flex-col items-center gap-1.5">
-                  <Icon size={22} className="text-b2b" />
-                  <p className="text-sm font-semibold text-primary">{label}</p>
-                  <p className="text-xs text-muted">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Collections */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">

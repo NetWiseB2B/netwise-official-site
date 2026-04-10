@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, SlidersHorizontal } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { collections, getProductsByCollection } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useAuth } from '../context/AuthContext';
@@ -41,10 +41,6 @@ export default function CollectionPage() {
               {isLoggedIn && <span className="text-b2b ml-2 font-medium">- B2B Pricing</span>}
             </p>
           </div>
-          <button className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-muted border border-border rounded-lg hover:border-gray-300">
-            <SlidersHorizontal size={14} />
-            Filter
-          </button>
         </div>
 
         {/* Collection Nav */}
