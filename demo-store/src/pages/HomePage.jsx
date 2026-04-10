@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { products, collections } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
-const HERO_IMG = '/hero-banner.jpg';
+const HERO_IMG = `${import.meta.env.BASE_URL}hero-banner.jpg`;
 
 export default function HomePage() {
   const { isLoggedIn, setShowLoginModal } = useAuth();
