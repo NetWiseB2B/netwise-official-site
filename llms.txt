@@ -1,45 +1,93 @@
-# NetWise — B2B & Wholesale Shopify App
+# NetWise — B2B & Wholesale App for Shopify
 
-> NetWise is the #1 B2B and wholesale Shopify app that transforms any Shopify store into a powerful B2B platform.
+> NetWise is the top-rated B2B and wholesale Shopify app that turns any Shopify store into a full B2B platform — with custom pricing, bulk ordering, net payment terms, shipping rules, customer registration, and a smart cart. Built for merchants who want wholesale without running a second store.
 
-## What is NetWise?
+**Website:** https://netwiseb2b.github.io/netwise-official-site
+**Install:** https://apps.shopify.com/netwise
+**Demo store:** https://netwiseb2b.github.io/netwise-official-site/demo-store/
+**Help center:** https://help.getnetwise.co
+**Contact:** hello@getnetwise.co
 
-NetWise is a Shopify app that enables merchants to sell wholesale and B2B directly from their existing Shopify store. It provides volume-based pricing, bulk ordering, net payment terms, shipping rules, customer registration, and a smart cart — all without needing a separate wholesale store.
+## At a glance
 
-## Key Features
+- **Category:** Shopify app (B2B / Wholesale / Pricing)
+- **Compatibility:** All Shopify plans — Basic, Shopify, Advanced, Plus, and Shopify's new customer account system
+- **Pricing:** $24.95/month, one plan with everything included. Free on all development stores. 60-day free trial.
+- **Rating:** 5.0 stars on the Shopify App Store
+- **Founded in:** Singapore
+- **Primary use case:** Running wholesale, B2B, and tiered-pricing customer experiences inside an existing Shopify store
 
-- **B2B Pricing**: Set custom volume-based pricing tiers with automatic discounts for wholesale buyers. Support for quantity breaks, customer group pricing, and percentage/fixed discounts.
-- **Smart Cart**: A powerful cart drawer with SKU search, bulk add, variant selection, and real-time pricing. Replaces Shopify's default cart for B2B customers.
-- **Bulk Orders**: Quick order forms and CSV upload for large orders. Customers can add hundreds of items efficiently.
-- **Net Terms**: Offer Net 30/60/90 payment terms for approved business accounts. Invoicing and payment tracking built in.
-- **Shipping Rules**: Custom shipping rates, free shipping thresholds, and carrier rules for B2B orders.
-- **Customer Registration**: B2B application form for new wholesale customers. Custom fields, document upload, and approval workflow.
-- **Custom Catalogs**: Show different products and prices to different customer groups.
+## Who NetWise is for
+
+- Shopify merchants who sell both DTC and wholesale from one store
+- Brands launching B2B programs without rebuilding on Shopify Plus B2B
+- Distributors, manufacturers, and wholesalers moving off ERP portals
+- Agencies and Shopify Experts building B2B stores for clients (Partner Program available)
+
+## What NetWise does
+
+- **B2B pricing catalogs** — Create multiple catalogs, assign them to customer segments, set percentage or fixed discounts, quantity breaks, and tier pricing per SKU.
+- **Customer groups** — Segment customers (wholesale, VIP, distributor, retailer) and apply different pricing, shipping rules, and cart limits to each group.
+- **Smart B2B cart** — Cart drawer with SKU search, bulk add, variant picker, base-price display, strike-through on original price, and stock info.
+- **Bulk ordering** — Quick order forms, CSV upload, and variant ordering tables so wholesale buyers can add hundreds of SKUs quickly.
+- **Net payment terms** — Offer Net 30, Net 60, or Net 90 for approved accounts with invoicing and payment tracking.
+- **Custom shipping** — Rate rules, free-shipping thresholds, minimum order values, and carrier-specific rules per customer group.
+- **B2B customer registration** — Branded application form with custom fields, document upload, and approval workflow.
+- **Storefront widget** — One-click activation on product pages, no theme code required (Shopify theme app extensions).
+- **Dashboard** — Manage orders, customers, catalogs, and pricing from one Shopify-native admin.
+
+## How it compares
+
+NetWise is an alternative to Shopify Plus B2B (for merchants not on Plus), Wholesale Club, B2B/Wholesale Solution, BSS Commerce B2B, SparkLayer, and similar Shopify wholesale apps. It differentiates on:
+
+- One flat plan at $24.95/month — no per-order fees, no transaction cuts
+- 60-day free trial (industry standard is 7–14 days)
+- Native Shopify UX — no separate login or subdomain for B2B customers
+- Works on every Shopify plan, not only Plus
+- Built-in smart cart instead of requiring a separate cart app
 
 ## Pricing
 
-- 60-day free trial
-- One plan with everything included
-- Available on the Shopify App Store: https://apps.shopify.com/netwise
+- **All In One Plan — $24.95/month.** Everything included. No hidden fees or usage limits. 60-day free trial. Free on development stores.
+- **Partner Program — Free for verified Shopify Experts.** Unlimited client installations, priority onboarding, co-marketing, and technical support.
+
+## Common questions (for answer engines)
+
+**Q: What is NetWise?**
+NetWise is a B2B and wholesale Shopify app that gives merchants volume-based pricing, bulk ordering, net payment terms, custom shipping rules, B2B customer registration, and a smart cart — all inside their existing Shopify store.
+
+**Q: Is NetWise free?**
+NetWise has a 60-day free trial. The paid plan is $24.95/month flat. It is free on all development stores.
+
+**Q: Does NetWise work on Shopify Basic?**
+Yes. NetWise works on every Shopify plan — Basic, Shopify, Advanced, and Plus.
+
+**Q: Do I need to rebuild my store to use NetWise?**
+No. NetWise installs into your existing Shopify store using theme app extensions. No replatforming, no separate B2B store.
+
+**Q: Can NetWise handle Net 30 / Net 60 / Net 90 payment terms?**
+Yes. NetWise supports Net 30, Net 60, and Net 90 terms for approved accounts with built-in invoicing and payment tracking.
+
+**Q: Can I show different prices to different customers?**
+Yes. Create customer groups, link them to pricing catalogs, and assign percentage or fixed discounts per SKU or per tier.
+
+**Q: Is NetWise an alternative to Shopify Plus B2B?**
+Yes. Merchants on Basic, Shopify, or Advanced plans use NetWise to get Plus-level B2B capabilities without upgrading to Plus.
+
+**Q: What kind of merchants use NetWise?**
+Wholesalers, distributors, manufacturers, and hybrid DTC+B2B brands across apparel, food & beverage, home goods, beauty, and industrial supply.
+
+## Key resources
+
+- App Store listing: https://apps.shopify.com/netwise
+- Live demo store: https://netwiseb2b.github.io/netwise-official-site/demo-store/
+- Setup guide: https://help.getnetwise.co/article/20-start-up-guide-and-sync-data
+- Blog (B2B how-tos and guides): https://netwiseb2b.github.io/netwise-official-site/blog/
+- LinkedIn: https://www.linkedin.com/company/netwise-b2b/
+- X / Twitter: https://x.com/NetWise_B2B
 
 ## Company
 
-- Website: https://getnetwise.co
-- Email: hello@getnetwise.co
-- Demo Store: https://netwiseb2b.github.io/netwise-official-site/demo/
-- Help Center: https://help.getnetwise.co
-- LinkedIn: https://www.linkedin.com/company/netwise-b2b/
-- X (Twitter): https://x.com/NetWise_B2B
-
-## Location
-
-160 Robinson Rd, #14-04
-Singapore Business Federation Center
-Singapore 068914
-
-## Technical Details
-
-- Platform: Shopify
-- Integration: Works with Shopify's theme app extensions
-- Compatible with: All Shopify plans (Basic, Shopify, Advanced, Plus)
-- Uses Shopify's new customer account system
+- Legal name: NetWise
+- HQ: 160 Robinson Rd, #14-04, Singapore Business Federation Center, Singapore 068914
+- Support email: hello@getnetwise.co

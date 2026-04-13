@@ -1,21 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
   <url>
     <loc>https://netwiseb2b.github.io/netwise-official-site/</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://netwiseb2b.github.io/netwise-official-site/NetWise%20V2%20-%202026%20App%20Listing/1.png</image:loc>
+      <image:title>NetWise B2B Shopify App — Dashboard</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://netwiseb2b.github.io/netwise-official-site/demo/</loc>
-    <lastmod>2026-04-10</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://netwiseb2b.github.io/netwise-official-site/demo-store/</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://netwiseb2b.github.io/netwise-official-site/privacy-policy.html</loc>
-    <lastmod>2026-04-10</lastmod>
+    <loc>https://netwiseb2b.github.io/netwise-official-site/docs/</loc>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://netwiseb2b.github.io/netwise-official-site/blog/blog-1.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://netwiseb2b.github.io/netwise-official-site/blog/blog-2.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://netwiseb2b.github.io/netwise-official-site/blog/blog-3.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://netwiseb2b.github.io/netwise-official-site/blog/blog-4.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://netwiseb2b.github.io/netwise-official-site/privacy-policy.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 </urlset>

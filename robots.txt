@@ -1,32 +1,122 @@
+# robots.txt for NetWise — https://netwiseb2b.github.io/netwise-official-site/
+# Last updated: 2026-04-13
+
 User-agent: *
 Allow: /
+Disallow: /NetWise%20V2%20-%202026%20App%20Listing/
 
-# AI Crawlers
+# -------- Search engines --------
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Yahoo! Slurp
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# -------- AI training / answer engines (explicitly opted-in) --------
+# OpenAI
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+# Google AI (Gemini, AI Overviews)
 User-agent: Google-Extended
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: GoogleOther
 Allow: /
 
+# Anthropic
 User-agent: ClaudeBot
-Allow: /
-
-User-agent: Amazonbot
 Allow: /
 
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Meta (Llama, Meta AI)
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Amazon / Alexa / Rufus
+User-agent: Amazonbot
+Allow: /
+
+# ByteDance / TikTok / Doubao
 User-agent: Bytespider
 Allow: /
 
+# Cohere
 User-agent: cohere-ai
+Allow: /
+
+User-agent: cohere-training-data-crawler
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# DuckDuckGo Assist
+User-agent: DuckAssistBot
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Diffbot (used by many AI tools)
+User-agent: Diffbot
+Allow: /
+
+# Common Crawl (trains many foundation models)
+User-agent: CCBot
+Allow: /
+
+# Phind
+User-agent: PhindBot
+Allow: /
+
+# Kagi Assistant
+User-agent: KagiBot
 Allow: /
 
 Sitemap: https://netwiseb2b.github.io/netwise-official-site/sitemap.xml
