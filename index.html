@@ -2580,7 +2580,7 @@
             <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Co-marketing opportunities</li>
             <li><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Technical support</li>
           </ul>
-          <button class="btn btn-secondary" style="width: 100%;" onclick="openPartnerModal()">
+          <button class="btn btn-secondary" style="width: 100%;" onclick="openPartnerChat()">
             Request Access <span class="btn-arrow">&rarr;</span>
           </button>
           <p class="pricing-trial">For verified Shopify Experts only</p>
@@ -3008,6 +3008,19 @@
       document.getElementById('partnerForm').reset();
       document.getElementById('partnerSuccess').style.display = 'none';
       document.getElementById('partnerModal').style.display = 'flex';
+    }
+
+    function openPartnerChat() {
+      if (window.Beacon) {
+        Beacon('init', 'af71785c-4204-4353-ba0c-159775152818');
+        Beacon('prefill', {
+          subject: 'Partner Access Request',
+          text: 'Hi NetWise team,\n\nI\'d like to request access to the Partner Program. Here\'s a bit about me:\n\n• Name: \n• Agency / Company: \n• Shopify Partner profile: \n• Number of B2B client builds: \n• Anything else we should know: \n\nThanks!'
+        });
+        Beacon('open');
+      } else {
+        window.location.href = 'mailto:hello@getnetwise.co?subject=' + encodeURIComponent('Partner Access Request') + '&body=' + encodeURIComponent('Hi NetWise team,\n\nI\'d like to request access to the Partner Program.');
+      }
     }
 
     function closePartnerModal() {
