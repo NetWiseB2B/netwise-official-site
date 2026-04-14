@@ -55,12 +55,12 @@
 .footer-brand-large {
   padding: 40px 0 0;
   text-align: center;
-  font-size: clamp(100px, 15vw, 220px);
+  font-size: clamp(40px, 15vw, 220px);
   font-weight: 900;
   letter-spacing: -6px;
   line-height: 0.85;
   text-transform: uppercase;
-  overflow: hidden;
+  overflow: visible;
   background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.0) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -95,4 +95,5 @@
 
 @media (max-width: 480px) {
   .footer-links { grid-template-columns: 1fr; gap: 24px; }
+  .footer-brand-large { font-size: 13vw; letter-spacing: -2px; }
 }

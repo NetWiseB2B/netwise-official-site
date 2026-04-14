@@ -1620,7 +1620,7 @@
       letter-spacing: -6px;
       line-height: 0.85;
       text-transform: uppercase;
-      overflow: hidden;
+      overflow: visible;
       background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.0) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -1720,7 +1720,7 @@
       }
 
       .nav-links.open li a {
-        font-size: 32px;
+        font-size: 26px;
         font-weight: 700;
         color: var(--text-dark);
         padding: 8px 0;
@@ -1728,14 +1728,14 @@
       }
 
       .nav-links.open .nav-dropdown-trigger {
-        font-size: 32px;
+        font-size: 26px;
         font-weight: 700;
         color: var(--text-dark);
         padding: 8px 0;
       }
 
       .nav-links.open .nav-dropdown-menu {
-        display: block;
+        display: none;
         position: static;
         transform: none;
         box-shadow: none;
@@ -1744,12 +1744,50 @@
         min-width: unset;
       }
 
+      .nav-links.open .nav-dropdown.mobile-open .nav-dropdown-menu {
+        display: block;
+      }
+
+      .nav-links.open .nav-dropdown-arrow {
+        transition: transform 0.2s;
+      }
+
+      .nav-links.open .nav-dropdown.mobile-open .nav-dropdown-arrow {
+        transform: rotate(-135deg) translateY(1px);
+      }
+
       .nav-links.open .nav-dropdown-item {
-        padding: 8px 0;
+        padding: 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav-links.open .nav-dropdown-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        flex-shrink: 0;
+      }
+
+      .nav-links.open .nav-dropdown-icon svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .nav-links.open .nav-dropdown-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
       }
 
       .nav-links.open .nav-dropdown-text strong {
-        font-size: 18px;
+        font-size: 15px;
+      }
+
+      .nav-links.open .nav-dropdown-text span {
+        font-size: 12px;
+        color: var(--text-muted);
       }
 
       .nav-links.open .mobile-menu-cta {
@@ -1782,6 +1820,13 @@
         height: 40px;
         align-items: center;
         justify-content: center;
+      }
+
+      /* Hide Beacon when mobile menu is open */
+      body:has(.nav-links.open) .BeaconFabButtonFrame,
+      body:has(.nav-links.open) #beacon-container,
+      body:has(.nav-links.open) [class*="BeaconContainer"] {
+        display: none !important;
       }
 
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1879,8 +1924,19 @@
       .mobile-tab-arrow:active {
         background: var(--gray-300);
       }
+      .feature-panel { border-radius: 12px; }
       .feature-panel img { border-radius: 12px; }
+      .how-card-visual { border-radius: 12px; }
+      .how-section { padding: 60px 0; }
       .how-grid { grid-template-columns: 1fr; }
+      .stats-section { padding: 60px 0; }
+      .testimonials-section { padding: 60px 0; }
+      .pricing-section { padding: 60px 0; }
+      .pricing-card { border-radius: 16px; padding: 36px 28px; }
+      .faq-section { padding: 60px 0; }
+      .grid-card { border-radius: 12px; }
+      .testimonial-card { border-radius: 12px; }
+      .hero-visual { border-radius: 12px !important; }
       .features-grid { grid-template-columns: 1fr; }
       .testimonials-columns { grid-template-columns: 1fr; height: 500px; }
       .testimonials-col:nth-child(2),
@@ -1914,47 +1970,90 @@
 
       /* === Typography scale (mobile) === */
       .container { padding: 0 16px; }
-      .hero h1 { font-size: 34px; letter-spacing: -1px; line-height: 1.12; }
-      .hero-subtitle { font-size: 15px; line-height: 1.55; }
-      .section-title { font-size: 26px; letter-spacing: -0.3px; }
-      .stat-number { font-size: 28px; }
-      .stat-label { font-size: 12px; }
-      .feature-tab-title { font-size: 12px; }
-      .how-card h3 { font-size: 18px; }
+      .hero h1 { font-size: 28px; letter-spacing: -0.8px; line-height: 1.15; }
+      .hero-subtitle { font-size: 14px; line-height: 1.55; }
+      .section-label { font-size: 10px; letter-spacing: 1.2px; margin-bottom: 10px; }
+      .section-title { font-size: 22px; letter-spacing: -0.3px; line-height: 1.25; }
+      .stat-number { font-size: 24px; }
+      .stat-label { font-size: 11px; }
+      .feature-tab-title { font-size: 11px; }
+      .how-card h3 { font-size: 15px; }
       .how-card p { font-size: 12px; line-height: 1.5; }
-      .pricing-price { font-size: 36px !important; }
-      .pricing-plan-name { font-size: 22px; }
+      .pricing-price { font-size: 32px !important; }
+      .pricing-amount .price { font-size: 32px; letter-spacing: -1.5px; }
+      .pricing-amount .period { font-size: 14px; }
+      .pricing-plan-name { font-size: 18px; }
+      .pricing-card h3 { font-size: 22px; }
+      .pricing-desc { font-size: 13px; }
       .pricing-feature { font-size: 13px; }
-      .faq-question { font-size: 17px; }
+      .faq-question { font-size: 15px; padding: 16px; }
       .faq-answer-inner { font-size: 13px; line-height: 1.6; }
-      .cta-section h2 { font-size: 28px; }
-      .cta-section p { font-size: 14px; }
-      .blog-card h3 { font-size: 18px; }
+      .cta-section h2 { font-size: 24px; letter-spacing: -0.5px; }
+      .cta-section p { font-size: 13px; }
+      .cta-note { font-size: 11px !important; }
+      .blog-card h3 { font-size: 16px; }
       .blog-card p { font-size: 12px; }
-      .footer-brand-large { font-size: 50px; letter-spacing: -2px; }
+      .footer-brand-large { font-size: 11vw !important; letter-spacing: -2px !important; overflow: visible !important; }
+      .testimonials-header h2 { font-size: 22px; }
 
       /* === Buttons (mobile) === */
-      .btn { font-size: 13px; padding: 11px 20px; }
+      .btn { font-size: 13px; padding: 12px 20px; }
 
-      /* === Layout (mobile) === */
-      .hero { padding: 90px 0 40px; }
-      .hero-badge { font-size: 11px; padding: 5px 12px; margin-bottom: 20px; }
-      .hero-note { font-size: 12px; margin-bottom: 32px; }
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .stat-card { padding: 20px 12px; }
+      /* === Border radius (mobile — tighten everything) === */
+      .hero-visual { border-radius: 12px !important; box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important; }
+      .stat-card { border-radius: 10px; }
+      .feature-panel { border-radius: 10px; }
+      .feature-panel img { border-radius: 10px; }
+      .how-card-visual { border-radius: 10px; }
+      .grid-card { border-radius: 10px; }
+      .testimonial-card { border-radius: 10px; padding: 20px; }
+      .pricing-card { border-radius: 14px; padding: 32px 24px; }
+      .pricing-badge { font-size: 12px; padding: 6px 14px; }
+      .blog-card { border-radius: 10px; }
+      .faq-item { border-radius: 10px; }
+
+      /* === Section spacing (mobile — reduce padding) === */
+      .hero { padding: 80px 0 32px; }
+      .hero-badge { font-size: 11px; padding: 5px 12px; margin-bottom: 16px; }
+      .hero-note { font-size: 11px; margin-bottom: 24px; }
+      .hero-ctas { gap: 10px; }
+      .logos-section { padding: 28px 0; }
+      .logos-section p { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 16px; }
+      .logo-item { height: 56px; }
+      .logo-track { gap: 40px; }
+      .stats-section { padding: 48px 0; }
+      .stats-header { margin-bottom: 24px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stat-card { padding: 16px 10px; }
       .features-section { padding: 48px 0; }
-      .features-tabs { padding: 4px; }
-      .feature-tab { padding: 10px 18px; }
-      .how-grid { gap: 16px; }
-      .pricing-cards { max-width: 100%; }
-      .testimonials-columns { height: 380px; }
-      .footer-links { grid-template-columns: 1fr; gap: 24px; }
-      .cta-section { padding: 48px 0; }
+      .features-header { margin-bottom: 24px; }
+      .features-tabs { padding: 3px; }
+      .feature-tab { padding: 8px 14px; }
+      .how-section { padding: 48px 0; }
+      .how-header { margin-bottom: 24px; }
+      .how-grid { gap: 20px; }
+      .how-card-visual { margin-bottom: 12px; }
+      .features-grid-section { padding: 48px 0; }
+      .features-grid { gap: 12px; }
+      .grid-card { padding: 24px 20px; }
+      .testimonials-section { padding: 48px 0; }
+      .testimonials-header { margin-bottom: 24px; }
+      .testimonials-columns { height: 360px; }
+      .pricing-section { padding: 48px 0; }
+      .pricing-header { margin-bottom: 24px; }
+      .pricing-cards { max-width: 100%; gap: 16px; }
+      .blog-section { padding: 48px 0; }
+      .blog-header { margin-bottom: 20px; }
       .blog-card { width: 85vw; max-width: 85vw; }
+      .faq-section { padding: 48px 0; }
+      .faq-list { gap: 8px; }
+      .cta-section { padding: 48px 0; }
+      .cta-buttons { gap: 10px; }
+      .footer-links { grid-template-columns: 1fr; gap: 20px; }
 
       /* Partner modal mobile */
-      .partner-modal { padding: 0; border-radius: 16px; }
-      .partner-modal-header { padding: 24px 20px 20px; }
+      .partner-modal { padding: 0; border-radius: 14px; }
+      .partner-modal-header { padding: 24px 20px 20px; border-radius: 14px 14px 0 0; }
       .partner-modal-header h3 { font-size: 18px; }
       .partner-modal-body { padding: 20px; }
       .partner-modal .form-row { flex-direction: column; gap: 0; }
@@ -2217,7 +2316,7 @@
         </li>
       </ul>
       <div class="nav-ctas">
-        <a href="#" class="btn btn-secondary" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>Book a Demo</a>
+        <a href="javascript:void(0)" class="btn btn-secondary" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>Book a Demo</a>
         <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary">Install on Shopify <span class="btn-arrow">&rarr;</span></a>
       </div>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
@@ -2244,7 +2343,7 @@
         <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary" style="">
           Try 60-Day Free Trial <span class="btn-arrow">&rarr;</span>
         </a>
-        <a href="#" class="btn btn-demo" style="" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>
+        <a href="javascript:void(0)" class="btn btn-demo" style="" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>
           Book a Demo
         </a>
       </div>
@@ -2588,7 +2687,7 @@
   </section>
 
   <!-- ===== BLOG ===== -->
-  <section class="blog-section">
+  <section class="blog-section" style="display: none;">
     <div class="container">
       <div class="blog-header reveal" style="text-align: center; display: block; margin-bottom: 48px;">
         <span class="section-label">From the Blog</span>
@@ -2699,7 +2798,7 @@
         <a href="https://apps.shopify.com/netwise" target="_blank" rel="noopener" class="btn btn-primary" style="background: #FFAB41; color: #000;">
           Try 60-Day Free Trial <span class="btn-arrow">&rarr;</span>
         </a>
-        <a href="#" class="btn btn-secondary" style="" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>
+        <a href="javascript:void(0)" class="btn btn-secondary" style="" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>
           Book a Demo
         </a>
       </div>
@@ -2737,7 +2836,7 @@
             <li><a href="docs/index.html">Help Center</a></li>
             <li><a href="docs/index.html">Setup Guide</a></li>
             <li><a href="#" onclick="event.preventDefault(); if(window.Beacon){Beacon('init','af71785c-4204-4353-ba0c-159775152818'); Beacon('open');} else {window.location.href='mailto:hello@getnetwise.co?subject=Enquiry%20from%20website';}">Contact Support</a></li>
-            <li><a href="#" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>Book a Demo</a></li>
+            <li><a href="javascript:void(0)" data-cal-link="deekshith.suvarna/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'>Book a Demo</a></li>
           </ul>
         </div>
         <div class="footer-links-col">
@@ -2781,10 +2880,24 @@
     mobileToggle.addEventListener('click', () => {
       navLinks.classList.toggle('open');
       if (navLinks.classList.contains('open')) {
-        if (window.Beacon) Beacon('destroy');
+        if (window.Beacon) { Beacon('destroy'); }
+        var beaconContainer = document.querySelector('.BeaconFabButtonFrame, #beacon-container, [class*="BeaconContainer"]');
+        if (beaconContainer) beaconContainer.style.display = 'none';
       } else {
         if (window.Beacon) Beacon('init', 'af71785c-4204-4353-ba0c-159775152818');
+        var beaconContainer = document.querySelector('.BeaconFabButtonFrame, #beacon-container, [class*="BeaconContainer"]');
+        if (beaconContainer) beaconContainer.style.display = '';
       }
+    });
+
+    // Mobile Resources dropdown toggle
+    document.querySelectorAll('.nav-dropdown-trigger').forEach(trigger => {
+      trigger.addEventListener('click', function(e) {
+        if (window.innerWidth <= 991) {
+          e.preventDefault();
+          this.closest('.nav-dropdown').classList.toggle('mobile-open');
+        }
+      });
     });
 
     // Features tabs
