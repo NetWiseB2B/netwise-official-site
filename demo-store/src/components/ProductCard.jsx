@@ -28,13 +28,30 @@ export default function ProductCard({ product }) {
         </h3>
 
         {isLoggedIn ? (
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-semibold text-b2b">${product.b2bPrice.toFixed(2)}</span>
-            <span className="text-sm text-muted">MSRP ${product.price.toFixed(2)}</span>
-          </div>
+          product.b2bPriceRange && product.priceRange ? (
+            <div>
+              <div className="text-[15px] font-semibold text-b2b">
+                From ${product.b2bPriceRange.min.toFixed(2)}-${product.b2bPriceRange.max.toFixed(2)}
+              </div>
+              <div className="text-[12px] text-muted">
+                MSRP ${product.priceRange.min.toFixed(2)}-${product.priceRange.max.toFixed(2)}
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-baseline gap-2">
+              <span className="text-[15px] font-semibold text-b2b">${product.b2bPrice.toFixed(2)}</span>
+              <span className="text-[15px] text-muted">MSRP ${product.price.toFixed(2)}</span>
+            </div>
+          )
         ) : (
           <div>
-            <span className="text-lg font-semibold text-primary">${product.price.toFixed(2)}</span>
+            {product.priceRange ? (
+              <span className="text-[15px] font-semibold text-primary">
+                From ${product.priceRange.min.toFixed(2)} - ${product.priceRange.max.toFixed(2)}
+              </span>
+            ) : (
+              <span className="text-[15px] font-semibold text-primary">${product.price.toFixed(2)}</span>
+            )}
           </div>
         )}
       </div>

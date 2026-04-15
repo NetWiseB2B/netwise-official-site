@@ -1,14 +1,21 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, ShieldCheck, Truck, Receipt, Users, Tags, ShoppingCart, Package, FileText } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { products, collections } from '../data/products';
+import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
 const HERO_IMG = `${import.meta.env.BASE_URL}hero-banner.jpg`;
 
 export default function HomePage() {
   const { isLoggedIn, setShowLoginModal } = useAuth();
-  const featuredProducts = products.slice(0, 8);
+  // Pick one product per collection so the featured row has no overlap
+  // with the collection-specific sections below (each of which uses .slice(1)).
+  const featuredProducts = [
+    products.find(p => p.collection === 'knitwear'),
+    products.find(p => p.collection === 'tops'),
+    products.find(p => p.collection === 'outerwear'),
+    products.find(p => p.collection === 'accessories'),
+  ].filter(Boolean);
 
   return (
     <div>
@@ -68,52 +75,49 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Collections */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-semibold text-primary">Shop by Category</h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {collections.filter(c => c.id !== 'all').map(collection => {
-            const collProducts = products.filter(p => p.collection === collection.id);
-            const previewImg = collProducts[0]?.image;
-            return (
-              <Link
-                key={collection.id}
-                to={`/collections/${collection.handle}`}
-                className="group relative rounded-xl overflow-hidden aspect-[3/4] no-underline"
-              >
-                {previewImg && (
-                  <img src={previewImg} alt="" className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-sm font-semibold text-white">
-                    {collection.name}
-                  </h3>
-                  <p className="text-xs text-gray-300 mt-0.5">
-                    {collProducts.length} products
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Featured Products */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-semibold text-primary">Featured Products</h2>
-          <Link
-            to="/collections/all"
-            className="text-sm font-medium text-b2b hover:text-b2b-hover no-underline flex items-center gap-1"
-          >
-            View All <ArrowRight size={14} />
-          </Link>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-16">
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold text-primary">Multiple Variant Products</h2>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-8">
           {featuredProducts.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* Knitwear */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold text-primary">Single Variant Products</h2>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-8">
+          {products.filter(p => p.collection === 'knitwear').slice(1, 5).map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* Tops */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold text-primary">Volume Pricing Products</h2>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-8">
+          {products.filter(p => p.collection === 'tops').slice(1, 5).map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* Outerwear */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold text-primary">Minimum Quantity / Incremental Products</h2>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-8">
+          {products.filter(p => p.collection === 'outerwear').slice(1, 5).map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

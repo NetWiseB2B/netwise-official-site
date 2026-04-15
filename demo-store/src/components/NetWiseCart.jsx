@@ -1,4 +1,5 @@
 import { X, Minus, Plus, Trash2, ShoppingCart, Search, ChevronDown, Maximize2, Minimize2, ArrowLeft, Info, BadgePercent } from 'lucide-react';
+import { stepUp, stepDown, snapQty } from '../utils/qtyRules';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { products } from '../data/products';
@@ -111,7 +112,7 @@ export default function NetWiseCart() {
           <div className="flex items-center">
             <div className="flex items-center gap-2.5 pr-4 py-4">
               <ShoppingCart size={20} className="text-b2b" />
-              <span className="font-bold text-primary text-[17px]">My cart</span>
+              <span className="font-bold text-primary text-[17px]">NetWise Cart</span>
             </div>
             <div className="border-l border-[#DDDDDD] pl-4 py-4">
               <button
@@ -298,7 +299,7 @@ export default function NetWiseCart() {
                         <div className="flex items-center gap-2 mt-2.5">
                           <div className="inline-flex items-center border border-border rounded-md overflow-hidden">
                             <button
-                              onClick={() => updateQuantity(item.key, item.quantity - 1)}
+                              onClick={() => updateQuantity(item.key, stepDown(item.quantity, item.product.qtyRules))}
                               className="w-8 h-8 flex items-center justify-center text-muted hover:text-primary hover:bg-gray-50 border-r border-border"
                             >
                               <Minus size={14} />
@@ -306,11 +307,11 @@ export default function NetWiseCart() {
                             <input
                               type="number"
                               value={item.quantity}
-                              onChange={e => updateQuantity(item.key, parseInt(e.target.value) || 0)}
+                              onChange={e => updateQuantity(item.key, snapQty(e.target.value, item.product.qtyRules))}
                               className="w-12 h-8 text-center text-[13px] font-semibold focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                             />
                             <button
-                              onClick={() => updateQuantity(item.key, item.quantity + 1)}
+                              onClick={() => updateQuantity(item.key, stepUp(item.quantity, item.product.qtyRules))}
                               className="w-8 h-8 flex items-center justify-center text-muted hover:text-primary hover:bg-gray-50 border-l border-border"
                             >
                               <Plus size={14} />

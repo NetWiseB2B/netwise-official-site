@@ -4,6 +4,7 @@ import { ChevronRight, ChevronDown, ChevronUp, Minus, Plus, ShoppingCart, Tag, C
 import { getProductByHandle, getVariantB2BPrice } from '../data/products';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { stepUp, stepDown, snapQty } from '../utils/qtyRules';
 
 const STOCK_CFG = {
   in_stock: { dot: 'bg-green-500', label: 'In stock' },
@@ -11,6 +12,7 @@ const STOCK_CFG = {
   out_of_stock: { dot: 'bg-red-500', label: 'Out of stock' },
   pre_order: { dot: 'bg-orange-500', label: 'Pre-order' },
 };
+
 
 function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
   const [expandedColors, setExpandedColors] = useState(
@@ -21,7 +23,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
   // Compact mode state
   const [compactColor, setCompactColor] = useState(product.variantColors?.[0] || '');
   const [compactSize, setCompactSize] = useState('');
-  const [compactQty, setCompactQty] = useState(1);
+  const [compactQty, setCompactQty] = useState(product.qtyRules?.min || 1);
 
   // Derive sizes from variant names for the selected color
   const compactSizes = useMemo(() => {
@@ -51,7 +53,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
   };
 
   const setQty = (sku, val) => {
-    const num = Math.max(0, parseInt(val) || 0);
+    const num = snapQty(val, product.qtyRules);
     setQuantities(prev => ({ ...prev, [sku]: num }));
   };
 
@@ -96,7 +98,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
     if (!compactSelectedVariant || compactQty < 1) return;
     const unitPrice = getVariantB2BPrice(compactSelectedVariant, product, compactQty);
     onAddToCart([{ variant: compactSelectedVariant, quantity: compactQty, unitPrice }]);
-    setCompactQty(1);
+    setCompactQty(product.qtyRules?.min || 1);
   };
 
   if (viewMode === 'compact') {
@@ -143,6 +145,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
         </div>
 
         {/* Volume Discount Banner */}
+        {!(product.hidePricingRules || product.hideVolumeDiscount) && (
         <div className="relative group/vol">
           <div className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 rounded-lg cursor-pointer">
             <BadgePercent size={16} className="text-blue-600" />
@@ -173,13 +176,14 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
             </table>
           </div>
         </div>
+        )}
 
         {/* Qty + Add to Cart */}
         <div className="flex items-start gap-3">
           <div>
             <div className="inline-flex items-center border border-border rounded-lg">
               <button
-                onClick={() => setCompactQty(q => Math.max(1, q - 1))}
+                onClick={() => setCompactQty(q => Math.max(product.qtyRules?.min || 1, stepDown(q, product.qtyRules) || (product.qtyRules?.min || 1)))}
                 className="w-10 h-12 flex items-center justify-center text-muted hover:text-primary text-lg"
               >
                 <Minus size={16} />
@@ -187,27 +191,38 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
               <input
                 type="number"
                 value={compactQty}
-                onChange={e => setCompactQty(Math.max(1, parseInt(e.target.value) || 1))}
+                onChange={e => setCompactQty(Math.max(product.qtyRules?.min || 1, snapQty(e.target.value, product.qtyRules) || 1))}
                 className="w-14 h-12 text-center text-[15px] font-semibold border-x border-border focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <button
-                onClick={() => setCompactQty(q => q + 1)}
+                onClick={() => setCompactQty(q => stepUp(q, product.qtyRules))}
                 className="w-10 h-12 flex items-center justify-center text-muted hover:text-primary text-lg"
               >
                 <Plus size={16} />
               </button>
             </div>
+            {!(product.hidePricingRules || product.hideQtyRules) && (
             <div className="relative group/qty block mt-1">
               <div className="text-[11px] text-muted flex items-center gap-0.5 cursor-pointer">
                 <Info size={11} /> Qty rules apply
               </div>
               <div className="absolute left-0 top-full mt-1 z-50 hidden group-hover/qty:block bg-white border border-border rounded-lg shadow-lg px-3 py-2 min-w-[100px]">
                 <div className="text-[11px] text-primary leading-relaxed">
-                  <div>Min: {product.quantityBreaks[0]?.min || 1}</div>
-                  <div>Max: {product.quantityBreaks[product.quantityBreaks.length - 1]?.max || product.quantityBreaks[product.quantityBreaks.length - 1]?.min * 4}</div>
+                  {product.qtyRules ? (
+                    <>
+                      <div>Min: {product.qtyRules.min}</div>
+                      <div>Increment: {product.qtyRules.increment}</div>
+                    </>
+                  ) : (
+                    <>
+                      <div>Min: {product.quantityBreaks[0]?.min || 1}</div>
+                      <div>Max: {product.quantityBreaks[product.quantityBreaks.length - 1]?.max || product.quantityBreaks[product.quantityBreaks.length - 1]?.min * 4}</div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
+            )}
           </div>
           <button
             onClick={handleCompactAddToCart}
@@ -251,7 +266,8 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
 
       <div className="divide-y divide-border">
         {Object.entries(groupedVariants).map(([color, variants]) => {
-          const isExpanded = expandedColors.has(color);
+          const singleColor = (product.variantColors?.length || 0) <= 1;
+          const isExpanded = singleColor || expandedColors.has(color);
           const colorStock = variants.reduce((s, v) => s + v.stockQty, 0);
           const prices = variants.map(v => v.price);
           const minP = Math.min(...prices);
@@ -260,7 +276,8 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
 
           return (
             <div key={color}>
-              {/* Color Group Row */}
+              {/* Color Group Row (hidden for single-color products) */}
+              {!singleColor && (
               <div
                 className="grid grid-cols-[1fr_130px_70px_110px] items-center px-3 py-2.5 cursor-pointer hover:bg-gray-50 transition-colors"
                 onClick={() => toggleColor(color)}
@@ -284,6 +301,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                 <div className="text-[12px] text-muted">{colorStock > 0 ? `${colorStock}+` : '0'}</div>
                 <div />
               </div>
+              )}
 
               {/* Expanded Variant Rows */}
               {isExpanded && (
@@ -300,7 +318,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                         className={`grid grid-cols-[1fr_130px_70px_110px] items-center px-3 py-2 ${isDisabled ? 'opacity-40' : ''}`}
                       >
                         {/* Variant info */}
-                        <div className="flex items-center gap-2.5 pl-[46px]">
+                        <div className={`flex items-center gap-2.5 ${singleColor ? '' : 'pl-[46px]'}`}>
                           <div className="w-9 h-9 rounded overflow-hidden bg-surface flex-shrink-0">
                             <img src={product.image} alt="" className="w-full h-full object-cover" />
                           </div>
@@ -317,6 +335,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                         <div className="leading-tight">
                           <div className="font-semibold text-primary text-[12px]">${unitPrice.toFixed(2)} USD</div>
                           <div className="text-[10px] text-muted">MSRP ${variant.retailPrice.toFixed(2)} USD</div>
+                          {!(product.hidePricingRules || product.hideVolumeDiscount) && (
                           <div className="relative group/vol inline-block">
                             <span className="text-[10px] text-blue-600 font-medium cursor-pointer inline-flex items-center gap-0.5"><BadgePercent size={11} /> Volume discoun...</span>
                             <div className="absolute left-0 top-full mt-1 z-50 hidden group-hover/vol:block bg-white border border-border rounded-lg shadow-lg p-0 min-w-[220px]">
@@ -344,6 +363,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                               </table>
                             </div>
                           </div>
+                          )}
                         </div>
 
                         {/* Stock */}
@@ -363,7 +383,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                             <div>
                               <div className="inline-flex items-center">
                                 <button
-                                  onClick={e => { e.stopPropagation(); setQty(variant.sku, qty - 1); }}
+                                  onClick={e => { e.stopPropagation(); setQty(variant.sku, stepDown(qty, product.qtyRules)); }}
                                   className="w-8 h-8 flex items-center justify-center border border-border rounded-l text-muted hover:text-primary hover:bg-gray-50 text-[13px]"
                                 >
                                   <Minus size={12} />
@@ -377,21 +397,32 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                                   className="w-10 h-8 text-center text-[13px] font-medium border-y border-border focus:outline-none focus:border-b2b [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 />
                                 <button
-                                  onClick={e => { e.stopPropagation(); setQty(variant.sku, qty + 1); }}
+                                  onClick={e => { e.stopPropagation(); setQty(variant.sku, stepUp(qty, product.qtyRules)); }}
                                   className="w-8 h-8 flex items-center justify-center border border-border rounded-r text-muted hover:text-primary hover:bg-gray-50 text-[13px]"
                                 >
                                   <Plus size={12} />
                                 </button>
                               </div>
+                              {!(product.hidePricingRules || product.hideQtyRules) && (
                               <div className="relative group/qty inline-block mt-0.5">
                                 <div className="text-[9px] text-muted flex items-center gap-0.5 cursor-pointer"><Info size={9} /> Qty rules apply</div>
                                 <div className="absolute right-0 top-full mt-1 z-50 hidden group-hover/qty:block bg-white border border-border rounded-lg shadow-lg px-3 py-2 min-w-[100px]">
                                   <div className="text-[11px] text-primary leading-relaxed">
-                                    <div>Min: {product.quantityBreaks[0]?.min || 1}</div>
-                                    <div>Max: {product.quantityBreaks[product.quantityBreaks.length - 1]?.max || product.quantityBreaks[product.quantityBreaks.length - 1]?.min * 4}</div>
+                                    {product.qtyRules ? (
+                                      <>
+                                        <div>Min: {product.qtyRules.min}</div>
+                                        <div>Increment: {product.qtyRules.increment}</div>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <div>Min: {product.quantityBreaks[0]?.min || 1}</div>
+                                        <div>Max: {product.quantityBreaks[product.quantityBreaks.length - 1]?.max || product.quantityBreaks[product.quantityBreaks.length - 1]?.min * 4}</div>
+                                      </>
+                                    )}
                                   </div>
                                 </div>
                               </div>
+                              )}
                             </div>
                           ) : (
                             <span className="text-[11px] text-muted">Unavailable</span>
@@ -404,7 +435,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                         key={variant.sku}
                         className={`grid grid-cols-[1fr_130px_70px_110px] items-center px-3 py-1.5 ${isDisabled ? 'opacity-40' : ''}`}
                       >
-                        <div className="pl-[46px]">
+                        <div className={singleColor ? '' : 'pl-[46px]'}>
                           <span className="font-medium text-primary text-[12px]">{variant.name}</span>
                         </div>
                         <div className="font-semibold text-primary text-[12px]">${unitPrice.toFixed(2)}</div>
@@ -421,7 +452,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                           {!isDisabled ? (
                             <div className="inline-flex items-center">
                               <button
-                                onClick={e => { e.stopPropagation(); setQty(variant.sku, qty - 1); }}
+                                onClick={e => { e.stopPropagation(); setQty(variant.sku, stepDown(qty, product.qtyRules)); }}
                                 className="w-7 h-7 flex items-center justify-center border border-border rounded-l text-muted hover:text-primary hover:bg-gray-50 text-[11px]"
                               ><Minus size={10} /></button>
                               <input
@@ -433,7 +464,7 @@ function VariantOrderTable({ product, onAddToCart, viewMode = 'expanded' }) {
                                 className="w-8 h-7 text-center text-[11px] font-medium border-y border-border focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                               />
                               <button
-                                onClick={e => { e.stopPropagation(); setQty(variant.sku, qty + 1); }}
+                                onClick={e => { e.stopPropagation(); setQty(variant.sku, stepUp(qty, product.qtyRules)); }}
                                 className="w-7 h-7 flex items-center justify-center border border-border rounded-r text-muted hover:text-primary hover:bg-gray-50 text-[11px]"
                               ><Plus size={10} /></button>
                             </div>

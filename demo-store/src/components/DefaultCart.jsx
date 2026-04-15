@@ -2,6 +2,7 @@ import { X, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { stepUp, stepDown } from '../utils/qtyRules';
 
 export default function DefaultCart() {
   const { items, updateQuantity, removeItem, isCartOpen, setIsCartOpen } = useCart();
@@ -18,7 +19,7 @@ export default function DefaultCart() {
         <div className="flex items-center justify-between p-4 border-b border-border">
           <h2 className="text-lg font-semibold text-primary flex items-center gap-2">
             <ShoppingBag size={20} />
-            Your Cart
+            Theme Default cart
           </h2>
           <button
             onClick={() => setIsCartOpen(false)}
@@ -52,14 +53,14 @@ export default function DefaultCart() {
                     <p className="text-sm font-semibold text-primary mt-1">${item.product.price.toFixed(2)}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <button
-                        onClick={() => updateQuantity(item.key, item.quantity - 1)}
+                        onClick={() => updateQuantity(item.key, stepDown(item.quantity, item.product.qtyRules))}
                         className="w-7 h-7 flex items-center justify-center border border-border rounded-md text-muted hover:text-primary hover:border-gray-300"
                       >
                         <Minus size={14} />
                       </button>
                       <span className="text-sm font-medium w-8 text-center">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.key, item.quantity + 1)}
+                        onClick={() => updateQuantity(item.key, stepUp(item.quantity, item.product.qtyRules))}
                         className="w-7 h-7 flex items-center justify-center border border-border rounded-md text-muted hover:text-primary hover:border-gray-300"
                       >
                         <Plus size={14} />
