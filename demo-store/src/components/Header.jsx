@@ -55,8 +55,8 @@ export default function Header() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // On /quick-order and sub-routes, swap to the merchant-themed header.
-  if (location.pathname.startsWith('/quick-order')) {
+  // On /quick-order and sub-routes (but not the loader), swap to the merchant-themed header.
+  if (location.pathname.startsWith('/quick-order') && !location.pathname.includes('loading')) {
     return <PetButcherHeader location={location} />;
   }
 
@@ -75,7 +75,7 @@ export default function Header() {
             {[
               { label: 'Catalog', to: '/collections/all' },
               { label: 'B2B Application', to: '/b2b-application' },
-              { label: 'Quick Order', to: '/quick-order' },
+              { label: 'Quick Order', to: '/quick-order-loading' },
             ].map(item => (
               <Link
                 key={item.label}
@@ -137,7 +137,7 @@ export default function Header() {
             {[
               { label: 'Catalog', to: '/collections/all' },
               { label: 'B2B Application', to: '/b2b-application' },
-              { label: 'Quick Order', to: '/quick-order' },
+              { label: 'Quick Order', to: '/quick-order-loading' },
             ].map(item => (
               <Link
                 key={item.label}

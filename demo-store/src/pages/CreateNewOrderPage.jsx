@@ -205,9 +205,9 @@ function Step1({ browseMode, setBrowseMode, csvFileName, setCsvFileName, onBrows
   };
 
   return (
-    <div className="grid grid-cols-[1.6fr_1fr] gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-6">
       {/* Left card */}
-      <div className="bg-white rounded-[6px] shadow-sm p-8">
+      <div className="bg-white rounded-[6px] shadow-sm p-5 sm:p-8">
         <h2 className="text-[16px] font-bold text-primary mb-5">Browse catalog</h2>
         <div className="grid grid-cols-2 gap-3 mb-5">
           <button
@@ -327,28 +327,29 @@ function Step1({ browseMode, setBrowseMode, csvFileName, setCsvFileName, onBrows
 
 // ────────────────────────── STEP 2 ──────────────────────────
 const COL = 'grid grid-cols-[1.4fr_80px_100px_110px_160px_70px]';
-const CELL = 'px-4 py-4 border-r border-gray-200 last:border-r-0 flex items-center';
+const COL_MOBILE = 'grid grid-cols-[1fr_auto]';
+const CELL = 'px-3 sm:px-4 py-3 sm:py-4 border-r border-gray-200 last:border-r-0 flex items-center';
 
 function Step2({ catalog, quantities, setQty, resetQty, totalItems, totalValue, search, setSearch, onReview }) {
   const canReview = totalItems > 0;
   return (
     <>
       {/* Totals bar */}
-      <div className="bg-white rounded-[6px] shadow-sm px-8 py-3.5 mb-5 flex items-center justify-between sticky top-[80px] z-30">
-        <div className="flex items-center gap-16">
+      <div className="bg-white rounded-[6px] shadow-sm px-4 sm:px-8 py-3.5 mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sticky top-[80px] z-30">
+        <div className="flex items-center gap-8 sm:gap-16">
           <div>
-            <div className="text-[12px] text-muted font-medium">Total Selected Items</div>
-            <div className="text-[24px] font-bold text-primary mt-1">{totalItems}</div>
+            <div className="text-[11px] sm:text-[12px] text-muted font-medium">Total Selected Items</div>
+            <div className="text-[18px] sm:text-[24px] font-bold text-primary mt-0.5">{totalItems}</div>
           </div>
           <div>
-            <div className="text-[12px] text-muted font-medium">Total Value</div>
-            <div className="text-[24px] font-bold text-primary mt-1">{fmt(totalValue)}</div>
+            <div className="text-[11px] sm:text-[12px] text-muted font-medium">Total Value</div>
+            <div className="text-[18px] sm:text-[24px] font-bold text-primary mt-0.5">{fmt(totalValue)}</div>
           </div>
         </div>
         <button
           onClick={onReview}
           disabled={!canReview}
-          className={`px-12 py-3.5 font-semibold text-[14px] rounded-lg transition-colors ${
+          className={`w-full sm:w-auto px-12 py-3 sm:py-3.5 font-semibold text-[14px] rounded-lg transition-colors ${
             canReview
               ? 'bg-b2b hover:bg-b2b-hover text-white'
               : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
@@ -372,8 +373,8 @@ function Step2({ catalog, quantities, setQty, resetQty, totalItems, totalValue, 
         </div>
 
         {/* Table */}
-        <div className="px-6 py-4">
-          <div className="border border-gray-200 rounded-lg overflow-hidden">
+        <div className="px-3 sm:px-6 py-4 overflow-x-auto">
+          <div className="border border-gray-200 rounded-lg overflow-hidden min-w-[700px]">
             {/* Header */}
             <div className={`${COL} bg-gray-50 border-b border-gray-200`}>
               <div className={CELL + ' text-[12px] font-semibold text-primary'}>Product</div>
@@ -515,7 +516,7 @@ function ShippingModal({ onClose, onSave }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-white rounded-lg shadow-xl w-full max-w-[520px] max-h-[90vh] overflow-y-auto p-6">
+      <div className="relative bg-white rounded-lg shadow-xl w-full max-w-[520px] max-h-[90vh] overflow-y-auto p-4 sm:p-6 mx-4">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-[18px] font-bold text-primary">Shipping address</h2>
           <button onClick={onClose} className="text-muted hover:text-primary"><X size={20} /></button>
@@ -739,6 +740,49 @@ function SubmitReviewPopup({ onClose, onViewStatus, onBackToBulk, lines, totalVa
   );
 }
 
+function SaveOrderPopup({ onClose, onViewOrder, onBackToBulk, lines, totalValue, totalItems }) {
+  const [orderId] = useState(() => `#D${Math.floor(100000 + Math.random() * 900000)}`);
+  const handleViewOrder = () => {
+    addDynamicOrder({
+      id: orderId, name: orderId, product_count: lines.length, total_qty: totalItems,
+      order_status: 'Saved', fulfillment_status: '', payment_status: '',
+      total_price: totalValue, currency_code: 'USD',
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+      due_date: '', first_four_thumbnails: lines.slice(0, 4).map(l => l.product.image),
+    });
+    onViewOrder();
+  };
+  const handleBackToBulk = () => {
+    addDynamicOrder({
+      id: orderId, name: orderId, product_count: lines.length, total_qty: totalItems,
+      order_status: 'Saved', fulfillment_status: '', payment_status: '',
+      total_price: totalValue, currency_code: 'USD',
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+      due_date: '', first_four_thumbnails: lines.slice(0, 4).map(l => l.product.image),
+    });
+    onBackToBulk();
+  };
+  return (
+    <OrderPopup onClose={onClose}>
+      <div className="flex items-start gap-3 mb-5 pr-6">
+        <CheckCircle2 size={24} className="text-green-600 flex-shrink-0 mt-0.5" />
+        <div>
+          <h3 className="text-[16px] font-bold text-primary">Order saved successfully!</h3>
+          <p className="text-[13px] text-muted mt-1">Order {orderId} has been saved. You can review it now or continue placing bulk orders.</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <button onClick={handleViewOrder} className="w-full py-3 bg-b2b hover:bg-b2b-hover text-white font-semibold text-[14px] rounded-lg transition-colors">
+          View order
+        </button>
+        <button onClick={handleBackToBulk} className="w-full py-3 border border-gray-300 text-primary font-semibold text-[14px] rounded-lg hover:bg-gray-50 transition-colors">
+          Back to bulk order
+        </button>
+      </div>
+    </OrderPopup>
+  );
+}
+
 function NetTermCheckoutPopup({ onClose, onStandardCheckout, onNetPay }) {
   return (
     <OrderPopup onClose={onClose}>
@@ -792,16 +836,16 @@ function Step3({ lines, totalItems, totalValue, setQty, removeLine, onCheckout, 
   };
 
   return (
-    <div className="grid grid-cols-[1.6fr_1fr] gap-6 pb-20">
+    <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-6 pb-20">
       {/* Line items table */}
       <div className="bg-white rounded-[6px] shadow-sm overflow-hidden h-fit border border-gray-200">
         {/* Header */}
-        <div className="grid grid-cols-[28px_1fr_140px_110px_32px] px-5 py-3 border-b border-gray-200 items-center">
+        <div className="grid grid-cols-[28px_1fr_auto] sm:grid-cols-[28px_1fr_140px_110px_32px] px-4 sm:px-5 py-3 border-b border-gray-200 items-center">
           <input type="checkbox" checked={allSelected} onChange={toggleAll} className="w-4 h-4 rounded accent-[#580A46]" />
           <span className="text-[12px] font-semibold text-primary">Product</span>
-          <span className="text-[12px] font-semibold text-primary text-center">Quantity</span>
-          <span className="text-[12px] font-semibold text-primary text-right">Total</span>
-          <div />
+          <span className="text-[12px] font-semibold text-primary text-center hidden sm:block">Quantity</span>
+          <span className="text-[12px] font-semibold text-primary text-right hidden sm:block">Total</span>
+          <div className="hidden sm:block" />
         </div>
         {lines.length === 0 ? (
           <div className="py-16 flex flex-col items-center justify-center text-center">
@@ -818,7 +862,7 @@ function Step3({ lines, totalItems, totalValue, setQty, removeLine, onCheckout, 
             </button>
           </div>
         ) : lines.map(line => (
-          <div key={line.variant.sku} className="grid grid-cols-[28px_1fr_140px_110px_32px] px-5 py-4 border-b border-gray-100 items-center last:border-b-0">
+          <div key={line.variant.sku} className="grid grid-cols-[28px_1fr_auto] sm:grid-cols-[28px_1fr_140px_110px_32px] px-4 sm:px-5 py-4 border-b border-gray-100 items-center last:border-b-0 gap-y-3">
             <input type="checkbox" checked={selectedSkus.has(line.variant.sku)} onChange={() => toggleOne(line.variant.sku)} className="w-4 h-4 rounded accent-[#580A46]" />
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-surface rounded-lg overflow-hidden flex-shrink-0">
@@ -868,7 +912,10 @@ function Step3({ lines, totalItems, totalValue, setQty, removeLine, onCheckout, 
       <div className="bg-white rounded-[6px] shadow-sm p-6 h-fit">
         <div className="flex items-center justify-between mb-5">
           <h3 className="text-[16px] font-bold text-primary">Order summary</h3>
-          <button className="inline-flex items-center gap-1.5 text-[13px] text-b2b font-semibold hover:underline">
+          <button
+            onClick={() => setPopup('save')}
+            className="inline-flex items-center gap-1.5 text-[13px] text-b2b font-semibold hover:underline"
+          >
             Save this order
             <Heart size={14} />
           </button>
@@ -931,6 +978,14 @@ function Step3({ lines, totalItems, totalValue, setQty, removeLine, onCheckout, 
         />
       )}
 
+      {popup === 'save' && (
+        <SaveOrderPopup
+          lines={lines} totalValue={totalValue} totalItems={totalItems}
+          onClose={() => setPopup(null)}
+          onViewOrder={() => { setPopup(null); navigate('/quick-order'); }}
+          onBackToBulk={() => { setPopup(null); navigate('/quick-order'); }}
+        />
+      )}
       {popup === 'checkout' && (
         <CheckoutSuccessPopup
           lines={lines} totalValue={totalValue} totalItems={totalItems}

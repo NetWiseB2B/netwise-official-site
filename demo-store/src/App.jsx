@@ -14,6 +14,7 @@ import B2BApplicationPage from './pages/B2BApplicationPage';
 import QuickOrderPage from './pages/QuickOrderPage';
 import CreateNewOrderPage from './pages/CreateNewOrderPage';
 import ThankYouPage from './pages/ThankYouPage';
+import QuickOrderLoaderPage from './pages/QuickOrderLoaderPage';
 
 function CartSwitch() {
   const { isLoggedIn } = useAuth();
@@ -32,6 +33,7 @@ function App() {
               <Route path="/collections/:handle" element={<CollectionPage />} />
               <Route path="/products/:handle" element={<ProductPage />} />
               <Route path="/b2b-application" element={<B2BApplicationPage />} />
+              <Route path="/quick-order-loading" element={<QuickOrderLoaderPage />} />
               <Route path="/quick-order" element={<QuickOrderPage />} />
               <Route path="/quick-order/new" element={<CreateNewOrderPage />} />
               <Route path="/quick-order/thank-you" element={<ThankYouPage />} />

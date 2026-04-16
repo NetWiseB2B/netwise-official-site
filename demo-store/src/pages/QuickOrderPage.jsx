@@ -163,7 +163,7 @@ export default function QuickOrderPage() {
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-xl shadow-sm px-5 flex items-center justify-start gap-1 mb-8 h-[88px]">
+        <div className="bg-white rounded-xl shadow-sm px-3 sm:px-5 flex items-center justify-start gap-1 mb-8 h-auto sm:h-[88px] py-3 sm:py-0 overflow-x-auto">
           {TABS.map(tab => {
             const Icon = tab.icon;
             const isActive = tab.id === activeTab;
@@ -171,7 +171,7 @@ export default function QuickOrderPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center justify-center gap-2 px-5 h-[48px] rounded-lg text-[13px] transition-colors ${
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 h-[40px] sm:h-[48px] rounded-lg text-[12px] sm:text-[13px] whitespace-nowrap transition-colors ${
                   isActive ? 'bg-gray-100 text-black font-semibold' : 'text-gray-500 hover:bg-gray-50'
                 }`}
               >
@@ -214,7 +214,7 @@ function OrderBox({ order }) {
   const extra = Math.max(0, (order.product_count || 0) - thumbs.length);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm px-5 h-[93px] grid grid-cols-[8%_13%_16%_14%_16%_auto_40px] items-center gap-4">
+    <div className="bg-white rounded-xl shadow-sm px-4 sm:px-5 py-3 sm:py-0 sm:h-[93px] grid grid-cols-[48px_1fr_auto] sm:grid-cols-[8%_13%_16%_14%_16%_auto_40px] items-center gap-3 sm:gap-4">
       {/* Thumbnails — image group, up to 4, +N if product_count > 4 */}
       <div className="flex items-center">
         <div
@@ -242,7 +242,7 @@ function OrderBox({ order }) {
       </div>
 
       {/* Status + date */}
-      <div className="leading-tight">
+      <div className="leading-tight hidden sm:block">
         <div className="flex items-center gap-1.5">
           <span className="font-semibold text-[13px] text-primary">{order.order_status}</span>
           <Info size={12} className="text-muted" />
@@ -251,16 +251,16 @@ function OrderBox({ order }) {
       </div>
 
       {/* Fulfillment */}
-      <div className="text-[13px] font-medium text-primary">
+      <div className="text-[13px] font-medium text-primary hidden sm:block">
         {order.fulfillment_status || ''}
       </div>
 
       {/* Payment */}
-      <div className="text-[13px] font-medium text-primary">
+      <div className="text-[13px] font-medium text-primary hidden sm:block">
         {order.payment_status || ''}
       </div>
 
-      {/* Total + Due badge (same column in the extension) */}
+      {/* Total + Due badge */}
       <div className="text-right whitespace-nowrap">
         <div className="font-semibold text-primary text-[14px]">
           {fmtMoney(order.total_price, order.currency_code)}
@@ -287,7 +287,7 @@ function OrderBox({ order }) {
             <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(false)} />
             <div className="absolute right-0 top-full mt-1 bg-white border border-border rounded-lg shadow-lg py-1 z-20 min-w-[150px]">
               <MenuItem
-                label={order.order_status === 'Approved' || order.order_status === 'Rejected' ? 'View Details' : 'Manage'}
+                label="View detail"
                 onClick={() => setMenuOpen(false)}
               />
             </div>
