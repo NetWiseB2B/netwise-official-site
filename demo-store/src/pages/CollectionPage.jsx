@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
-import { collections, getProductsByCollection } from '../data/products';
+import { collections, products, getProductsByCollection } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useAuth } from '../context/AuthContext';
 
@@ -20,6 +20,29 @@ export default function CollectionPage() {
     );
   }
 
+  // Mirror HomePage sections for the "all" view — same products, same order.
+  const isAll = handle === 'all';
+  const featuredProducts = [
+    products.find(p => p.collection === 'knitwear'),
+    products.find(p => p.collection === 'tops'),
+    products.find(p => p.collection === 'outerwear'),
+    products.find(p => p.collection === 'accessories'),
+  ].filter(Boolean);
+  const knitwearRest = products.filter(p => p.collection === 'knitwear').slice(1, 5);
+  const topsRest = products.filter(p => p.collection === 'tops').slice(1, 5);
+  const outerwearRest = products.filter(p => p.collection === 'outerwear').slice(1, 5);
+
+  const Section = ({ title, items }) => (
+    <section className="pb-12">
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold text-primary">{title}</h2>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-8">
+        {items.map(p => <ProductCard key={p.id} product={p} />)}
+      </div>
+    </section>
+  );
+
   return (
     <div>
       {/* Breadcrumb */}
@@ -37,7 +60,7 @@ export default function CollectionPage() {
           <div>
             <h1 className="text-3xl font-bold text-primary">{collection.name}</h1>
             <p className="text-muted mt-1">
-              {collectionProducts.length} product{collectionProducts.length !== 1 ? 's' : ''}
+              {(isAll ? featuredProducts.length + knitwearRest.length + topsRest.length + outerwearRest.length : collectionProducts.length)} product{collectionProducts.length !== 1 ? 's' : ''}
               {isLoggedIn && <span className="text-b2b ml-2 font-medium">- B2B Pricing</span>}
             </p>
           </div>
@@ -65,7 +88,14 @@ export default function CollectionPage() {
 
       {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
-        {collectionProducts.length === 0 ? (
+        {isAll ? (
+          <>
+            <Section title="Multiple Variant Products" items={featuredProducts} />
+            <Section title="Single Variant Products" items={knitwearRest} />
+            <Section title="Volume Pricing Products" items={topsRest} />
+            <Section title="Minimum Quantity / Incremental Products" items={outerwearRest} />
+          </>
+        ) : collectionProducts.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-muted">No products found in this collection.</p>
           </div>

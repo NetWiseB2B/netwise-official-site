@@ -1,15 +1,64 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, User, LogOut, Building2, Menu, X } from 'lucide-react';
+import { ShoppingCart, User, UserCircle2, ChevronDown, LogOut, Building2, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { collections } from '../data/products';
 import { useState } from 'react';
+
+// Merchant-themed header — used on /quick-order* to illustrate the Bulk Order
+// extension embedded in a storefront rather than the NetWise demo.
+function PetButcherHeader({ location }) {
+  const nav = [
+    { label: 'Shop', to: '/' },
+    { label: 'Quick Order', to: '/quick-order' },
+  ];
+  return (
+    <header className="sticky top-0 z-50 bg-white border-b border-border">
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-20">
+          <div className="flex items-center gap-14">
+            <Link to="/" className="no-underline flex-shrink-0">
+              <img src={`${import.meta.env.BASE_URL}netwise-logo.svg`} alt="NetWise DEMO STORE" className="h-10" />
+            </Link>
+            <nav className="hidden md:flex items-center gap-2">
+              {nav.map((item, i) => {
+                const isQuickOrder = item.label === 'Quick Order';
+                const isActive = isQuickOrder && location.pathname.startsWith('/quick-order');
+                return (
+                  <Link
+                    key={i}
+                    to={item.to}
+                    className={`text-[14px] no-underline px-4 py-2 rounded-lg transition-colors ${
+                      isActive
+                        ? 'text-primary font-semibold bg-gray-100'
+                        : 'text-primary hover:bg-gray-100'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+          <button className="flex items-center text-gray-400 hover:text-gray-600 transition-colors" aria-label="Account menu">
+            <UserCircle2 size={32} strokeWidth={1.2} />
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
 
 export default function Header() {
   const { isLoggedIn, company, logout, setShowLoginModal } = useAuth();
   const { itemCount, setIsCartOpen } = useCart();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // On /quick-order and sub-routes, swap to the merchant-themed header.
+  if (location.pathname.startsWith('/quick-order')) {
+    return <PetButcherHeader location={location} />;
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-border">
