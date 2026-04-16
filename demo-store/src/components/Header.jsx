@@ -40,9 +40,9 @@ function PetButcherHeader({ location }) {
               })}
             </nav>
           </div>
-          <button className="flex items-center text-gray-400 hover:text-gray-600 transition-colors" aria-label="Account menu">
+          <Link to="/quick-order" className="flex items-center text-gray-400 hover:text-gray-600 transition-colors" aria-label="Account">
             <UserCircle2 size={32} strokeWidth={1.2} />
-          </button>
+          </Link>
         </div>
       </div>
     </header>

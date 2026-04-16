@@ -1,7 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Briefcase, FolderClosed, Clock, RefreshCw, AlertTriangle, MoreHorizontal, Info, Plus } from 'lucide-react';
 import { products } from '../data/products';
+
+// Shared helper — dynamic orders stored in localStorage
+export function addDynamicOrder(order) {
+  const existing = JSON.parse(localStorage.getItem('nw_dynamic_orders') || '[]');
+  existing.unshift(order);
+  localStorage.setItem('nw_dynamic_orders', JSON.stringify(existing));
+}
+export function getDynamicOrders() {
+  return JSON.parse(localStorage.getItem('nw_dynamic_orders') || '[]');
+}
 
 // Mock B2B orders — shape mirrors the NetWise bulk-order-list extension
 // (extensions/bulk-order-list/src/index.jsx designModeData).
@@ -122,17 +132,21 @@ export default function QuickOrderPage() {
   const [activeTab, setActiveTab] = useState('all');
   const navigate = useNavigate();
 
+  const [dynamicOrders, setDynamicOrders] = useState([]);
+  useEffect(() => { setDynamicOrders(getDynamicOrders()); }, []);
+  const allOrders = useMemo(() => [...dynamicOrders, ...MOCK_ORDERS], [dynamicOrders]);
+
   const orderCounts = useMemo(() => ({
-    all: MOCK_ORDERS.length,
-    approved: MOCK_ORDERS.filter(TABS[1].match).length,
-    submitted: MOCK_ORDERS.filter(TABS[2].match).length,
-    saved: MOCK_ORDERS.filter(TABS[3].match).length,
-  }), []);
+    all: allOrders.length,
+    approved: allOrders.filter(TABS[1].match).length,
+    submitted: allOrders.filter(TABS[2].match).length,
+    saved: allOrders.filter(TABS[3].match).length,
+  }), [allOrders]);
 
   const visibleOrders = useMemo(() => {
     const tab = TABS.find(t => t.id === activeTab);
-    return MOCK_ORDERS.filter(tab.match);
-  }, [activeTab]);
+    return allOrders.filter(tab.match);
+  }, [activeTab, allOrders]);
 
   return (
     <div className="bg-[#F5F5F5] min-h-[calc(100vh-80px)]">
